@@ -1,0 +1,57 @@
+# Physical Nova gripper calibration record.
+# Fill measured fields only from a physical measurement session. This file is
+# intentionally a gate: it is not an integration configuration yet.
+flange_to_gripper:
+  translation_mm: null
+  rotation_deg: null
+  rotation_convention: null
+  usd_candidate:
+    status: unavailable
+    source: official_USD_candidate
+    flange_prim_path: null
+    gripper_base_prim_path: /x_trainer_asm_0226_SLDASM/J1_6
+    reason: >-
+      The official X-Trainer USD contains no identifiable Nova wrist or flange
+      frame. J1_6 is a body candidate only and is not a Nova flange frame.
+  source: null
+  physically_verified: false
+  nominal_tcp_seed:
+    pose_mm_deg: [0.0, 0.0, 197.0, 0.0, 0.0, 0.0]
+    convention: Dobot Tool 0 [x, y, z, rx, ry, rz]
+    source: official_x_trainer_controller_configuration
+    status: initial_only_requires_physical_tcp_calibration
+  integration_gate:
+    same_adapter_as_official_follower_arm: unknown
+    same_bolt_pattern_orientation_configuration: unknown
+    usd_contains_nova_flange_and_gripper_base_frames: false
+    nominal_transform_allowed: false
+    reason: >-
+      The USD has no identifiable Nova flange frame. The X-Trainer base_link,
+      J1_5, and J1_6 are not promoted to flange semantics without source
+      evidence.
+
+finger_mapping:
+  servo_open: 1470
+  servo_mid: 1980
+  servo_closed: 2490
+  known_geometry:
+    maximum_opening_width_mm: 95.0
+    minimum_gap_mm: 0.0
+    left_right_motion: symmetric
+    source: official_specification_and_physical_baseline
+  coupling: left_right_symmetric
+  linearity_verified: false
+
+samples:
+  - command: 1470
+    left_position_mm: null
+    right_position_mm: null
+    gap_mm: null
+  - command: 1980
+    left_position_mm: null
+    right_position_mm: null
+    gap_mm: null
+  - command: 2490
+    left_position_mm: null
+    right_position_mm: null
+    gap_mm: null

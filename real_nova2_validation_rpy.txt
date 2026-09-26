@@ -1,0 +1,95 @@
+samples: 12
+orientation_conventions: rpy
+orientation_error: angle of R_err = R_real.T @ R_sim
+Per-sample comparison
+sample axis_mode pos_err_mm ori_err_deg dx dy dz
+pose_01 current 0.010565 0.000472 -0.010272 0.000714 -0.002364
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-181.492072 -116.882686  375.477036]
+pose_01 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-168.219677 -121.94725   557.236476]
+pose_02 current 0.010565 0.000472 -0.010272 0.000714 -0.002364
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-181.492072 -116.882686  375.477036]
+pose_02 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-168.219677 -121.94725   557.236476]
+pose_03 current 0.010565 0.000472 -0.010272 0.000714 -0.002364
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-181.492072 -116.882686  375.477036]
+pose_03 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076
+  real_position_mm: [-181.4818 -116.8834  375.4794]
+  simulated_position_mm: [-168.219677 -121.94725   557.236476]
+pose_04 current 0.011074 0.000515 -0.010305 0.003932 -0.000994
+  real_position_mm: [-475.6849  -29.1872  438.3387]
+  simulated_position_mm: [-475.695205  -29.183268  438.337706]
+pose_04 legacy 195.123535 169.490522 39.392118 -156.833735 109.199974
+  real_position_mm: [-475.6849  -29.1872  438.3387]
+  simulated_position_mm: [-436.292782 -186.020935  547.538674]
+pose_05 current 0.011440 0.000492 -0.006774 0.004365 0.008119
+  real_position_mm: [-435.5077   29.9267  694.767 ]
+  simulated_position_mm: [-435.514474   29.931065  694.775119]
+pose_05 legacy 309.865441 143.707858 180.286814 -234.759584 91.658027
+  real_position_mm: [-435.5077   29.9267  694.767 ]
+  simulated_position_mm: [-255.220886 -204.832884  786.425027]
+pose_06 current 0.010382 0.000407 -0.000928 0.005334 0.008858
+  real_position_mm: [  -3.2838 -128.1253  659.5594]
+  simulated_position_mm: [  -3.284728 -128.119966  659.568258]
+pose_06 legacy 262.412366 43.960924 135.553175 224.167713 15.310887
+  real_position_mm: [  -3.2838 -128.1253  659.5594]
+  simulated_position_mm: [132.269375  96.042413 674.870287]
+pose_07 current 0.010425 0.000454 -0.004589 0.004741 0.008071
+  real_position_mm: [ -57.5483 -126.9619  501.9993]
+  simulated_position_mm: [ -57.552889 -126.957159  502.007371]
+pose_07 legacy 363.146879 98.682949 287.508298 211.462930 67.067607
+  real_position_mm: [ -57.5483 -126.9619  501.9993]
+  simulated_position_mm: [229.959998  84.50103  569.066907]
+pose_08 current 0.012217 0.000398 -0.006864 -0.008677 -0.005181
+  real_position_mm: [ -45.7875 -272.5445  367.2706]
+  simulated_position_mm: [ -45.794364 -272.553177  367.265419]
+pose_08 legacy 379.720931 176.345659 -215.479725 309.888054 -41.543561
+  real_position_mm: [ -45.7875 -272.5445  367.2706]
+  simulated_position_mm: [-261.267225   37.343554  325.727039]
+pose_09 current 0.012292 0.000445 -0.011949 0.002880 0.000075
+  real_position_mm: [-647.6202  -87.9969  291.0484]
+  simulated_position_mm: [-647.632149  -87.99402   291.048475]
+pose_09 legacy 93.505565 175.200532 18.017058 -51.425723 75.987310
+  real_position_mm: [-647.6202  -87.9969  291.0484]
+  simulated_position_mm: [-629.603142 -139.422623  367.03571 ]
+pose_10 current 0.010726 0.000506 -0.002186 0.010498 -0.000248
+  real_position_mm: [-340.8442  470.2668  342.9446]
+  simulated_position_mm: [-340.846386  470.277298  342.944352]
+pose_10 legacy 1058.967634 168.222267 228.004653 -1016.520224 190.034111
+  real_position_mm: [-340.8442  470.2668  342.9446]
+  simulated_position_mm: [-112.839547 -546.253424  532.978711]
+pose_11 current 0.007300 0.000475 -0.001847 0.002638 0.006552
+  real_position_mm: [-84.8413 -83.5858 591.912 ]
+  simulated_position_mm: [-84.843147 -83.583162 591.918552]
+pose_11 legacy 454.310347 73.023829 356.698659 272.896129 68.495698
+  real_position_mm: [-84.8413 -83.5858 591.912 ]
+  simulated_position_mm: [271.857359 189.310329 660.407698]
+pose_12 current 0.012144 0.000538 0.004191 0.007275 -0.008774
+  real_position_mm: [  0.5067 352.6514 267.1819]
+  simulated_position_mm: [  0.510891 352.658675 267.173126]
+pose_12 legacy 678.532510 109.120677 220.220486 -641.619837 15.273839
+  real_position_mm: [  0.5067 352.6514 267.1819]
+  simulated_position_mm: [ 220.727186 -288.968437  282.455739]
+
+Aggregate statistics
+axis_mode: current
+  position_error_mm: mean=0.010808, median=0.010645, rms=0.010882, max=0.012292
+  orientation_error_deg: mean=0.000471, median=0.000472, rms=0.000472, max=0.000538
+axis_mode: legacy
+  position_error_mm: mean=361.876422, median=286.138904, rms=444.942427, max=1058.967634
+  orientation_error_deg: mean=140.851389, median=168.856395, rms=148.010835, max=177.487150
+Diagnostics
+- current: position RMS=0.011 mm, orientation RMS=0.000 deg
+- legacy: position RMS=444.942 mm, orientation RMS=148.011 deg
+- current hypothesis has lower position RMS (0.011 mm); this is evidence only
+- current hypothesis has lower orientation RMS (0.000 deg); this is evidence only
+- current: mean position offset [-0.006, 0.003, 0.001] mm; residual RMS around offset=0.009 mm
+- current: strongest position-error correlation is J4 (Pearson r=-0.910); correlation is diagnostic only
+- legacy: mean position offset [107.499, -91.495, 94.730] mm; residual RMS around offset=411.185 mm
+- legacy: configuration-dependent position residual is present; inspect joint origins, axes, signs, and hierarchy
+- legacy: strongest position-error correlation is J1 (Pearson r=-0.609); correlation is diagnostic only

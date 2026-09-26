@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "synthetic_fixture": true,
+    "robot": "Dobot Nova2 (synthetic test data)",
+    "user": 0,
+    "tool": 0,
+    "orientation": "rotation_vector",
+    "pose_orientation_convention": "rotation_vector"
+  },
+  "samples": [
+    {
+      "name": "synthetic_pose_01",
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [0, 0, 0, 0, 0, 0],
+      "pose_real_mm_deg": [0, 0, 0, 0, 0, 0]
+    },
+    {
+      "name": "synthetic_pose_02",
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [10, 20, 30, 40, 50, 60],
+      "pose_real_mm_deg": [100, -50, 200, 0, 0, 90]
+    },
+    {
+      "name": "synthetic_pose_03",
+      "robot_mode": 4,
+      "error_ids": [],
+      "q_deg": [-15, 5, -25, 35, -45, 55],
+      "pose_real_mm_deg": [-25, 75, 125, 180, 0, 0]
+    }
+  ]
+}

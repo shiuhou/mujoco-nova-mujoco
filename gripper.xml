@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Standalone reusable gripper preview. Mounting transform is supplied by the parent. -->
+<mujoco model="xtrainer_gripper">
+  <compiler meshdir="." angle="radian"/>
+  <asset>
+    <mesh name="xtrainer_J1_6" file="assets/xtrainer_gripper/J1_6_local.stl"/>
+    <mesh name="xtrainer_J1_7" file="assets/xtrainer_gripper/J1_7_local.stl"/>
+    <mesh name="xtrainer_J1_8" file="assets/xtrainer_gripper/J1_8_local.stl"/>
+  </asset>
+  <worldbody>
+    <body name="xtrainer_gripper_mount">
+      <geom name="xtrainer_J1_6_visual" type="mesh" mesh="xtrainer_J1_6" contype="0" conaffinity="0"/>
+      <body name="xtrainer_left_finger" pos="-0.062500409 -0.0240054029 0.115679697" quat="0.499998198 0.500000095 0.499999968 0.500001739">
+        <joint name="gripper_left_slide" type="slide" axis="0 0 1" range="0 0.04"/>
+        <geom name="xtrainer_J1_7_visual" type="mesh" mesh="xtrainer_J1_7" contype="0" conaffinity="0"/>
+      </body>
+      <body name="xtrainer_right_finger" pos="0.0624995985 -0.0240054134 0.115680145" quat="-0.499998177 0.500003698 0.499999947 -0.499998177">
+        <joint name="gripper_right_slide" type="slide" axis="0 0 1" range="0 0.04"/>
+        <geom name="xtrainer_J1_8_visual" type="mesh" mesh="xtrainer_J1_8" contype="0" conaffinity="0"/>
+      </body>
+      <site name="grasp_center" pos="0 0 0.197" size="0.004"/>
+    </body>
+  </worldbody>
+</mujoco>

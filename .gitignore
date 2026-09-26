@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.pytest_tmp/
+.ruff_cache/
+
+# Separately managed, read-only upstream/reference checkout.
+DOBOT_6Axis_ROS2_V4/
+
+# Local runtime output.
+MUJOCO_LOG.TXT

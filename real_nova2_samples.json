@@ -1,0 +1,412 @@
+{
+  "metadata": {
+    "schema_version": 1,
+    "robot": "Dobot Nova2",
+    "host": "172.10.10.100",
+    "port": 29999,
+    "user": 0,
+    "tool": 0,
+    "pose_orientation_convention": "rotation_vector",
+    "orientation": "rotation_vector",
+    "capture_mode": "read_only",
+    "source": "dobot_tcp_29999_read_only"
+  },
+  "samples": [
+    {
+      "name": "pose_01",
+      "timestamp": "2026-09-25T16:19:42.566064+00:00",
+      "monotonic_timestamp_s": 288246.860975585,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -0.8297,
+        -36.7051,
+        123.6153,
+        1.4609,
+        -88.6983,
+        -89.201
+      ],
+      "pose_real_mm_deg": [
+        -181.4818,
+        -116.8834,
+        375.4794,
+        -178.6757,
+        -1.6106,
+        178.3712
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-0.8297,-36.7051,123.6153,1.4609,-88.6983,-89.2010},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-181.4818,-116.8834,375.4794,-178.6757,-1.6106,178.3712},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_02",
+      "timestamp": "2026-09-25T16:48:52.751475+00:00",
+      "monotonic_timestamp_s": 289997.046386806,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -0.8297,
+        -36.7051,
+        123.6153,
+        1.4609,
+        -88.6983,
+        -89.201
+      ],
+      "pose_real_mm_deg": [
+        -181.4818,
+        -116.8834,
+        375.4794,
+        -178.6757,
+        -1.6106,
+        178.3712
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-0.8297,-36.7051,123.6153,1.4609,-88.6983,-89.2010},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-181.4818,-116.8834,375.4794,-178.6757,-1.6106,178.3712},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_03",
+      "timestamp": "2026-09-26T10:51:53.276323+00:00",
+      "monotonic_timestamp_s": 354977.571237375,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -0.8297,
+        -36.7051,
+        123.6153,
+        1.4609,
+        -88.6983,
+        -89.201
+      ],
+      "pose_real_mm_deg": [
+        -181.4818,
+        -116.8834,
+        375.4794,
+        -178.6757,
+        -1.6106,
+        178.3712
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-0.8297,-36.7051,123.6153,1.4609,-88.6983,-89.2010},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-181.4818,-116.8834,375.4794,-178.6757,-1.6106,178.3712},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_04",
+      "timestamp": "2026-09-26T10:55:36.750008+00:00",
+      "monotonic_timestamp_s": 355201.044921785,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -9.7579,
+        20.8315,
+        67.9317,
+        -14.5743,
+        -95.2901,
+        -99.8358
+      ],
+      "pose_real_mm_deg": [
+        -475.6849,
+        -29.1872,
+        438.3387,
+        172.0409,
+        -14.6733,
+        -179.6308
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-9.7579,20.8315,67.9317,-14.5743,-95.2901,-99.8358},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-475.6849,-29.1872,438.3387,172.0409,-14.6733,-179.6308},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_05",
+      "timestamp": "2026-09-26T10:56:21.207976+00:00",
+      "monotonic_timestamp_s": 355245.502888381,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -18.7716,
+        30.7631,
+        7.9317,
+        -6.6642,
+        -93.7074,
+        -63.4881
+      ],
+      "pose_real_mm_deg": [
+        -435.5077,
+        29.9267,
+        694.767,
+        -146.6941,
+        -50.7076,
+        116.5279
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-18.7716,30.7631,7.9317,-6.6642,-93.7074,-63.4881},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-435.5077,29.9267,694.7670,-146.6941,-50.7076,116.5279},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_06",
+      "timestamp": "2026-09-26T10:57:16.982739+00:00",
+      "monotonic_timestamp_s": 355301.277651267,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -60.0836,
+        -68.0305,
+        89.0602,
+        -22.1592,
+        -125.2215,
+        -56.1053
+      ],
+      "pose_real_mm_deg": [
+        -3.2838,
+        -128.1253,
+        659.5594,
+        -88.3731,
+        -55.443,
+        -6.6504
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-60.0836,-68.0305,89.0602,-22.1592,-125.2215,-56.1053},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-3.2838,-128.1253,659.5594,-88.3731,-55.4430,-6.6504},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_07",
+      "timestamp": "2026-09-26T10:58:07.324050+00:00",
+      "monotonic_timestamp_s": 355351.61896199,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -50.8089,
+        -91.2796,
+        115.543,
+        -2.8626,
+        -85.2215,
+        -46.8768
+      ],
+      "pose_real_mm_deg": [
+        -57.5483,
+        -126.9619,
+        501.9993,
+        -118.9029,
+        -41.207,
+        64.3085
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-50.8089,-91.2796,115.5430,-2.8626,-85.2215,-46.8768},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-57.5483,-126.9619,501.9993,-118.9029,-41.2070,64.3085},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_08",
+      "timestamp": "2026-09-26T10:59:03.457266+00:00",
+      "monotonic_timestamp_s": 355407.752177414,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        45.2633,
+        -26.5335,
+        136.9004,
+        -41.7591,
+        -61.6366,
+        -93.3864
+      ],
+      "pose_real_mm_deg": [
+        -45.7875,
+        -272.5445,
+        367.2706,
+        -152.8588,
+        -22.9695,
+        -131.5004
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{45.2633,-26.5335,136.9004,-41.7591,-61.6366,-93.3864},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-45.7875,-272.5445,367.2706,-152.8588,-22.9695,-131.5004},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_09",
+      "timestamp": "2026-09-26T11:02:10.692631+00:00",
+      "monotonic_timestamp_s": 355594.98753717,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -2.3058,
+        77.0161,
+        6.3302,
+        -21.3341,
+        -92.2915,
+        -80.025
+      ],
+      "pose_real_mm_deg": [
+        -647.6202,
+        -87.9969,
+        291.0484,
+        -176.9823,
+        -27.9244,
+        166.3976
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-2.3058,77.0161,6.3302,-21.3341,-92.2915,-80.0250},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-647.6202,-87.9969,291.0484,-176.9823,-27.9244,166.3976},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_10",
+      "timestamp": "2026-09-26T11:03:00.612011+00:00",
+      "monotonic_timestamp_s": 355644.906922183,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -65.9484,
+        51.8696,
+        31.0675,
+        3.8026,
+        -88.6392,
+        -135.7086
+      ],
+      "pose_real_mm_deg": [
+        -340.8442,
+        470.2668,
+        342.9446,
+        178.6138,
+        -3.2496,
+        159.8383
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-65.9484,51.8696,31.0675,3.8026,-88.6392,-135.7086},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-340.8442,470.2668,342.9446,178.6138,-3.2496,159.8383},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_11",
+      "timestamp": "2026-09-26T11:03:40.015050+00:00",
+      "monotonic_timestamp_s": 355684.30996237,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -55.5773,
+        -51.7126,
+        65.0519,
+        49.6522,
+        -90.1724,
+        -87.3199
+      ],
+      "pose_real_mm_deg": [
+        -84.8413,
+        -83.5858,
+        591.912,
+        -178.8068,
+        -26.9846,
+        121.4149
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-55.5773,-51.7126,65.0519,49.6522,-90.1724,-87.3199},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{-84.8413,-83.5858,591.9120,-178.8068,-26.9846,121.4149},GetPose(user=0,tool=0);"
+      }
+    },
+    {
+      "name": "pose_12",
+      "timestamp": "2026-09-26T11:04:24.491162+00:00",
+      "monotonic_timestamp_s": 355728.786074528,
+      "robot_mode": 5,
+      "error_ids": [],
+      "q_deg": [
+        -109.0246,
+        8.5464,
+        118.5904,
+        -32.5451,
+        -91.9693,
+        -73.9398
+      ],
+      "pose_real_mm_deg": [
+        0.5067,
+        352.6514,
+        267.1819,
+        176.8363,
+        3.8677,
+        54.8874
+      ],
+      "user": 0,
+      "tool": 0,
+      "orientation": "rotation_vector",
+      "source": "dobot_tcp_29999_read_only",
+      "raw_responses": {
+        "RobotMode()": "0,{5},RobotMode();",
+        "GetErrorID()": "0,{[]},GetErrorID();",
+        "GetAngle()": "0,{-109.0246,8.5464,118.5904,-32.5451,-91.9693,-73.9398},GetAngle();",
+        "GetPose(user=0,tool=0)": "0,{0.5067,352.6514,267.1819,176.8363,3.8677,54.8874},GetPose(user=0,tool=0);"
+      }
+    }
+  ]
+}

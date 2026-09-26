@@ -1,0 +1,33 @@
+<mujoco model="xtrainer_gripper_preview">
+  <compiler meshdir="."/>
+  <visual><global offwidth="1000" offheight="800"/></visual>
+  <option gravity="0 0 0"/>  <asset>
+    <mesh name="J1_6" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J1_6_local.stl"/>
+    <mesh name="J1_7" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J1_7_local.stl"/>
+    <mesh name="J1_8" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J1_8_local.stl"/>
+    <mesh name="J2_6" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J2_6_local.stl"/>
+    <mesh name="J2_7" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J2_7_local.stl"/>
+    <mesh name="J2_8" file="/home/dsa/project/dobot/nova_mujoco/assets/xtrainer_gripper/J2_8_local.stl"/>
+  </asset>
+  <worldbody>
+    <light pos="1 -1 1" dir="-1 1 -1" directional="true"/>
+    <body name="J1_6" pos="0.345001459 -0.117499441 0.415657878" quat="1.25169754e-06 -0.707106751 0.707106811 -1.28149983e-06">
+      <geom name="J1_6_visual" type="mesh" mesh="J1_6" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="J1_7" pos="0.369006872 -0.0549994484 0.299977958" quat="7.45058059e-08 -2.54810067e-06 -0.70710547 0.707108092">
+      <geom name="J1_7_visual" type="mesh" mesh="J1_7" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="J1_8" pos="0.369006872 -0.179999456 0.299977958" quat="2.60770321e-06 1.48987728e-08 0.70710547 0.707108092">
+      <geom name="J1_8_visual" type="mesh" mesh="J1_8" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="J2_6" pos="0.715001762 -0.117502593 0.415655702" quat="2.60606089e-06 0.707102966 0.707110596 7.65919634e-06">
+      <geom name="J2_6_visual" type="mesh" mesh="J2_6" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="J2_7" pos="0.738997757 -0.0550014973 0.299976498" quat="1.02669001e-05 7.4519895e-08 0.707108003 -0.707105559">
+      <geom name="J2_7_visual" type="mesh" mesh="J2_7" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+    <body name="J2_8" pos="0.738999128 -0.180001512 0.299975604" quat="1.49011611e-08 -1.02073089e-05 0.707102996 0.707110566">
+      <geom name="J2_8_visual" type="mesh" mesh="J2_8" rgba="0.82 0.84 0.90 1" contype="0" conaffinity="0"/>
+    </body>
+  </worldbody>
+</mujoco>
