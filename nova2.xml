@@ -108,6 +108,10 @@
                     <!-- Official description has no separate TCP/tool link. -->
                     <site name="tcp" type="sphere" pos="0 0 0" size="0.004"
                           rgba="0.9 0.1 0.1 1"/>
+                    <!-- Nominal operator-provided flange -> grasp-center geometry.
+                         This is not a precision-measured TCP calibration. -->
+                    <site name="nominal_grasp_center" type="sphere" pos="0 0 0.197"
+                          size="0.004" rgba="0.1 0.3 0.9 0.6"/>
                   </body>
                 </body>
               </body>

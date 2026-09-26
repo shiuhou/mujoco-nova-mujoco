@@ -32,7 +32,10 @@ def test_model_contract() -> None:
     assert model.nq == 6
     assert model.nv == 6
     assert model.nmesh == 7
-    assert model.nsite == 1
+    assert model.nsite == 2
+    assert (
+        mujoco.mj_name2id(model, mujoco.mjtObj.mjOBJ_SITE, "nominal_grasp_center") >= 0
+    )
     assert [
         mujoco.mj_id2name(model, mujoco.mjtObj.mjOBJ_JOINT, i) for i in range(6)
     ] == [
