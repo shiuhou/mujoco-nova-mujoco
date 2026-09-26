@@ -1,10 +1,41 @@
-# Dobot Nova2 MuJoCo Phase 1
+# Dobot Nova2 MuJoCo research simulator
 
 This directory contains the offline simulation and model foundation for the
 integrated Astra-to-Nova research workspace. It currently provides a MuJoCo
 model converted from the official Dobot ROS2 V4 Nova2 description, FK/pose
 comparison tools, and a reproducible place for future tool, gripper,
 simulation, and sim-to-real experiments.
+
+## Sim Track S1/S2 checkpoint
+
+The repository now includes the deterministic simulator-side execution
+foundation for the future Astra / Robocurve comparison:
+
+- `NovaMujocoSimulator`: deterministic fixed-timestep joint reference execution
+- `CartesianIKSolver`: bounded MuJoCo-Jacobian damped-least-squares IK
+- `NovaMujocoChunkExecutor`: ordered seven-value ActionChunk-compatible waypoint
+  execution with pinned reset orientation and inactive gripper
+- reproducible 48-case ±X/±Y/±Z micro-move benchmark across eight validated
+  starting configurations
+
+The corrected benchmark passed 48/48 cases. Its position residual was
+0.000197614 mm RMS and 0.000534850 mm maximum. This characterizes simulator
+action semantics; it is not a real-controller accuracy or dynamics claim.
+
+Detailed documents:
+
+- [Architecture](docs/astra_mujoco_architecture.md)
+- [Real/sim action contract](docs/sim_action_contract.md)
+- [S1 controller](docs/s1_controller.md)
+- [S2 Cartesian bridge](docs/s2_cartesian_bridge.md)
+- [Known gaps and S3-S6 roadmap](docs/sim_known_gaps.md)
+- [S1/S2 checkpoint and evidence](docs/s1_s2_checkpoint.md)
+
+Run the offline benchmark without overwriting prior evidence:
+
+```bash
+python run_s1_s2_benchmark.py --output evidence/sim_s1_s2/<new-unique-name>
+```
 
 The directory is intentionally hardware-independent by default. Offline model
 results support research and regression checks; they do not grant live robot
@@ -284,7 +315,7 @@ raw per-sample terminal output is preserved in
 ## Regression checks
 
 ```bash
-/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python -m pytest -q --ignore=DOBOT_6Axis_ROS2_V4
+/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python -m pytest -q
 /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python -m ruff check --exclude DOBOT_6Axis_ROS2_V4 .
 /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python -m ruff format --check --exclude DOBOT_6Axis_ROS2_V4 .
 ```
