@@ -9,12 +9,16 @@ Cartesian bridge. It provides `front_rgb` and `right_rgb` at 640×480, and
 wrist camera moves rigidly with Link6. Parameters are explicitly sourced or
 classified as engineering assumptions, with no physical calibration claim.
 
-See [S4 camera contract and reproduction](docs/sim_tracks/s4_camera_parity.md).
+S4 is **PASS** for logical observation parity: 102 tests passed, and the frozen
+S1/S2 files and validation remained unchanged. Saved evidence includes native
+RGB images, movement checks and a headless camera-frustum overview.
+See [S4 camera contract and checkpoint](docs/sim_tracks/s4_camera_parity.md)
+and the [evidence montage](evidence/sim_s4/20260927T063657Z/montage.png).
 Generate offline evidence and a camera-frustum overview using a new directory:
 
 ```bash
 MUJOCO_GL=egl /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python \
-  run_s4_camera_validation.py --output evidence/sim_s4/<new-run-id> --debug
+  run_s4_camera_validation.py --debug
 ```
 
 The optional blue/black/red objects are non-contact camera test fixtures.

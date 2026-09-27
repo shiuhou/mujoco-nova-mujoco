@@ -165,7 +165,7 @@ cd /home/dsa/project/dobot/.worktrees/nova_mujoco_s4
 PY=/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python
 MUJOCO_GL=egl "$PY" -m pytest -q
 MUJOCO_GL=egl "$PY" run_s4_camera_validation.py \
-  --output evidence/sim_s4/<new-run-id> --repetitions 20 --debug
+  --repetitions 30 --debug
 "$PY" -m ruff check .
 "$PY" -m ruff format --check .
 "$PY" -m compileall -q -x 'DOBOT_6Axis_ROS2_V4/.*' .
@@ -207,3 +207,69 @@ S4 prepares the input boundary for S5. It does not answer State Gap, Effect Gap,
 Candidate Interface, constraint, or sim-to-real behavioral questions. No Astra,
 OpenAI, agent, physical-camera, robot or serial request is made. Stop after the
 S4 checkpoint; S3 merging and S5 require a later task.
+
+## Checkpoint — September 27, 2026
+
+**S4 PASS for logical three-camera observation parity.** All ten exit gates
+are met: exact roles; fixed external cameras; rigid wrist attachment; HWC RGB
+uint8; no extra canonical camera; coherent image/state snapshot; parameter
+provenance; preserved S1/S2 tests; no hardware access; saved rendered evidence.
+
+The evidence run is
+[`20260927T063657Z`](../../evidence/sim_s4/20260927T063657Z/summary.md),
+generated from clean committed revision
+`093e79c555fa22d9b23b997e1d0a6d5687bdae08`. The final checkpoint commit adds
+evidence and documentation only; the source revision and hashes remain explicit.
+
+- [Validation JSON](../../evidence/sim_s4/20260927T063657Z/validation.json)
+- [Camera configuration](../../evidence/sim_s4/20260927T063657Z/camera_config.json)
+- [Role mapping](../../evidence/sim_s4/20260927T063657Z/camera_roles.json)
+- [Three-view montage](../../evidence/sim_s4/20260927T063657Z/montage.png)
+- [Frustum and axes overview](../../evidence/sim_s4/20260927T063657Z/camera_debug.png)
+- [Quality gates and frozen-file comparison](../../evidence/sim_s4/20260927T063657Z/quality_gates.json)
+
+The renderer was MuJoCo 2.3.7, EGL, Mesa 25.2.8 llvmpipe (LLVM 20.1.2),
+OpenGL 4.5. This is software rendering on the current host. Thirty warmed
+repetitions per measurement, including state copy and image readback, gave:
+
+| Mode | Frames or observations per host second | Mean milliseconds per state |
+|---|---:|---:|
+| front only | 54.75 FPS | 18.26 |
+| right only | 53.28 FPS | 18.77 |
+| wrist only | 70.71 FPS | 14.14 |
+| all three | 19.27 coherent observations/s | 51.90 |
+
+These are scene-specific approximate throughput figures. The wrist sees less
+arm geometry, so its larger resolution need not make it the slowest view.
+At about 52 ms per image triplet, 100 observation-only iterations take roughly
+5.2 seconds after startup on this scene. Future S5 must measure actual inference
+latency before claiming a model-bound or render-bound closed loop.
+
+All three static and reset renders repeated exactly on this GL stack. New rig
+construction also passed image identity tests. In two changed joint states,
+front/right position and rotation changes were exactly zero; the wrist moved
+29.57 mm and 22.98 mm respectively. Images changed for all three roles. All nine
+fixture projection/color checks passed at each of the three tested states.
+Full per-frame state hashes, poses, generations and timings are in the JSON.
+
+Final gates: **102 tests passed in 9.25 s** (68 unchanged baseline tests plus
+34 S4 tests); Ruff check and format passed (27 Python files); compilation and
+diff check passed. The frozen MJCF, simulator, Cartesian bridge, FK code, raw
+real samples, and every baseline test are byte-identical to the frozen base.
+The real-sample FK rerun remains position RMS/max **0.010882/0.012292 mm** and
+orientation RMS/max **0.000472/0.000538 degrees**.
+
+The evidence run recorded zero blocked I/O attempts and:
+
+```text
+robot_connections = 0
+robot_commands = 0
+serial_connections = 0
+physical_camera_connections = 0
+openai_requests = 0
+```
+
+The test suite additionally makes deliberately prohibited calls to prove the
+audit hook raises before socket/device creation. Those negative tests do not
+open physical endpoints. No S3 worktree or other repository was edited, and no
+push occurred. Stop here; S5 was not started.
