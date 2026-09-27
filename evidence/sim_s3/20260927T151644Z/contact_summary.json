@@ -1,0 +1,69 @@
+{
+  "pair_tick_counts": {
+    "black_block_collision / work_surface": 12941,
+    "blue_block_collision / left_finger_pad": 8210,
+    "blue_block_collision / red_box_bottom": 3410,
+    "blue_block_collision / right_finger_pad": 8211,
+    "blue_block_collision / work_surface": 2652
+  },
+  "pair_max_normal_force_n": {
+    "black_block_collision / work_surface": 0.2109393374056893,
+    "blue_block_collision / left_finger_pad": 3.372705137107988,
+    "blue_block_collision / red_box_bottom": 3.8032576630704917,
+    "blue_block_collision / right_finger_pad": 8.095471171239605,
+    "blue_block_collision / work_surface": 0.37165553345029856
+  },
+  "max_penetration_m": 0.0002330567988154043,
+  "max_arm_projection_error_rad": 6.953224107597578e-11,
+  "final_contacts": [
+    {
+      "geom1": "work_surface",
+      "geom2": "black_block_collision",
+      "distance_m": -8.521703063093036e-06,
+      "normal_force_n": 0.19619999999999957
+    },
+    {
+      "geom1": "work_surface",
+      "geom2": "black_block_collision",
+      "distance_m": -8.521703063093016e-06,
+      "normal_force_n": 0.19619999999999999
+    },
+    {
+      "geom1": "work_surface",
+      "geom2": "black_block_collision",
+      "distance_m": -8.521703063092123e-06,
+      "normal_force_n": 0.19620000000000004
+    },
+    {
+      "geom1": "work_surface",
+      "geom2": "black_block_collision",
+      "distance_m": -8.521703063092103e-06,
+      "normal_force_n": 0.1962000000000004
+    },
+    {
+      "geom1": "blue_block_collision",
+      "geom2": "red_box_bottom",
+      "distance_m": -8.5217030631312e-06,
+      "normal_force_n": 0.2452499999999962
+    },
+    {
+      "geom1": "blue_block_collision",
+      "geom2": "red_box_bottom",
+      "distance_m": -8.521703063059302e-06,
+      "normal_force_n": 0.24525000000000138
+    },
+    {
+      "geom1": "blue_block_collision",
+      "geom2": "red_box_bottom",
+      "distance_m": -8.521703063059294e-06,
+      "normal_force_n": 0.24525000000000127
+    },
+    {
+      "geom1": "blue_block_collision",
+      "geom2": "red_box_bottom",
+      "distance_m": -8.521703062987396e-06,
+      "normal_force_n": 0.24525000000000707
+    }
+  ],
+  "fault": null
+}

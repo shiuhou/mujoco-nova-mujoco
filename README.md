@@ -43,6 +43,38 @@ permission or prove collision, dynamics, payload, or TCP safety. The nested
 `DOBOT_6Axis_ROS2_V4` checkout remains an upstream/reference boundary rather
 than an automatically connected runtime.
 
+## S3 manipulation checkpoint
+
+`benchmark_v0` adds temporary blue/black blocks, a five-piece red open container,
+and a simplified nominal 95 mm gripper. The default scripted episode uses real
+MuJoCo contact forces to grasp, lift, transport and release the blue block.
+It does not teleport or weld objects. The original S1/S2 modules and model are
+unchanged. **THIS IS NOT A CALIBRATED DYNAMICS DIGITAL TWIN.**
+
+See [S3 architecture, parameters, results and CAD migration](docs/sim_tracks/s3_manipulation.md).
+The public action remains `[x,y,z,yaw,pitch,roll,gripper]`, with base-frame SI
+position and pinned reset-relative orientation. In the **S3 executor**,
+`gripper=0` closes and `gripper=1` opens; the original S2 executor remains inactive.
+
+From this repository, using the tested Python environment:
+
+```bash
+MUJOCO_GL=egl /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python \
+  run_s3_benchmark.py --render --output evidence/sim_s3/<new-unique-name>
+```
+
+Omit `--render` and `MUJOCO_GL=egl` for physics-only execution. For interactive
+inspection on a desktop with a working display:
+
+```bash
+/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python run_s3_benchmark.py --viewer
+```
+
+The viewer opens the reset scene and holds the arm; close the window to exit.
+Headless PNG rendering is validated; an interactive display is required for the
+viewer and was unavailable during this checkpoint. These inspection views do
+not define S4 cameras.
+
 ## Source
 
 - Repository: `DOBOT_6Axis_ROS2_V4`

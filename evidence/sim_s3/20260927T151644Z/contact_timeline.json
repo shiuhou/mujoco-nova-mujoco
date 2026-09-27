@@ -1,0 +1,100 @@
+[
+  {
+    "time_s": 0.002,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / work_surface"
+    ]
+  },
+  {
+    "time_s": 3.888,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / right_finger_pad",
+      "blue_block_collision / work_surface"
+    ]
+  },
+  {
+    "time_s": 5.306,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.064,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.076,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / red_box_bottom"
+    ]
+  },
+  {
+    "time_s": 19.078,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.1,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.102,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / red_box_bottom"
+    ]
+  },
+  {
+    "time_s": 19.104,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.106,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 19.108,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / left_finger_pad",
+      "blue_block_collision / red_box_bottom",
+      "blue_block_collision / right_finger_pad"
+    ]
+  },
+  {
+    "time_s": 20.314,
+    "pairs": [
+      "black_block_collision / work_surface",
+      "blue_block_collision / red_box_bottom"
+    ]
+  }
+]

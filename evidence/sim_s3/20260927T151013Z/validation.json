@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "first_episode_success": true,
+  "repeat_episode_success": true,
+  "repeat_entire_episode_exact_equal": true,
+  "no_object_pose_writes_during_episode": true,
+  "object_weld_constraints": 0,
+  "gripper_coupling_constraints": 1,
+  "render": {
+    "requested": true,
+    "images": [
+      "initial_scene.png",
+      "grasp.png",
+      "lifted.png",
+      "transported.png",
+      "released.png",
+      "final_scene.png"
+    ],
+    "errors": []
+  },
+  "quality_gate_results": "See quality_gates.json generated separately; runner does not claim tests ran.",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  }
+}

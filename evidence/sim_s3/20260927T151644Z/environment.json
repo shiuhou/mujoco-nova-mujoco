@@ -1,0 +1,243 @@
+{
+  "generated_at_utc": "2026-09-27T15:17:35.792703+00:00",
+  "python": "3.11.14 (main, Jan 27 2026, 23:58:49) [Clang 21.1.4 ]",
+  "mujoco": "2.3.7",
+  "numpy": "1.26.4",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39",
+  "base_commit": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+  "source_revision": "c7e37ce7590a0a74e44c9e96f95219686f968d24",
+  "source_sha256": {
+    "benchmark_scene.py": "3e376360f8ea93c964be63561e70450026048050879d89cebdcd97ac651edbde",
+    "manipulation_simulator.py": "85f2ccc64d2b77ee2cb9caa3dd4eea3bd41aa2e80c3e0711fd8100532f86402d",
+    "run_s3_benchmark.py": "0df48c3f34184a0799b76d5da531a0e83a7afc3c80276fcc455c9ce1a3736eed",
+    "nova2.xml": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "cartesian_bridge.py": "fcdb728da914f32468f18b7b9176b18501df813848d2350541fea19ee8ed75dd",
+    "scenes/benchmark_v0/arm.xml": "ddc70dec91255d4f6fd3ce8e6fac43a96b28532055f14e74f88ff0c8f7ad68b2",
+    "scenes/benchmark_v0/gripper.xml": "81c2cc31d8e911e584538e1f239bb539e4296e881bc2ddb6773663f0664d5125",
+    "scenes/benchmark_v0/objects.xml": "d428b9d536c8b45b16498bc1a971a3110e57c6497b6f446325a789892839b833",
+    "scenes/benchmark_v0/scene.xml": "5f565260e3035e30150323a9aa8df94ed86b6bfd179e76736aac8ab5f8944735"
+  },
+  "scene_spec": {
+    "objects": [
+      {
+        "semantic_name": "blue_block",
+        "role": "manipulation_target",
+        "dimensions_m": [
+          0.06,
+          0.06,
+          0.06
+        ],
+        "initial_position_world_m": [
+          -0.3,
+          -0.15,
+          0.06
+        ],
+        "color_rgba": [
+          0.025,
+          0.18,
+          0.95,
+          1
+        ],
+        "mass_kg": 0.1,
+        "dynamic": true,
+        "collision_geometry": "box",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.0,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      },
+      {
+        "semantic_name": "black_block",
+        "role": "distractor",
+        "dimensions_m": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "initial_position_world_m": [
+          -0.48,
+          -0.28,
+          0.055
+        ],
+        "color_rgba": [
+          0.025,
+          0.025,
+          0.025,
+          1
+        ],
+        "mass_kg": 0.08,
+        "dynamic": true,
+        "collision_geometry": "box",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.0,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      },
+      {
+        "semantic_name": "red_box",
+        "role": "placement_target",
+        "dimensions_m": [
+          0.15,
+          0.15,
+          0.08
+        ],
+        "initial_position_world_m": [
+          -0.3,
+          0.08,
+          0.07
+        ],
+        "color_rgba": [
+          0.85,
+          0.035,
+          0.035,
+          1
+        ],
+        "mass_kg": 0.3,
+        "dynamic": false,
+        "collision_geometry": "open_container",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.005,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      }
+    ],
+    "gripper": {
+      "max_opening_m": 0.095,
+      "flange_to_grasp_center_m": 0.197,
+      "measured_tcp": false,
+      "finger_half_size_m": [
+        0.006,
+        0.02,
+        0.025
+      ],
+      "finger_mass_kg": 0.08,
+      "opening_speed_m_s": 0.06,
+      "position_gain_n_m": 2500.0,
+      "finger_damping_ns_m": 8.0,
+      "finger_force_limit_n": 8.0,
+      "friction": [
+        1.0,
+        0.005,
+        0.0001
+      ],
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "physics": {
+      "timestep_s": 0.002,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "contact_solref": [
+        0.008,
+        1.0
+      ],
+      "contact_solimp": [
+        0.95,
+        0.99,
+        0.001
+      ],
+      "solver_iterations": 100,
+      "prescribed_arm_armature": 1000000.0,
+      "max_joint_speed_rad_s": 0.3,
+      "cartesian_speed_m_s": 0.04,
+      "waypoint_step_m": 0.01,
+      "stable_contact_s": 0.15,
+      "max_slip_m": 0.008,
+      "lift_threshold_m": 0.04,
+      "placement_tolerance_m": 0.0015,
+      "settled_linear_speed_m_s": 0.01,
+      "settled_angular_speed_rad_s": 0.1,
+      "settled_duration_s": 0.25,
+      "distractor_displacement_limit_m": 0.002,
+      "contact_force_threshold_n": 0.05,
+      "opening_state_tolerance_m": 0.001,
+      "release_clearance_m": 0.005,
+      "collision_abort_penetration_m": 0.0015,
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "script": {
+      "pregrasp_clearance_m": 0.1,
+      "lift_clearance_m": 0.15,
+      "release_height_above_floor_m": 0.003,
+      "initial_settle_s": 0.3,
+      "gripper_settle_s": 2.0,
+      "lifted_hold_s": 0.5,
+      "transported_hold_s": 0.2,
+      "lowered_hold_s": 0.2,
+      "final_settle_s": 1.0,
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "surface_top_world_m": 0.03,
+    "initial_q_rad": [
+      0.1057414219467702,
+      -0.07307772766776358,
+      1.949250880153336,
+      -0.30537314570463386,
+      -1.5707963268520606,
+      1.6765303917661518
+    ],
+    "initial_gripper": 1.0,
+    "seed": null,
+    "name": "benchmark_v0"
+  },
+  "timestep_s": 0.002,
+  "render": {
+    "requested": true,
+    "images": [
+      "initial_scene.png",
+      "grasp.png",
+      "lifted.png",
+      "transported.png",
+      "released.png",
+      "final_scene.png"
+    ],
+    "errors": []
+  },
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "determinism_scope": "two fresh instances on the recorded runtime only"
+}
