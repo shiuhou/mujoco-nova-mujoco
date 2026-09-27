@@ -1,0 +1,416 @@
+{
+  "status": "PASS",
+  "source_revision": "245a10942e8a47fbd57b3c0045a819dba29bb3b1",
+  "test_counts": {
+    "prior_base": 68,
+    "s3": 51,
+    "s4": 34,
+    "integration": 23,
+    "total": 176
+  },
+  "checks": [
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 34.47366153699113,
+      "stdout": "........................................................................ [ 40%]\n........................................................................ [ 81%]\n................................                                         [100%]\n176 passed in 34.26s\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.01692296500550583,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.018256394017953426,
+      "stdout": "34 files already formatted\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "py_compile",
+        "analyze_gripper_calibration.py",
+        "audit_xtrainer_assembly.py",
+        "benchmark_scene.py",
+        "build_nova2_gripper.py",
+        "capture_real_pose.py",
+        "cartesian_bridge.py",
+        "collision_review.py",
+        "compare_pose.py",
+        "conftest.py",
+        "extract_xtrainer_gripper.py",
+        "manipulation_simulator.py",
+        "nova_cameras.py",
+        "nova_fk.py",
+        "nova_simulator.py",
+        "run_s1_s2_benchmark.py",
+        "run_s3_benchmark.py",
+        "run_s3_s4_integration.py",
+        "run_s4_camera_validation.py",
+        "s4_offline_guard.py",
+        "s4_validation.py",
+        "test_benchmark.py",
+        "test_cartesian_bridge.py",
+        "test_collision_review.py",
+        "test_nova_cameras.py",
+        "test_nova_fk.py",
+        "test_nova_simulator.py",
+        "test_phase15.py",
+        "test_phase22a.py",
+        "test_s3_manipulation.py",
+        "test_s3_s4_integration.py",
+        "test_s3_scene.py",
+        "test_s4_evidence.py",
+        "visualize.py",
+        "visualize_xtrainer_gripper.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.04680628696223721,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "run_s1_s2_benchmark.py",
+        "--output",
+        "evidence/sim_s1_s2/20260927T162753Z-s3-s4-regression"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.712906437984202,
+      "stdout": "{\n  \"case_count\": 48,\n  \"pass_count\": 48,\n  \"success_rate\": 1.0,\n  \"position_error_mm\": {\n    \"mean\": 0.0001387744826403371,\n    \"rms\": 0.00019761439468699265,\n    \"max\": 0.0005348498584503841\n  },\n  \"orientation_residual_deg\": {\n    \"mean\": 4.190676712674285e-06,\n    \"rms\": 1.1158505345247846e-05,\n    \"max\": 3.914134502542342e-05\n  },\n  \"joint_displacement_rad\": {\n    \"mean\": 0.08277206988631874,\n    \"max\": 0.20327388628687487\n  },\n  \"ik_iterations\": {\n    \"mean\": 2.3125,\n    \"max\": 4\n  },\n  \"contact_case_count\": 4,\n  \"host_elapsed_s\": 2.292535960965324,\n  \"ik_solves_per_host_second\": 20.937512351949547\n}\nevidence: /home/dsa/project/dobot/.worktrees/nova_mujoco_integration/evidence/sim_s1_s2/20260927T162753Z-s3-s4-regression\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "compare_pose.py",
+        "real_nova2_samples.json",
+        "--orientation",
+        "rpy"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 1.2510546100093052,
+      "stdout": "samples: 12\norientation_conventions: rpy\norientation_error: angle of R_err = R_real.T @ R_sim\nPer-sample comparison\nsample axis_mode pos_err_mm ori_err_deg dx dy dz\npose_01 current 0.010565 0.000472 -0.010272 0.000714 -0.002364\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-181.492072 -116.882686  375.477036]\npose_01 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-168.219677 -121.94725   557.236476]\npose_02 current 0.010565 0.000472 -0.010272 0.000714 -0.002364\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-181.492072 -116.882686  375.477036]\npose_02 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-168.219677 -121.94725   557.236476]\npose_03 current 0.010565 0.000472 -0.010272 0.000714 -0.002364\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-181.492072 -116.882686  375.477036]\npose_03 legacy 182.310617 177.487150 13.262123 -5.063850 181.757076\n  real_position_mm: [-181.4818 -116.8834  375.4794]\n  simulated_position_mm: [-168.219677 -121.94725   557.236476]\npose_04 current 0.011074 0.000515 -0.010305 0.003932 -0.000994\n  real_position_mm: [-475.6849  -29.1872  438.3387]\n  simulated_position_mm: [-475.695205  -29.183268  438.337706]\npose_04 legacy 195.123535 169.490522 39.392118 -156.833735 109.199974\n  real_position_mm: [-475.6849  -29.1872  438.3387]\n  simulated_position_mm: [-436.292782 -186.020935  547.538674]\npose_05 current 0.011440 0.000492 -0.006774 0.004365 0.008119\n  real_position_mm: [-435.5077   29.9267  694.767 ]\n  simulated_position_mm: [-435.514474   29.931065  694.775119]\npose_05 legacy 309.865441 143.707858 180.286814 -234.759584 91.658027\n  real_position_mm: [-435.5077   29.9267  694.767 ]\n  simulated_position_mm: [-255.220886 -204.832884  786.425027]\npose_06 current 0.010382 0.000407 -0.000928 0.005334 0.008858\n  real_position_mm: [  -3.2838 -128.1253  659.5594]\n  simulated_position_mm: [  -3.284728 -128.119966  659.568258]\npose_06 legacy 262.412366 43.960924 135.553175 224.167713 15.310887\n  real_position_mm: [  -3.2838 -128.1253  659.5594]\n  simulated_position_mm: [132.269375  96.042413 674.870287]\npose_07 current 0.010425 0.000454 -0.004589 0.004741 0.008071\n  real_position_mm: [ -57.5483 -126.9619  501.9993]\n  simulated_position_mm: [ -57.552889 -126.957159  502.007371]\npose_07 legacy 363.146879 98.682949 287.508298 211.462930 67.067607\n  real_position_mm: [ -57.5483 -126.9619  501.9993]\n  simulated_position_mm: [229.959998  84.50103  569.066907]\npose_08 current 0.012217 0.000398 -0.006864 -0.008677 -0.005181\n  real_position_mm: [ -45.7875 -272.5445  367.2706]\n  simulated_position_mm: [ -45.794364 -272.553177  367.265419]\npose_08 legacy 379.720931 176.345659 -215.479725 309.888054 -41.543561\n  real_position_mm: [ -45.7875 -272.5445  367.2706]\n  simulated_position_mm: [-261.267225   37.343554  325.727039]\npose_09 current 0.012292 0.000445 -0.011949 0.002880 0.000075\n  real_position_mm: [-647.6202  -87.9969  291.0484]\n  simulated_position_mm: [-647.632149  -87.99402   291.048475]\npose_09 legacy 93.505565 175.200532 18.017058 -51.425723 75.987310\n  real_position_mm: [-647.6202  -87.9969  291.0484]\n  simulated_position_mm: [-629.603142 -139.422623  367.03571 ]\npose_10 current 0.010726 0.000506 -0.002186 0.010498 -0.000248\n  real_position_mm: [-340.8442  470.2668  342.9446]\n  simulated_position_mm: [-340.846386  470.277298  342.944352]\npose_10 legacy 1058.967634 168.222267 228.004653 -1016.520224 190.034111\n  real_position_mm: [-340.8442  470.2668  342.9446]\n  simulated_position_mm: [-112.839547 -546.253424  532.978711]\npose_11 current 0.007300 0.000475 -0.001847 0.002638 0.006552\n  real_position_mm: [-84.8413 -83.5858 591.912 ]\n  simulated_position_mm: [-84.843147 -83.583162 591.918552]\npose_11 legacy 454.310347 73.023829 356.698659 272.896129 68.495698\n  real_position_mm: [-84.8413 -83.5858 591.912 ]\n  simulated_position_mm: [271.857359 189.310329 660.407698]\npose_12 current 0.012144 0.000538 0.004191 0.007275 -0.008774\n  real_position_mm: [  0.5067 352.6514 267.1819]\n  simulated_position_mm: [  0.510891 352.658675 267.173126]\npose_12 legacy 678.532510 109.120677 220.220486 -641.619837 15.273839\n  real_position_mm: [  0.5067 352.6514 267.1819]\n  simulated_position_mm: [ 220.727186 -288.968437  282.455739]\n\nAggregate statistics\naxis_mode: current\n  position_error_mm: mean=0.010808, median=0.010645, rms=0.010882, max=0.012292\n  orientation_error_deg: mean=0.000471, median=0.000472, rms=0.000472, max=0.000538\naxis_mode: legacy\n  position_error_mm: mean=361.876422, median=286.138904, rms=444.942427, max=1058.967634\n  orientation_error_deg: mean=140.851389, median=168.856395, rms=148.010835, max=177.487150\nDiagnostics\n- current: position RMS=0.011 mm, orientation RMS=0.000 deg\n- legacy: position RMS=444.942 mm, orientation RMS=148.011 deg\n- current hypothesis has lower position RMS (0.011 mm); this is evidence only\n- current hypothesis has lower orientation RMS (0.000 deg); this is evidence only\n- current: mean position offset [-0.006, 0.003, 0.001] mm; residual RMS around offset=0.009 mm\n- current: strongest position-error correlation is J4 (Pearson r=-0.910); correlation is diagnostic only\n- legacy: mean position offset [107.499, -91.495, 94.730] mm; residual RMS around offset=411.185 mm\n- legacy: configuration-dependent position residual is present; inspect joint origins, axes, signs, and hierarchy\n- legacy: strongest position-error correlation is J1 (Pearson r=-0.609); correlation is diagnostic only\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.0023186510079540312,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "protected_source_and_tests": [
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "cartesian_bridge.py",
+      "unchanged": true,
+      "sha256": "fcdb728da914f32468f18b7b9176b18501df813848d2350541fea19ee8ed75dd"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "nova2.xml",
+      "unchanged": true,
+      "sha256": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "nova_simulator.py",
+      "unchanged": true,
+      "sha256": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "run_s1_s2_benchmark.py",
+      "unchanged": true,
+      "sha256": "922a0d2de17e77a013bbdcb3804c5a311674e7b22746b73bf622cbec73e1ccec"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_benchmark.py",
+      "unchanged": true,
+      "sha256": "46a4e31dcc403bc2dec56032e7c164ea2ac237a0e101de74abd82171c3528141"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_cartesian_bridge.py",
+      "unchanged": true,
+      "sha256": "9425a34a51850ce12d3eb050d3dd10070bf116c133d53731c4d540bd3477b3e4"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_collision_review.py",
+      "unchanged": true,
+      "sha256": "18224aca9fda15aaaa104edfa7f7ec5f956daf8c49475c9a13251dce97aad503"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_nova_fk.py",
+      "unchanged": true,
+      "sha256": "9e63512f4eae7d5bbf006717461ebc0498f2865972ccc60a6374f5a0f1e68585"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_nova_simulator.py",
+      "unchanged": true,
+      "sha256": "fffdf162eba362f0e26ed7f31a5ca2807fd4b605e2efcd6131ee2f65ce62a4f7"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_phase15.py",
+      "unchanged": true,
+      "sha256": "74fe1b6df49a2ca21b3a63acef05fc7240921b47eb2f123efd3408c277c80892"
+    },
+    {
+      "reference": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+      "file": "test_phase22a.py",
+      "unchanged": true,
+      "sha256": "58e2bb4da8810750f8282288ac64991f21cf8e25c4e994f3acc921024c158240"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "benchmark_scene.py",
+      "unchanged": true,
+      "sha256": "3e376360f8ea93c964be63561e70450026048050879d89cebdcd97ac651edbde"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "manipulation_simulator.py",
+      "unchanged": true,
+      "sha256": "85f2ccc64d2b77ee2cb9caa3dd4eea3bd41aa2e80c3e0711fd8100532f86402d"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "run_s3_benchmark.py",
+      "unchanged": true,
+      "sha256": "0df48c3f34184a0799b76d5da531a0e83a7afc3c80276fcc455c9ce1a3736eed"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "scenes/benchmark_v0/arm.xml",
+      "unchanged": true,
+      "sha256": "ddc70dec91255d4f6fd3ce8e6fac43a96b28532055f14e74f88ff0c8f7ad68b2"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "scenes/benchmark_v0/gripper.xml",
+      "unchanged": true,
+      "sha256": "81c2cc31d8e911e584538e1f239bb539e4296e881bc2ddb6773663f0664d5125"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "scenes/benchmark_v0/objects.xml",
+      "unchanged": true,
+      "sha256": "d428b9d536c8b45b16498bc1a971a3110e57c6497b6f446325a789892839b833"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "scenes/benchmark_v0/scene.xml",
+      "unchanged": true,
+      "sha256": "5f565260e3035e30150323a9aa8df94ed86b6bfd179e76736aac8ab5f8944735"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_benchmark.py",
+      "unchanged": true,
+      "sha256": "46a4e31dcc403bc2dec56032e7c164ea2ac237a0e101de74abd82171c3528141"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_cartesian_bridge.py",
+      "unchanged": true,
+      "sha256": "9425a34a51850ce12d3eb050d3dd10070bf116c133d53731c4d540bd3477b3e4"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_collision_review.py",
+      "unchanged": true,
+      "sha256": "18224aca9fda15aaaa104edfa7f7ec5f956daf8c49475c9a13251dce97aad503"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_nova_fk.py",
+      "unchanged": true,
+      "sha256": "9e63512f4eae7d5bbf006717461ebc0498f2865972ccc60a6374f5a0f1e68585"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_nova_simulator.py",
+      "unchanged": true,
+      "sha256": "fffdf162eba362f0e26ed7f31a5ca2807fd4b605e2efcd6131ee2f65ce62a4f7"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_phase15.py",
+      "unchanged": true,
+      "sha256": "74fe1b6df49a2ca21b3a63acef05fc7240921b47eb2f123efd3408c277c80892"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_phase22a.py",
+      "unchanged": true,
+      "sha256": "58e2bb4da8810750f8282288ac64991f21cf8e25c4e994f3acc921024c158240"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_s3_manipulation.py",
+      "unchanged": true,
+      "sha256": "db6c1b55b1edaf8d00e7102ac2c37ed24bb002e391a43064a0673ff29636ab59"
+    },
+    {
+      "reference": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "file": "test_s3_scene.py",
+      "unchanged": true,
+      "sha256": "b669a7e1cead58be59c6a413fd07ac7aa3bbdfe33f12c3b529e5ca8d82446e66"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "configs/s4_cameras.json",
+      "unchanged": true,
+      "sha256": "30c1746d3daabb7bfdd38a22d7026177a47e4811c9a04b9db628ec04b550e08e"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "conftest.py",
+      "unchanged": true,
+      "sha256": "4e7c808b3c524ec59629e53dfa6583db766e0e56ffe2e2aa50ebb3c403f8e76b"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "fixtures/s4/visual_fixtures.xml",
+      "unchanged": true,
+      "sha256": "caf5125ea7c067ebf66b71c40cec68770cd936bf27cd60fd1fd46f65dee7bd3c"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "run_s4_camera_validation.py",
+      "unchanged": true,
+      "sha256": "7266f7d4ef6f4676e33b45ba53069e7dfb53bec93f4b2c7e4b26cd85bbc30d6b"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "s4_offline_guard.py",
+      "unchanged": true,
+      "sha256": "c3fbb88b428b832d30c6be906e3fab5c964a4e5e04b29c9d0c67d76e2f396263"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "s4_validation.py",
+      "unchanged": true,
+      "sha256": "a0b5f71ecbad45cd5338e99f4ca86de29a6b00f817e1542472bf8f3bca512701"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_benchmark.py",
+      "unchanged": true,
+      "sha256": "46a4e31dcc403bc2dec56032e7c164ea2ac237a0e101de74abd82171c3528141"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_cartesian_bridge.py",
+      "unchanged": true,
+      "sha256": "9425a34a51850ce12d3eb050d3dd10070bf116c133d53731c4d540bd3477b3e4"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_collision_review.py",
+      "unchanged": true,
+      "sha256": "18224aca9fda15aaaa104edfa7f7ec5f956daf8c49475c9a13251dce97aad503"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_nova_cameras.py",
+      "unchanged": true,
+      "sha256": "24d74ef5841318b55c372b16c1f8378afc5b457335a54bee0c3add58d51cd15e"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_nova_fk.py",
+      "unchanged": true,
+      "sha256": "9e63512f4eae7d5bbf006717461ebc0498f2865972ccc60a6374f5a0f1e68585"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_nova_simulator.py",
+      "unchanged": true,
+      "sha256": "fffdf162eba362f0e26ed7f31a5ca2807fd4b605e2efcd6131ee2f65ce62a4f7"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_phase15.py",
+      "unchanged": true,
+      "sha256": "74fe1b6df49a2ca21b3a63acef05fc7240921b47eb2f123efd3408c277c80892"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_phase22a.py",
+      "unchanged": true,
+      "sha256": "58e2bb4da8810750f8282288ac64991f21cf8e25c4e994f3acc921024c158240"
+    },
+    {
+      "reference": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "file": "test_s4_evidence.py",
+      "unchanged": true,
+      "sha256": "d39402a9e9e82a4ff2f65fc9c0756dc32447b4d3642c9346850a19bfe9cb8b9e"
+    }
+  ],
+  "frozen_branches": {
+    "research/astra-mujoco-s3-manipulation": {
+      "expected": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "actual": "dea5c927e52162d178a3e97d97d6541771dbcab0",
+      "unchanged": true
+    },
+    "research/astra-mujoco-s4-cameras": {
+      "expected": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "actual": "269f34681a7fee0da3297df3f6df6f551ccd351e",
+      "unchanged": true
+    }
+  },
+  "frozen_ancestors_present": {
+    "88d93cf686ba0c67afe06b163aa7fb48d65f1a07": true,
+    "dea5c927e52162d178a3e97d97d6541771dbcab0": true,
+    "269f34681a7fee0da3297df3f6df6f551ccd351e": true
+  },
+  "mypy": "not configured in the repository",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  }
+}

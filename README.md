@@ -1,6 +1,29 @@
 # Dobot Nova2 MuJoCo research simulator
 
-## Sim Track S4 — three-camera observations
+## Unified S1–S4 production simulator
+
+The S3 production manipulation scene is integrated with S4's camera rig. The
+same scripted contact grasp/lift/transport/release now produces fresh
+`front_rgb`, `right_rgb`, `wrist_rgb` and measured `eef_state` at every phase.
+Rendering leaves the complete physics episode unchanged. Production uses the
+60 mm blue block, independent 50 mm black block, 150 × 150 × 80 mm red open box
+with 5 mm engineering walls, and nominal 95 mm gripper. S4 visual fixtures are
+used only by the standalone S4 tests/runner.
+
+Run the integrated offline validation from this repository:
+
+```bash
+MUJOCO_GL=egl /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python \
+  run_s3_s4_integration.py --output evidence/sim_s3_s4/<new-unique-name>
+```
+
+[Integration architecture, results and usage](docs/sim_tracks/s3_s4_integration.md)
+describe the production camera profile, measured gripper observation, freshness,
+failure checks and evidence. This validates the simulation boundary for future
+S5 work; S5 has not started. No hardware or provider is accessed. This remains
+an uncalibrated simulator, not a dynamics digital twin.
+
+## Frozen standalone S4 checkpoint — three-camera observations
 
 The isolated S4 branch adds `NovaMujocoCameraRig` and simulator-native
 `SimObservation` without changing the frozen arm model, S1 controller or S2

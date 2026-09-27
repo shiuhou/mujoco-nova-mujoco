@@ -17,8 +17,8 @@ collision proxies. Contacts are not collision-safe path evidence; four cases in
 the benchmark reported Link4/Link6 proxy contacts at `pose_06`.
 
 **Deferred:** calibrated motor/controller dynamics, payload and friction,
-physical collision/contact fidelity, native ServoJ/MovL equivalence, gripper
-finger joints and object contact, calibrated TCP/tool geometry, physical camera
+physical collision/contact fidelity, native ServoJ/MovL equivalence,
+calibrated TCP/tool geometry, physical camera
 pose/FOV calibration, Astra/OpenAI closed-loop calls, and any sim-to-real behavioral
 comparison. The model is a kinematically validated Nova2 simulator, not an
 unqualified 1:1 digital twin.
@@ -28,16 +28,22 @@ resolutions, deterministic offscreen rendering, fixed front/right and Link6
 wrist attachment, coherent image/state snapshots and increasing frame generation.
 All camera poses/FOVs remain explicit engineering assumptions. Physical
 intrinsics, distortion, hand-eye, exposure timing, room appearance and noise are
-unknown/unmodeled. The table/blue/black/red scene is a non-contact visual fixture,
-not S3 production objects. See [S4 contract](sim_tracks/s4_camera_parity.md).
+unknown/unmodeled. The standalone S4 runner retains its non-contact fixtures;
+the integrated production runner uses only S3 objects. See
+[S4 contract](sim_tracks/s4_camera_parity.md).
+
+**S3 and S3×S4 implemented:** temporary primitive production objects, a nominal
+95 mm gripper, actual contact grasp/lift/transport/release and geometric settled
+placement. Three-camera observations preserve physics state and include measured
+aperture. Production wrist extrinsics are an explicit uncalibrated profile that
+clears the simplified palm. See [integration checkpoint](sim_tracks/s3_s4_integration.md).
 
 ## Roadmap
 
-- **S3 — gripper and object interaction:** attach the extracted official finger
-  geometry only after the flange transform is established; add the nominal
-  95 mm opening, cube/box contact, grasp/release, and contact calibration.
-- **S4 — camera parity:** logical observation implementation delivered on the
-  isolated S4 branch; physical calibration and timing matching remain open.
+- **S3 — gripper and object interaction:** offline benchmark delivered and
+  integrated; measured CAD, TCP and contact calibration remain open.
+- **S4 — camera parity:** delivered and integrated with the S3 production scene;
+  physical calibration and timing matching remain open.
 - **S5 — GPT-6 Astra closed-loop simulation:** route the generic agent
   `move_to` and `ActionChunk` through the simulator and feed fresh MuJoCo
   observations back to the next decision.
@@ -45,5 +51,5 @@ not S3 production objects. See [S4 contract](sim_tracks/s4_camera_parity.md).
   action semantics constant while comparing action sequences, success, effect,
   oscillation, collision diagnostics, grasp outcomes, and camera changes.
 
-S3/S5/S6 remain documentation milestones in this branch. S4 calls no Astra,
-OpenAI, live agent provider, robot, serial device, or physical camera.
+S5/S6 remain future work. The unified S1–S4 simulator calls no Astra, OpenAI,
+live agent provider, robot, serial device, or physical camera.

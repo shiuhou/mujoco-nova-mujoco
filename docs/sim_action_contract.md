@@ -1,8 +1,14 @@
 # Simulation action contract
 
-This table preserves the S1/S2 action checkpoint. S4 now implements the logical
-image boundary; see [S4 observations](sim_tracks/s4_camera_parity.md) for exact
-RGB shapes, reference evidence, camera calibration gaps and freshness semantics.
+This table preserves the historical S1/S2 action checkpoint. The unified S3/S4
+production path uses `ManipulationChunkExecutor` with active normalized gripper
+commands (0 closed / 1 open), default controlled frame `nominal_grasp_center`,
+and the unchanged reset-relative zero-orientation subset. Its observation
+`eef_state[6]` is the **measured** opening / 0.095 m, not the closing command;
+the inactive S1/S2 observation remains zero. The camera rig inherits the source
+simulator's controlled frame unless explicitly selected. See
+[integrated observations](sim_tracks/s3_s4_integration.md) for exact native RGB
+shapes, composition, measured state, camera limitations and freshness semantics.
 
 The contract below was checked against the read-only `inspect-robots-dobot`
 source and its pinned upstream references. The simulator consumes the same

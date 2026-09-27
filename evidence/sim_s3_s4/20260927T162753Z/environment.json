@@ -1,0 +1,458 @@
+{
+  "generated_at_utc": "2026-09-27T16:32:19.020686+00:00",
+  "source_revision": "245a10942e8a47fbd57b3c0045a819dba29bb3b1",
+  "source_sha256": {
+    "nova2.xml": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "cartesian_bridge.py": "fcdb728da914f32468f18b7b9176b18501df813848d2350541fea19ee8ed75dd",
+    "benchmark_scene.py": "3e376360f8ea93c964be63561e70450026048050879d89cebdcd97ac651edbde",
+    "manipulation_simulator.py": "85f2ccc64d2b77ee2cb9caa3dd4eea3bd41aa2e80c3e0711fd8100532f86402d",
+    "run_s3_benchmark.py": "0df48c3f34184a0799b76d5da531a0e83a7afc3c80276fcc455c9ce1a3736eed",
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "run_s3_s4_integration.py": "00d080225620f780b641c3b9f8d0a5cfa8c5d1ddf2491187d60c0e478e201508",
+    "s4_offline_guard.py": "c3fbb88b428b832d30c6be906e3fab5c964a4e5e04b29c9d0c67d76e2f396263",
+    "configs/s4_cameras.json": "30c1746d3daabb7bfdd38a22d7026177a47e4811c9a04b9db628ec04b550e08e",
+    "configs/s3_s4_cameras.json": "0e53a41985b3f50327ef5912235a27e8112dacaec8f780171beae9b85fdd26b9",
+    "scenes/benchmark_v0/arm.xml": "ddc70dec91255d4f6fd3ce8e6fac43a96b28532055f14e74f88ff0c8f7ad68b2",
+    "scenes/benchmark_v0/gripper.xml": "81c2cc31d8e911e584538e1f239bb539e4296e881bc2ddb6773663f0664d5125",
+    "scenes/benchmark_v0/objects.xml": "d428b9d536c8b45b16498bc1a971a3110e57c6497b6f446325a789892839b833",
+    "scenes/benchmark_v0/scene.xml": "5f565260e3035e30150323a9aa8df94ed86b6bfd179e76736aac8ab5f8944735"
+  },
+  "render_scene_sha256": "a855b85bc4b38afb92cd4f5836089986117c7f5cb93c6a811f9a3d66972cd062",
+  "python": "3.11.14 (main, Jan 27 2026, 23:58:49) [Clang 21.1.4 ]",
+  "mujoco": "2.3.7",
+  "numpy": "1.26.4",
+  "platform": "Linux-7.0.0-31-generic-x86_64-with-glibc2.39",
+  "renderer": {
+    "mujoco_version": "2.3.7",
+    "backend": "egl",
+    "renderer": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+    "vendor": "NVIDIA Corporation",
+    "opengl_version": "4.6.0 NVIDIA 595.84",
+    "parameters": {
+      "near_m": 0.01,
+      "far_m": 10.0,
+      "multisamples": 4,
+      "max_geoms": 10000
+    },
+    "resizing": false,
+    "color_order": "RGB",
+    "depth": false
+  },
+  "scene_spec": {
+    "objects": [
+      {
+        "semantic_name": "blue_block",
+        "role": "manipulation_target",
+        "dimensions_m": [
+          0.06,
+          0.06,
+          0.06
+        ],
+        "initial_position_world_m": [
+          -0.3,
+          -0.15,
+          0.06
+        ],
+        "color_rgba": [
+          0.025,
+          0.18,
+          0.95,
+          1
+        ],
+        "mass_kg": 0.1,
+        "dynamic": true,
+        "collision_geometry": "box",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.0,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      },
+      {
+        "semantic_name": "black_block",
+        "role": "distractor",
+        "dimensions_m": [
+          0.05,
+          0.05,
+          0.05
+        ],
+        "initial_position_world_m": [
+          -0.48,
+          -0.28,
+          0.055
+        ],
+        "color_rgba": [
+          0.025,
+          0.025,
+          0.025,
+          1
+        ],
+        "mass_kg": 0.08,
+        "dynamic": true,
+        "collision_geometry": "box",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.0,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      },
+      {
+        "semantic_name": "red_box",
+        "role": "placement_target",
+        "dimensions_m": [
+          0.15,
+          0.15,
+          0.08
+        ],
+        "initial_position_world_m": [
+          -0.3,
+          0.08,
+          0.07
+        ],
+        "color_rgba": [
+          0.85,
+          0.035,
+          0.035,
+          1
+        ],
+        "mass_kg": 0.3,
+        "dynamic": false,
+        "collision_geometry": "open_container",
+        "visual_geometry": "primitive_matches_collision",
+        "source_kind": "temporary_primitive",
+        "initial_quaternion_wxyz": [
+          1,
+          0,
+          0,
+          0
+        ],
+        "friction": [
+          0.9,
+          0.005,
+          0.0001
+        ],
+        "wall_thickness_m": 0.005,
+        "provenance": "S3 operator specification; no CAD/STEP available",
+        "physics_classification": "SIMULATION ENGINEERING PARAMETER"
+      }
+    ],
+    "gripper": {
+      "max_opening_m": 0.095,
+      "flange_to_grasp_center_m": 0.197,
+      "measured_tcp": false,
+      "finger_half_size_m": [
+        0.006,
+        0.02,
+        0.025
+      ],
+      "finger_mass_kg": 0.08,
+      "opening_speed_m_s": 0.06,
+      "position_gain_n_m": 2500.0,
+      "finger_damping_ns_m": 8.0,
+      "finger_force_limit_n": 8.0,
+      "friction": [
+        1.0,
+        0.005,
+        0.0001
+      ],
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "physics": {
+      "timestep_s": 0.002,
+      "gravity_m_s2": [
+        0,
+        0,
+        -9.81
+      ],
+      "contact_solref": [
+        0.008,
+        1.0
+      ],
+      "contact_solimp": [
+        0.95,
+        0.99,
+        0.001
+      ],
+      "solver_iterations": 100,
+      "prescribed_arm_armature": 1000000.0,
+      "max_joint_speed_rad_s": 0.3,
+      "cartesian_speed_m_s": 0.04,
+      "waypoint_step_m": 0.01,
+      "stable_contact_s": 0.15,
+      "max_slip_m": 0.008,
+      "lift_threshold_m": 0.04,
+      "placement_tolerance_m": 0.0015,
+      "settled_linear_speed_m_s": 0.01,
+      "settled_angular_speed_rad_s": 0.1,
+      "settled_duration_s": 0.25,
+      "distractor_displacement_limit_m": 0.002,
+      "contact_force_threshold_n": 0.05,
+      "opening_state_tolerance_m": 0.001,
+      "release_clearance_m": 0.005,
+      "collision_abort_penetration_m": 0.0015,
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "script": {
+      "pregrasp_clearance_m": 0.1,
+      "lift_clearance_m": 0.15,
+      "release_height_above_floor_m": 0.003,
+      "initial_settle_s": 0.3,
+      "gripper_settle_s": 2.0,
+      "lifted_hold_s": 0.5,
+      "transported_hold_s": 0.2,
+      "lowered_hold_s": 0.2,
+      "final_settle_s": 1.0,
+      "classification": "SIMULATION ENGINEERING PARAMETER"
+    },
+    "surface_top_world_m": 0.03,
+    "initial_q_rad": [
+      0.1057414219467702,
+      -0.07307772766776358,
+      1.949250880153336,
+      -0.30537314570463386,
+      -1.5707963268520606,
+      1.6765303917661518
+    ],
+    "initial_gripper": 1.0,
+    "seed": null,
+    "name": "benchmark_v0"
+  },
+  "camera_config": {
+    "schema": "nova_mujoco_camera_rig_v1",
+    "cameras": [
+      {
+        "parameters": {
+          "name": "front_rgb",
+          "role": "fixed front-oblique workspace view",
+          "parent": "world",
+          "position_m": [
+            -1.0,
+            -0.15,
+            0.4
+          ],
+          "quaternion_wxyz": [
+            0.5580020236137936,
+            0.46582946092670546,
+            -0.44011319201199084,
+            -0.5271973379984606
+          ],
+          "width": 640,
+          "height": 480,
+          "fovy_deg": 55.0
+        },
+        "provenance": {
+          "name": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "role": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "parent": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "position_m": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "quaternion_wxyz": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "width": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "height": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "fovy_deg": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          }
+        },
+        "physical_identity": {
+          "value": "icSpring hub port 3.1",
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        }
+      },
+      {
+        "parameters": {
+          "name": "right_rgb",
+          "role": "fixed right-oblique workspace view",
+          "parent": "world",
+          "position_m": [
+            -0.32,
+            0.95,
+            0.38
+          ],
+          "quaternion_wxyz": [
+            -0.0584150125977161,
+            -0.05013255308230522,
+            0.64932720093645,
+            0.7566033303843525
+          ],
+          "width": 640,
+          "height": 480,
+          "fovy_deg": 55.0
+        },
+        "provenance": {
+          "name": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "role": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "parent": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "position_m": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "quaternion_wxyz": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "width": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "height": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "fovy_deg": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          }
+        },
+        "physical_identity": {
+          "value": "icSpring hub port 3.2",
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        }
+      },
+      {
+        "parameters": {
+          "name": "wrist_rgb",
+          "role": "wrist / near manipulation view",
+          "parent": "Link6",
+          "position_m": [
+            0,
+            0.1,
+            0.1
+          ],
+          "quaternion_wxyz": [
+            0.38970634492016654,
+            -0.9209391753687993,
+            0,
+            0
+          ],
+          "width": 1280,
+          "height": 720,
+          "fovy_deg": 65.0
+        },
+        "provenance": {
+          "name": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "role": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "parent": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          },
+          "position_m": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S3+S4 production-only placement to clear the simplified palm: Link6 [0,.100,.100] m, optical axis aimed at nominal grasp center [0,0,.197] m. No measured hand-eye transform."
+          },
+          "quaternion_wxyz": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S3+S4 production-only placement to clear the simplified palm: Link6 [0,.100,.100] m, optical axis aimed at nominal grasp center [0,0,.197] m. No measured hand-eye transform."
+          },
+          "width": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "height": {
+            "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+            "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+          },
+          "fovy_deg": {
+            "status": "SIMULATION_ENGINEERING_PARAMETER",
+            "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+          }
+        },
+        "physical_identity": {
+          "value": "SN0002 1080P USB Camera video-index0",
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        }
+      }
+    ],
+    "renderer": {
+      "parameters": {
+        "near_m": 0.01,
+        "far_m": 10.0,
+        "multisamples": 4,
+        "max_geoms": 10000
+      },
+      "status": "SIMULATION_ENGINEERING_PARAMETER",
+      "source": "S4 offscreen rendering parameters, no physical calibration"
+    },
+    "conventions": {
+      "coordinates": "fixed poses in world; wrist pose in Link6; world base offset preserved from MJCF",
+      "rotation": "unit quaternion wxyz; camera-to-parent; optical axis -Z",
+      "clipping": "shared rig clipping in metres, converted by model.stat.extent",
+      "rgb": "top-left HWC uint8 RGB; native resolution, no resize",
+      "calibration": "intrinsics, distortion, extrinsics, hand-eye and exposure timing unknown",
+      "profile": "S3 production benchmark_v0; fixed cameras and native image contract unchanged from frozen S4; no visual test fixtures."
+    }
+  },
+  "determinism_scope": "same recorded runtime; exact full physics episode with and without rendering",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  }
+}

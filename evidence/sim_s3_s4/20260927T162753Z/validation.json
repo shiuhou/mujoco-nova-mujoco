@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "stage_checks": {
+    "initial_scene": true,
+    "approach": true,
+    "grasp": true,
+    "lifted": true,
+    "transported": true,
+    "lowered": true,
+    "released": true,
+    "final_scene": true
+  },
+  "physics_episode_identical_without_rendering": true,
+  "render_failure_probe_pass": true,
+  "inside_target": true,
+  "manipulation_success": true,
+  "integration_error": null,
+  "quality_gates": "quality_gates.json records the separately executed checks",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  }
+}

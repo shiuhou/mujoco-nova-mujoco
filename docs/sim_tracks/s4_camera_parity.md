@@ -1,5 +1,11 @@
 # S4 — Three-camera observation parity
 
+This document records the frozen standalone S4 checkpoint. The later
+[S3×S4 integration](s3_s4_integration.md) adds in-memory MJCF include expansion,
+measured S3 gripper state, source-selected controlled frame, frame validation
+and diagnostic geometry visibility. The original S4 profile/tests remain
+unchanged; production selects its own explicitly uncalibrated wrist placement.
+
 Scope: simulator-side logical RGB observation parity on the frozen S1/S2 base
 `88d93cf686ba0c67afe06b163aa7fb48d65f1a07`. The implementation lives on
 `research/astra-mujoco-s4-cameras` in the isolated `nova_mujoco_s4` worktree.

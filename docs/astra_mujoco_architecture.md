@@ -40,8 +40,16 @@ for `front_rgb`, `right_rgb`, and `wrist_rgb`, plus the corresponding base-relat
 `eef_state`. The fixed external views and rigid Link6 wrist view have explicit
 engineering transforms. See [S4 camera parity](sim_tracks/s4_camera_parity.md)
 for real-source evidence, timing semantics and the future Observation mapping.
-Astra, OpenAI requests, real hardware, gripper contact, and dynamic calibration
-remain outside this boundary.
+S3 adds `ManipulationSimulator` in explicit
+`kinematic_arm_with_dynamic_objects` mode and `ManipulationChunkExecutor`.
+It owns the benchmark objects, nominal gripper, contact physics and task metrics.
+The integrated camera rig expands this modular production MJCF into a separate
+render model and reports measured gripper aperture in `eef_state`. Camera-only
+test fixtures are not part of production. See
+[S3×S4 integration](sim_tracks/s3_s4_integration.md) for the full observed
+manipulation proof and the production-only engineering wrist transform.
+Astra, OpenAI requests, real hardware and calibrated dynamics remain outside
+this boundary; no S5 execution is introduced.
 
 The source model and FK convention remain unchanged from the validated Nova2
 model. The existing current-axis real-sample comparison is the geometry
