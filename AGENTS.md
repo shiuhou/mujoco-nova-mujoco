@@ -40,3 +40,12 @@ the extracted Markdown is ambiguous. Do not invent undocumented protocol facts.
 
 The workspace-level coordination rules are in the parent repository's
 `AGENTS.md`, `README.md`, `HANDOFF.md` and `components.lock.yaml`.
+
+## Git ownership
+
+This checkout publishes to `https://github.com/shiuhou/nova-mujoco.git`.
+Commit simulator, model, tool-geometry and offline evidence changes here, then
+push the focused commit to `origin/main`. Once the commit is remotely reachable,
+update the parent meta repository `/home/dsa/project/dobot` by pinning
+`components/nova-mujoco` and its matching `components.lock.yaml` entry. Do not
+commit component source as ordinary files in the meta repository.
