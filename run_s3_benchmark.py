@@ -233,10 +233,10 @@ def render_snapshot(path: Path, sim: ManipulationSimulator) -> None:
 
     camera = mujoco.MjvCamera()
     mujoco.mjv_defaultCamera(camera)
-    camera.lookat[:] = (-0.16, -0.01, 0.18)
-    camera.distance = 1.35
-    camera.azimuth = 140
-    camera.elevation = -28
+    camera.lookat[:] = (-0.20, -0.03, 0.15)
+    camera.distance = 1.15
+    camera.azimuth = 240
+    camera.elevation = -45
     option = mujoco.MjvOption()
     option.geomgroup[1] = 0  # Frozen coarse arm boxes; contact still enabled.
     option.sitegroup[:] = 0
@@ -358,10 +358,10 @@ def viewer() -> None:
 
     with ManipulationSimulator() as sim:
         with mujoco.viewer.launch_passive(sim.model, sim.data) as handle:
-            handle.cam.lookat[:] = (-0.16, -0.01, 0.18)
-            handle.cam.distance = 1.35
-            handle.cam.azimuth = 140
-            handle.cam.elevation = -28
+            handle.cam.lookat[:] = (-0.20, -0.03, 0.15)
+            handle.cam.distance = 1.15
+            handle.cam.azimuth = 240
+            handle.cam.elevation = -45
             handle.opt.geomgroup[1] = 0
             while handle.is_running():
                 sim.step()
