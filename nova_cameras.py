@@ -144,6 +144,40 @@ def _numbers(values: Any) -> str:
     return " ".join(format(float(value), ".17g") for value in values)
 
 
+def _expanded_scene(source: Path) -> ET.Element:
+    """Expand local MJCF includes before adding cameras; never write source files.
+
+    Like MuJoCo, resolve include paths relative to the main MJCF directory and
+    reject duplicate inclusion (including cycles). The included wrapper itself
+    is discarded; its children take the include's exact position in the tree.
+    """
+    source = source.resolve()
+    root = ET.parse(source).getroot()
+    seen = {source}
+
+    def expand(parent: ET.Element) -> None:
+        for child in list(parent):
+            if child.tag != "include":
+                expand(child)
+                continue
+            filename = child.get("file")
+            if not filename:
+                raise ValueError("MJCF include requires a file")
+            path = (source.parent / filename).resolve()
+            if path in seen:
+                raise ValueError(f"duplicate or cyclic MJCF include: {filename}")
+            seen.add(path)
+            included = ET.parse(path).getroot()
+            expand(included)
+            index = list(parent).index(child)
+            parent.remove(child)
+            for offset, element in enumerate(included):
+                parent.insert(index + offset, element)
+
+    expand(root)
+    return root
+
+
 def camera_scene_xml(
     source: Path,
     specs: tuple[CameraSpec, ...],
@@ -154,11 +188,10 @@ def camera_scene_xml(
 
     Keep added scene objects in the caller's source MJCF. The optional S4 fixture
     file may contain only static world geoms; it adds no object physics or DOFs.
-    Includes are rejected explicitly; export a standalone scene before composition.
+    Local MJCF includes are expanded in memory, preserving source scene ownership.
     """
-    root = ET.parse(source).getroot()
-    if root.findall(".//include"):
-        raise ValueError("camera composition requires a standalone MJCF (no includes)")
+    source = Path(source).resolve()
+    root = _expanded_scene(source)
     compiler = _child(root, "compiler")
     for key in ("meshdir", "texturedir", "assetdir"):
         if key in compiler.attrib:
@@ -241,16 +274,16 @@ class NovaMujocoCameraRig:
         *,
         config_path: Path = DEFAULT_CONFIG,
         fixture_path: Path | None = None,
-        controlled_frame: str = "link6",
+        controlled_frame: str | None = None,
     ) -> None:
         if os.environ.get("MUJOCO_GL") not in ("egl", "osmesa"):
             raise RuntimeError(
                 "set MUJOCO_GL=egl or osmesa before importing MuJoCo; no GUI fallback"
             )
         self.simulator = simulator
-        self.controlled_frame = controlled_frame
+        self.controlled_frame = controlled_frame or simulator.config.default_frame
         simulator.get_tool_pose(
-            controlled_frame
+            self.controlled_frame
         )  # Validate before allocating GL resources.
         specs, self.renderer_config = load_camera_config(config_path)
         self.specs = {
@@ -346,7 +379,17 @@ class NovaMujocoCameraRig:
         xyz = base_r.T @ (self.data.site_xpos[site_id] - self.data.xpos[base_id])
         rotation = base_r.T @ self.data.site_xmat[site_id].reshape(3, 3)
         reference = self.simulator.reference_rotation
-        eef = np.r_[xyz, relative_orientation(rotation, reference), 0.0]
+        # S1/S2 have no active gripper. S3 exposes measured aperture through its
+        # state API; use it without importing or redefining manipulation logic.
+        gripper_state = getattr(self.simulator, "get_gripper_state", None)
+        gripper = (
+            0.0
+            if gripper_state is None
+            else float(gripper_state()["normalized_gripper"])
+        )
+        if not math.isfinite(gripper):
+            raise ValueError("nonfinite measured gripper state")
+        eef = np.r_[xyz, relative_orientation(rotation, reference), gripper]
         q = np.array(
             [
                 self.data.qpos[
@@ -401,7 +444,7 @@ class NovaMujocoCameraRig:
             )
         return uv, depth
 
-    def _draw(self, name: str) -> np.ndarray:
+    def _prepare_view(self, name: str) -> mujoco.MjrRect:
         spec = self.specs[name]
         self._gl.make_current()
         camera = mujoco.MjvCamera()
@@ -416,13 +459,49 @@ class NovaMujocoCameraRig:
             mujoco.mjtCatBit.mjCAT_ALL,
             self._scene,
         )
-        rect = mujoco.MjrRect(0, 0, spec.width, spec.height)
+        return mujoco.MjrRect(0, 0, spec.width, spec.height)
+
+    def _draw(self, name: str) -> np.ndarray:
+        spec = self.specs[name]
+        rect = self._prepare_view(name)
         rgb = np.empty((spec.height, spec.width, 3), dtype=np.uint8)
         mujoco.mjr_render(rect, self._scene, self._context)
         mujoco.mjr_readPixels(rgb, None, rect, self._context)
         rgb = np.flipud(rgb).copy()  # OpenGL bottom-left -> public top-left.
         rgb.flags.writeable = False
         return rgb
+
+    def diagnostic_geom_ids(self, name: str) -> tuple[np.ndarray, dict[str, Any]]:
+        """Occlusion-aware geometry IDs for validation only, outside RGB observations.
+
+        Uses MuJoCo's native segmentation render, with the same view, clipping and
+        visible geom groups as RGB. Background/non-geom pixels are -1. It does
+        not commit an observation generation. Render flags are always restored.
+        """
+        if name not in self.specs:
+            raise ValueError(f"unknown camera {name!r}")
+        snapshot = self._snapshot()
+        rect = self._prepare_view(name)
+        flags = self._scene.flags.copy()
+        try:
+            self._scene.flags[mujoco.mjtRndFlag.mjRND_SEGMENT] = True
+            self._scene.flags[mujoco.mjtRndFlag.mjRND_IDCOLOR] = True
+            pixels = np.empty((rect.height, rect.width, 3), dtype=np.uint8)
+            mujoco.mjr_render(rect, self._scene, self._context)
+            mujoco.mjr_readPixels(pixels, None, rect, self._context)
+            channels = pixels.astype(np.uint32)
+            labels = (
+                channels[:, :, 0] + 256 * channels[:, :, 1] + 65536 * channels[:, :, 2]
+            )
+            lookup = np.full(self._scene.ngeom + 1, -1, dtype=np.int32)
+            for geom in self._scene.geoms[: self._scene.ngeom]:
+                if geom.segid >= 0 and geom.objtype == mujoco.mjtObj.mjOBJ_GEOM:
+                    lookup[geom.segid + 1] = geom.objid
+            ids = np.flipud(lookup[labels]).copy()
+            ids.flags.writeable = False
+        finally:
+            self._scene.flags[:] = flags
+        return ids, {key: snapshot[key] for key in ("state_hash", "state_time")}
 
     def _batch(
         self, names: tuple[str, ...]
@@ -433,6 +512,16 @@ class NovaMujocoCameraRig:
         for name in names:
             started = time.perf_counter()
             rgb = self._draw(name)
+            expected = (self.specs[name].height, self.specs[name].width, 3)
+            if (
+                not isinstance(rgb, np.ndarray)
+                or rgb.shape != expected
+                or rgb.dtype != np.uint8
+                or not rgb.flags.c_contiguous
+            ):
+                raise RuntimeError(
+                    f"invalid RGB frame from {name}; observation not committed"
+                )
             finished = time.perf_counter()
             position, rotation = self._pose(name)
             frames[name] = CameraFrame(
