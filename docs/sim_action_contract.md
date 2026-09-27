@@ -1,5 +1,9 @@
 # Simulation action contract
 
+This table preserves the S1/S2 action checkpoint. S4 now implements the logical
+image boundary; see [S4 observations](sim_tracks/s4_camera_parity.md) for exact
+RGB shapes, reference evidence, camera calibration gaps and freshness semantics.
+
 The contract below was checked against the read-only `inspect-robots-dobot`
 source and its pinned upstream references. The simulator consumes the same
 generic fields; it does not define an Astra-specific action language.
