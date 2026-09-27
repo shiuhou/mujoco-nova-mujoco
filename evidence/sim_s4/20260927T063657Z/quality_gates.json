@@ -1,0 +1,97 @@
+{
+  "code_revision": "093e79c555fa22d9b23b997e1d0a6d5687bdae08",
+  "gates": {
+    "pytest": {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 9.451224071963225,
+      "log": "pytest.txt"
+    },
+    "ruff_check": {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 0.018288231047336012,
+      "log": "ruff_check.txt"
+    },
+    "ruff_format": {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 0.016561830998398364,
+      "log": "ruff_format.txt"
+    },
+    "compile": {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "-m",
+        "compileall",
+        "-q",
+        "-x",
+        "DOBOT_6Axis_ROS2_V4/.*",
+        "."
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 0.02872274600667879,
+      "log": "compile.txt"
+    },
+    "fk_comparison": {
+      "command": [
+        "/home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python",
+        "compare_pose.py",
+        "real_nova2_samples.json",
+        "--orientation",
+        "rpy"
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 1.235496546025388,
+      "log": "fk_comparison.txt"
+    },
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "host_elapsed_s": 0.0016272010398097336,
+      "log": "diff_check.txt"
+    }
+  },
+  "frozen_files_byte_identical": {
+    "nova2.xml": true,
+    "nova_simulator.py": true,
+    "cartesian_bridge.py": true,
+    "nova_fk.py": true,
+    "real_nova2_samples.json": true,
+    "test_benchmark.py": true,
+    "test_cartesian_bridge.py": true,
+    "test_collision_review.py": true,
+    "test_nova_fk.py": true,
+    "test_nova_simulator.py": true,
+    "test_phase15.py": true,
+    "test_phase22a.py": true
+  },
+  "nova2_xml_sha256": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331",
+  "status": "PASS"
+}

@@ -1,0 +1,61 @@
+{
+  "schema": "s4_readonly_source_audit_v1",
+  "audit_local_date": "2026-09-27",
+  "workspace_root": "/home/dsa/project/dobot",
+  "source_files": [
+    {
+      "workspace_relative_path": "robocurve/evidence/phase5a/camera_inventory.json",
+      "sha256": "ef6e50eb66d7b8f9c20c0fd03f3cf14c940c3670c8a258f6e3876acc18cc8168"
+    },
+    {
+      "workspace_relative_path": "robocurve/evidence/phase5a/physical_smoke.json",
+      "sha256": "2ecfb412c2afb916af09e029a786593e58292e5a323d4869fc42191701c5b471"
+    },
+    {
+      "workspace_relative_path": "robocurve/evidence/phase5a/samples/front_rgb.jpg",
+      "sha256": "3cb03c97fc7db506fd47059b1eff60cffc75d5c1882ef36908269d2b9ab6bd9a"
+    },
+    {
+      "workspace_relative_path": "robocurve/evidence/phase5a/samples/right_rgb.jpg",
+      "sha256": "4c4ee3036884fc72811889965bb4f5c6987fd8f0392b288fb7f0d838a832ad0c"
+    },
+    {
+      "workspace_relative_path": "robocurve/evidence/phase5a/samples/wrist_rgb.jpg",
+      "sha256": "7df710022621edaf109b677472953c73532d9fc38f41abb7d77b1441af7050ab"
+    },
+    {
+      "workspace_relative_path": "robocurve/camera_live.py",
+      "sha256": "434fc36c29c1cd5264c1ce3f0f679d4de1d6ad972b020b184fef181ef94b3d65"
+    },
+    {
+      "workspace_relative_path": "robocurve/inspect-robots-dobot/docs/phase5a_camera_contract.md",
+      "sha256": "153b6af59e3f6683583d231ce4f75d77ae7dd2eb30bbe21c242e523951f31816"
+    },
+    {
+      "workspace_relative_path": "robocurve/inspect-robots-dobot/src/inspect_robots_dobot/config.py",
+      "sha256": "9b2ea0e1a7d8442426cd2b3afc861dc1cc3e76bb1fb5d00c32f0479c29ea9983"
+    },
+    {
+      "workspace_relative_path": "robocurve/inspect-robots-dobot/src/inspect_robots_dobot/embodiment.py",
+      "sha256": "b8986be2d8989a3b992df5688289aeceb169516494084357ae3816dab473c1fa"
+    },
+    {
+      "workspace_relative_path": "robocurve/references/inspect-robots/src/inspect_robots/types.py",
+      "sha256": "e47bebabe13459de9a5c0d7de4c055ce3d30cedd8c55702d24fe76e6a0257c0a"
+    },
+    {
+      "workspace_relative_path": "x-trainer/docs/phase5d_raw_audit.md",
+      "sha256": "ce0eddc6e306fb37638b75fb41557ffd0f133a11a1f999d0d46fe816d163beb5"
+    }
+  ],
+  "source_repository_heads": {
+    "robocurve/inspect-robots-dobot": "4e607b203e02788a5d1e0d04c5349450faa11356",
+    "robocurve/references/inspect-robots": "7e506e3b6f39530f18e75cf97b23c4287aa90f12",
+    "x-trainer": "25c2ba15f5b4d9e24dfe2bd1ea250770605ad8a1"
+  },
+  "notes": [
+    "Source file hashes record actual working copies; repository HEAD alone may not include another agents uncommitted work.",
+    "No source repository, evidence, camera process, device or hardware was modified or opened.",
+    "Phase 5A is the target logical observation profile; X-Trainer Phase 5D is a distinct all-640x480 recording profile."
+  ]
+}

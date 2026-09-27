@@ -33,10 +33,15 @@ offset; it is not a calibrated TCP. The Cartesian action is expressed in the
 MuJoCo base frame and targets the selected controlled frame.
 
 S1/S2 expose joint state, controlled pose, simulation time, and approximate
-collision contact diagnostics. Future observations can attach renderers to the
-logical names `front_rgb`, `right_rgb`, and `wrist_rgb`; no cameras are created
-in this phase. Astra, OpenAI requests, real hardware, gripper contact, and
-dynamic calibration are outside this boundary.
+collision contact diagnostics. S4 now adds `NovaMujocoCameraRig`: it composes
+three configured cameras into a separate render model and snapshots the source
+state without changing the simulator. `observe()` returns coherent native RGB
+for `front_rgb`, `right_rgb`, and `wrist_rgb`, plus the corresponding base-relative
+`eef_state`. The fixed external views and rigid Link6 wrist view have explicit
+engineering transforms. See [S4 camera parity](sim_tracks/s4_camera_parity.md)
+for real-source evidence, timing semantics and the future Observation mapping.
+Astra, OpenAI requests, real hardware, gripper contact, and dynamic calibration
+remain outside this boundary.
 
 The source model and FK convention remain unchanged from the validated Nova2
 model. The existing current-axis real-sample comparison is the geometry
