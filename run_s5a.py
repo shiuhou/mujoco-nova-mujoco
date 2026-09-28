@@ -24,6 +24,8 @@ from s5_common import (
     RunLimits,
     S5Error,
     live_settings,
+    parse_env_file,
+    provider_profile,
     runtime_versions,
     verify_official_stack,
     wall_deadline,
@@ -47,9 +49,10 @@ def json_write(path: Path, value, *, lines=False):
         if lines
         else json.dumps(value, indent=2, allow_nan=False) + "\n"
     )
-    secret = os.environ.get("OPENAI_API_KEY")
-    if secret:
-        text = text.replace(secret, "[REDACTED]")
+    for name in ("OPENAI_API_KEY", "RELAY_API_KEY"):
+        secret = os.environ.get(name)
+        if secret:
+            text = text.replace(secret, "[REDACTED]")
     path.write_text(text)
 
 
@@ -93,6 +96,15 @@ def main(argv=None) -> int:
         "--base-url", help="Explicit operator-approved HTTPS Responses base"
     )
     parser.add_argument(
+        "--provider-env-file",
+        type=Path,
+        help="Literal credential env file; never sourced or executed",
+    )
+    parser.add_argument(
+        "--provider-proxy",
+        help="Explicit HTTPS provider proxy URL; ambient proxy variables are ignored",
+    )
+    parser.add_argument(
         "--effort",
         default="medium",
         choices=("none", "minimal", "low", "medium", "high", "xhigh", "max"),
@@ -104,6 +116,7 @@ def main(argv=None) -> int:
     parser.add_argument("--quality-gates", type=Path)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
+    runtime_env = dict(os.environ)
     output = args.output or ROOT / "evidence/sim_s5a" / (
         datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + args.mode
     )
@@ -129,9 +142,9 @@ def main(argv=None) -> int:
             "image_horizon": 2,
             "model": "explicit operator-verified identifier required",
         },
-        "api_key_present": bool(os.environ.get("OPENAI_API_KEY", "").strip()),
+        "api_key_present": False,
         "model_identifier_configured": bool(
-            args.model or os.environ.get("INSPECT_ROBOTS_MODEL")
+            args.model or runtime_env.get("INSPECT_ROBOTS_MODEL")
         ),
     }
     result: dict = {"status": "BLOCKED", "loop_pass": False}
@@ -141,6 +154,12 @@ def main(argv=None) -> int:
     events: list[dict] = []
     guard = embodiment = policy = transport = budget = None
     try:
+        if args.provider_env_file is not None:
+            runtime_env.update(
+                parse_env_file(args.provider_env_file, allowed_names={"RELAY_API_KEY"})
+            )
+        if args.provider_proxy:
+            runtime_env["S5_PROVIDER_HTTPS_PROXY"] = args.provider_proxy
         if subprocess.run(
             ["git", "merge-base", "--is-ancestor", INTEGRATED_HEAD, "HEAD"],
             cwd=ROOT,
@@ -166,10 +185,18 @@ def main(argv=None) -> int:
         quality = quality_result(args.quality_gates)
         # Credential/model gate precedes imports, simulator construction and I/O.
         model = (
-            live_settings(args.model, dict(os.environ), base_url=args.base_url)
+            live_settings(args.model, runtime_env, base_url=args.base_url)
             if args.mode == "live"
             else None
         )
+        if args.mode == "live":
+            profile = provider_profile(args.base_url, runtime_env)
+            environment["provider_profile"] = {
+                "base_url": profile["base_url"],
+                "api_key_env": profile["api_key_env"],
+                "explicit_proxy_configured": bool(profile["proxy"]),
+            }
+            environment["api_key_present"] = True
         if args.mode == "live" and quality["status"] != "PASS":
             raise S5Error(
                 "quality_gate_failure",
@@ -195,7 +222,7 @@ def main(argv=None) -> int:
                     embodiment,
                     budget,
                     model,
-                    dict(os.environ),
+                    runtime_env,
                     effort=args.effort,
                     guard=guard,
                     base_url=args.base_url,

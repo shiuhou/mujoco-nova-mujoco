@@ -32,6 +32,8 @@ from s5_common import (
     RunLimits,
     S5Error,
     live_settings,
+    parse_env_file,
+    provider_profile,
     provider_base_url,
     verify_official_stack,
     wall_deadline,
@@ -676,6 +678,108 @@ def test_explicit_endpoint_keeps_exact_model_on_official_responses_path(
         assert all(body["store"] is False for _, body in captured)
     finally:
         policy._client.close()
+
+
+def test_relay_profile_selects_real_stack_key_without_ambient_proxy(monkeypatch):
+    from s5_common import provider_profile
+
+    monkeypatch.delenv("S5_PROVIDER_HTTPS_PROXY", raising=False)
+    profile = provider_profile(
+        "https://sub.scitrace.cc/", {"RELAY_API_KEY": "synthetic-key"}
+    )
+    assert profile == {
+        "base_url": "https://sub.scitrace.cc",
+        "api_key_env": "RELAY_API_KEY",
+        "proxy": None,
+    }
+
+
+def test_relay_profile_accepts_only_explicit_proxy(monkeypatch):
+    from s5_common import provider_profile
+
+    monkeypatch.setenv("S5_PROVIDER_HTTPS_PROXY", "http://127.0.0.1:7890")
+    profile = provider_profile(
+        "https://sub.scitrace.cc/",
+        {
+            "RELAY_API_KEY": "synthetic-key",
+            "S5_PROVIDER_HTTPS_PROXY": "http://127.0.0.1:7890",
+        },
+    )
+    assert profile["proxy"] == "http://127.0.0.1:7890"
+
+
+def test_literal_env_file_accepts_plain_assignment(tmp_path):
+    path = tmp_path / "relay.env"
+    path.write_text("RELAY_API_KEY=synthetic-key\n")
+    assert parse_env_file(path, allowed_names={"RELAY_API_KEY"}) == {
+        "RELAY_API_KEY": "synthetic-key"
+    }
+
+
+def test_literal_env_file_accepts_export_assignment(tmp_path):
+    path = tmp_path / "relay.env"
+    path.write_text("export RELAY_API_KEY=synthetic-key\n")
+    assert parse_env_file(path, allowed_names={"RELAY_API_KEY"}) == {
+        "RELAY_API_KEY": "synthetic-key"
+    }
+
+
+def test_literal_env_file_handles_surrounding_whitespace(tmp_path):
+    path = tmp_path / "relay.env"
+    path.write_text("  export RELAY_API_KEY  =  synthetic-key  \n")
+    assert parse_env_file(path, allowed_names={"RELAY_API_KEY"}) == {
+        "RELAY_API_KEY": "synthetic-key"
+    }
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        "RELAY-API_KEY=synthetic-key\n",
+        "1RELAY_API_KEY=synthetic-key\n",
+    ],
+)
+def test_literal_env_file_rejects_malformed_variable_name(tmp_path, contents):
+    path = tmp_path / "relay.env"
+    path.write_text(contents)
+    with pytest.raises(S5Error, match="invalid_credential_file"):
+        parse_env_file(path, allowed_names={"RELAY_API_KEY"})
+
+
+@pytest.mark.parametrize(
+    "contents",
+    [
+        "echo compromised\n",
+        "RELAY_API_KEY=$(cat /tmp/key)\n",
+        "RELAY_API_KEY=`cat /tmp/key`\n",
+        "RELAY_API_KEY=$OTHER_KEY\n",
+        "RELAY_API_KEY=one; echo compromised\n",
+    ],
+)
+def test_literal_env_file_rejects_executable_shell_syntax(tmp_path, contents):
+    path = tmp_path / "relay.env"
+    path.write_text(contents)
+    with pytest.raises(S5Error, match="invalid_credential_file") as raised:
+        parse_env_file(path, allowed_names={"RELAY_API_KEY"})
+    assert "compromised" not in str(raised.value)
+    assert "cat" not in str(raised.value)
+
+
+def test_literal_env_file_never_echoes_secret_in_errors(tmp_path):
+    secret = "synthetic-secret-never-log"
+    path = tmp_path / "relay.env"
+    path.write_text(f"RELAY_API_KEY={secret}; echo leaked\n")
+    with pytest.raises(S5Error) as raised:
+        parse_env_file(path, allowed_names={"RELAY_API_KEY"})
+    assert secret not in str(raised.value)
+
+
+def test_missing_relay_key_from_literal_env_fails_closed(tmp_path):
+    path = tmp_path / "relay.env"
+    path.write_text("# no provider credential\n")
+    env = parse_env_file(path, allowed_names={"RELAY_API_KEY"})
+    with pytest.raises(S5Error, match="missing_api_key"):
+        provider_profile("https://sub.scitrace.cc/", env)
 
 
 def test_explicit_endpoint_never_falls_back_to_direct_openai():

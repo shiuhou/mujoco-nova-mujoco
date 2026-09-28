@@ -8,12 +8,14 @@ import ipaddress
 from importlib.metadata import version
 import json
 import math
+import re
 import signal
 import time
 from urllib.parse import urlsplit
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
+from typing import TypedDict
 
 ROOT = Path(__file__).resolve().parent
 INTEGRATED_HEAD = "2bf4650d08ae3812836c3562defc16976a27db70"
@@ -193,8 +195,17 @@ def live_settings(
     model: str | None, env: dict[str, str], *, base_url: str | None = None
 ) -> str:
     """Only explicit operator configuration; never a model/key/provider fallback."""
-    if not env.get("OPENAI_API_KEY", "").strip():
-        raise S5Error("missing_api_key", "OPENAI_API_KEY must be set by the operator")
+    selected_base = provider_base_url(base_url)
+    key_env = (
+        "RELAY_API_KEY"
+        if selected_base == "https://sub.scitrace.cc"
+        else "OPENAI_API_KEY"
+    )
+    if not env.get(key_env, "").strip():
+        raise S5Error(
+            "missing_api_key",
+            "selected provider credential must be set by the operator",
+        )
     requested = model or env.get("INSPECT_ROBOTS_MODEL")
     if not requested:
         raise S5Error(
@@ -217,3 +228,89 @@ def live_settings(
             "explicit bare model with base URL, or openai/model for direct routing required",
         )
     return requested
+
+
+class ProviderProfile(TypedDict):
+    base_url: str
+    api_key_env: str
+    proxy: str | None
+
+
+_ENV_ASSIGNMENT = re.compile(
+    r"(?:(?:export)[ \t]+)?([A-Za-z_][A-Za-z0-9_]*)[ \t]*=[ \t]*(.*)\Z"
+)
+_ENV_SHELL_META = frozenset("$`;&|<>()\\'\"")
+
+
+def parse_env_file(
+    path: Path, *, allowed_names: set[str] | None = None
+) -> dict[str, str]:
+    """Parse literal assignments without invoking shell syntax."""
+    try:
+        text = path.read_text(encoding="utf-8")
+    except (OSError, UnicodeError):
+        raise S5Error(
+            "credential_source_error", "credential env file is unavailable"
+        ) from None
+
+    parsed: dict[str, str] = {}
+    for line_number, raw_line in enumerate(text.splitlines(), start=1):
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            continue
+        match = _ENV_ASSIGNMENT.fullmatch(line)
+        if match is None:
+            raise S5Error(
+                "invalid_credential_file",
+                f"credential env file contains unsupported syntax at line {line_number}",
+            )
+        name, value = match.groups()
+        if allowed_names is not None and name not in allowed_names:
+            raise S5Error(
+                "invalid_credential_file",
+                f"credential env file contains an unsupported variable at line {line_number}",
+            )
+        value = value.strip()
+        if any(character in _ENV_SHELL_META for character in value):
+            raise S5Error(
+                "invalid_credential_file",
+                f"credential env file contains executable syntax at line {line_number}",
+            )
+        if "\x00" in value:
+            raise S5Error(
+                "invalid_credential_file",
+                f"credential env file contains an invalid value at line {line_number}",
+            )
+        parsed[name] = value
+    return parsed
+
+
+def provider_profile(base_url: str | None, env: dict[str, str]) -> ProviderProfile:
+    """Return the same explicit provider selection used by the real Astra CLI.
+
+    The relay profile is selected by its endpoint, never by guessing from a
+    credential. Proxy routing is explicit so S5 does not inherit ambient
+    process proxy settings accidentally.
+    """
+    selected = provider_base_url(base_url)
+    if selected == "https://sub.scitrace.cc":
+        key_env = "RELAY_API_KEY"
+        proxy = env.get("S5_PROVIDER_HTTPS_PROXY", "").strip() or None
+    else:
+        key_env = "OPENAI_API_KEY"
+        proxy = env.get("S5_PROVIDER_HTTPS_PROXY", "").strip() or None
+    if not env.get(key_env, "").strip():
+        raise S5Error("missing_api_key", f"{key_env} must be set by the operator")
+    if proxy is not None:
+        parsed = urlsplit(proxy)
+        if parsed.scheme not in {"http", "https", "socks5"} or not parsed.hostname:
+            raise S5Error(
+                "invalid_provider_configuration",
+                "explicit provider proxy URL is invalid",
+            )
+        if parsed.username or parsed.password or parsed.query or parsed.fragment:
+            raise S5Error(
+                "invalid_provider_configuration",
+                "provider proxy credentials/query are not permitted",
+            )
+    return {"base_url": selected, "api_key_env": key_env, "proxy": proxy}

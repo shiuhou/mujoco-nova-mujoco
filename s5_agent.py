@@ -23,7 +23,7 @@ from s5_common import (
     FORBIDDEN_HARDWARE_ADDRESSES,
     Budget,
     S5Error,
-    live_settings,
+    provider_profile,
     provider_base_url,
     verify_official_stack,
 )
@@ -269,10 +269,20 @@ def make_live_policy(
     base_url: str | None = None,
 ):
     """Official provider with explicit endpoint; no fake or provider fallback."""
-    requested = live_settings(model, env, base_url=base_url)
+    profile = provider_profile(base_url, env)
+    requested = model or ("gpt-6-astra" if base_url else None)
+    if requested is None:
+        raise S5Error("missing_model_identifier", "model must be explicitly configured")
+    if not env[profile["api_key_env"]].strip():
+        raise S5Error(
+            "missing_api_key",
+            "selected provider credential must be set by the operator",
+        )
+    provider_base_url(base_url)
     verify_official_stack()
+    proxy = profile["proxy"]
     transport = BoundedTransport(
-        httpx.HTTPTransport(retries=0, trust_env=False),
+        httpx.HTTPTransport(retries=0, trust_env=False, proxy=proxy),
         budget,
         live=True,
         guard=guard,
@@ -283,9 +293,8 @@ def make_live_policy(
             model=requested,
             base_url=base_url,
             wire="responses",
-            api_key_env="OPENAI_API_KEY",
-            # Do not pass ambient alternate-provider keys or default model values.
-            env={"OPENAI_API_KEY": env["OPENAI_API_KEY"]},
+            api_key_env=profile["api_key_env"],
+            env={profile["api_key_env"]: env[profile["api_key_env"]]},
             wire_capture=False,
             transcript_echo=False,
             images="always",
