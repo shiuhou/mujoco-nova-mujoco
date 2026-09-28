@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import hashlib
 import importlib.util
+import ipaddress
 from importlib.metadata import version
 import json
 import math
 import signal
 import time
+from urllib.parse import urlsplit
 from contextlib import contextmanager
 from dataclasses import dataclass
 from pathlib import Path
@@ -16,6 +18,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 INTEGRATED_HEAD = "2bf4650d08ae3812836c3562defc16976a27db70"
 OFFICIAL_REVISION = "7e506e3b6f39530f18e75cf97b23c4287aa90f12"
+# This local controller address is outside RFC1918; public-IP classification
+# alone does not exclude it. It is never an authorized provider destination.
+FORBIDDEN_HARDWARE_ADDRESSES = frozenset({"172.10.10.100"})
 YAM_REVISION = "178c93037afcf593618e0a1db6ae1f1b0cfeaa0f"
 BENCHMARK_INSTRUCTION = "Pick up the blue block and place it inside the red box."
 S5A_INSTRUCTION = (
@@ -147,7 +152,46 @@ def runtime_versions() -> dict[str, str]:
     }
 
 
-def live_settings(model: str | None, env: dict[str, str]) -> str:
+def provider_base_url(base_url: str | None = None) -> str:
+    """Validate an explicit HTTPS provider base without credentials or redirects."""
+    value = base_url if base_url is not None else "https://api.openai.com/v1"
+    try:
+        parsed = urlsplit(value)
+        hostname = parsed.hostname
+        valid = (
+            parsed.scheme == "https"
+            and parsed.hostname
+            and parsed.port in (None, 443)
+            and not parsed.username
+            and not parsed.password
+            and not parsed.query
+            and not parsed.fragment
+            and not any(c.isspace() for c in value)
+            and not any(c in value for c in ("\\", "%"))
+            and all(part not in {".", ".."} for part in parsed.path.split("/"))
+        )
+        if not valid or hostname is None:
+            raise ValueError
+
+        try:
+            address = ipaddress.ip_address(hostname)
+        except ValueError:
+            if "." not in hostname or hostname.endswith(".localhost"):
+                raise ValueError from None
+        else:
+            if not address.is_global or str(address) in FORBIDDEN_HARDWARE_ADDRESSES:
+                raise ValueError
+    except ValueError:
+        raise S5Error(
+            "invalid_provider_configuration",
+            "provider requires a public HTTPS base URL on port 443",
+        ) from None
+    return value.rstrip("/")
+
+
+def live_settings(
+    model: str | None, env: dict[str, str], *, base_url: str | None = None
+) -> str:
     """Only explicit operator configuration; never a model/key/provider fallback."""
     if not env.get("OPENAI_API_KEY", "").strip():
         raise S5Error("missing_api_key", "OPENAI_API_KEY must be set by the operator")
@@ -159,13 +203,17 @@ def live_settings(model: str | None, env: dict[str, str]) -> str:
         )
     # This validates routing syntax, not model availability or family membership.
     # The operator supplies the verified Astra identifier; no alias is invented.
+    provider_base_url(base_url)
     if (
-        not requested.startswith("openai/")
+        (base_url is None and not requested.startswith("openai/"))
         or not requested.removeprefix("openai/")
         or any(c.isspace() for c in requested)
         or any(c in requested for c in (":", "?", "#", "\\"))
-        or requested.count("/") != 1
+        or requested.count("/") != (0 if base_url is not None else 1)
         or "<" in requested
     ):
-        raise S5Error("invalid_model_configuration", "explicit openai/model required")
+        raise S5Error(
+            "invalid_model_configuration",
+            "explicit bare model with base URL, or openai/model for direct routing required",
+        )
     return requested

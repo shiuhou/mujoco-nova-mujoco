@@ -32,6 +32,7 @@ from s5_common import (
     RunLimits,
     S5Error,
     live_settings,
+    provider_base_url,
     verify_official_stack,
     wall_deadline,
 )
@@ -618,3 +619,132 @@ def test_failed_post_motion_render_does_not_label_stale_eef_as_final(
         assert result["last_observation_eef_state"] == result["initial_eef_state"]
     finally:
         policy._client.close()
+
+
+@pytest.mark.parametrize(
+    "endpoint",
+    [
+        "http://relay.example/v1",
+        "https://172.10.10.100",
+        "https://127.0.0.1",
+        "https://localhost",
+        "https://relay.example:29999",
+        "https://user:password@relay.example",
+        "https://relay.example/?key=x",
+        "https://relay.example/#fragment",
+        "https://relay.example/../v1",
+    ],
+)
+def test_explicit_endpoint_rejects_unsafe_configuration(endpoint):
+    with pytest.raises(S5Error, match="invalid_provider_configuration"):
+        provider_base_url(endpoint)
+
+
+def test_explicit_endpoint_keeps_exact_model_on_official_responses_path(
+    embodiment, monkeypatch
+):
+    captured = []
+
+    def reply(request):
+        captured.append((str(request.url), json.loads(request.content)))
+        z = float(embodiment.current.state["eef_state"][2]) + 0.002
+        return response(
+            "move_to",
+            {"targets": {"z": z, "gripper": 1}, "note": "Offline endpoint fixture"},
+        )
+
+    monkeypatch.setattr(
+        httpx, "HTTPTransport", lambda **_kw: httpx.MockTransport(reply)
+    )
+    endpoint = "https://relay.example/"
+    policy, transport = make_live_policy(
+        embodiment,
+        embodiment.budget,
+        "gpt-6-astra",
+        {"OPENAI_API_KEY": "synthetic-key"},
+        base_url=endpoint,
+        guard=SimulationIOGuard(endpoint),
+    )
+    transport.guard = None  # No actual network in this constructor test.
+    try:
+        assert policy.config.model == "gpt-6-astra"
+        assert run_loop(embodiment, policy, transport)["loop_pass"]
+        assert len(captured) == 2
+        assert all(url == "https://relay.example/responses" for url, _ in captured)
+        assert all(body["model"] == "gpt-6-astra" for _, body in captured)
+        assert all(body["reasoning"] == {"effort": "medium"} for _, body in captured)
+        assert all(body["store"] is False for _, body in captured)
+    finally:
+        policy._client.close()
+
+
+def test_explicit_endpoint_never_falls_back_to_direct_openai():
+    transport = BoundedTransport(
+        httpx.MockTransport(lambda _r: pytest.fail("must not send")),
+        Budget(RunLimits()),
+        live=False,
+        base_url="https://relay.example/v1",
+    )
+    with pytest.raises(S5Error, match="unexpected provider destination"):
+        transport.handle_request(
+            httpx.Request("POST", "https://api.openai.com/v1/responses")
+        )
+    assert transport.budget.requests == 0
+    guard = SimulationIOGuard("https://relay.example/v1")
+    guard.active = True
+    with pytest.raises(S5Error, match="prohibited_io"):
+        guard.check("socket.getaddrinfo", ("api.openai.com", 443))
+
+
+@pytest.mark.parametrize("address", ["172.10.10.100", "192.168.1.1", "127.0.0.1"])
+def test_guard_rejects_hardware_and_private_resolved_destination(monkeypatch, address):
+    monkeypatch.setattr(
+        "socket.getaddrinfo", lambda *a, **k: [(2, 1, 6, "", (address, 443))]
+    )
+    guard = SimulationIOGuard("https://relay.example")
+    with pytest.raises(S5Error, match="no public provider address"):
+        with guard.provider_network():
+            pytest.fail("private network must not be entered")
+    assert not guard.active and not guard.addresses
+
+
+def test_provider_error_fields_are_exact_except_secret_redaction():
+    secret = "synthetic-error-credential"
+    error_fields = {
+        "type": "invalid_request_error",
+        "code": "model_not_found",
+        "param": "model",
+        "message": "Model gpt-6-astra unavailable for " + secret,
+    }
+    transport = BoundedTransport(
+        httpx.MockTransport(
+            lambda _r: httpx.Response(
+                403,
+                json={
+                    "error": {**error_fields, "hidden": secret},
+                    "reasoning": secret,
+                },
+            )
+        ),
+        Budget(RunLimits()),
+        live=False,
+    )
+    with pytest.raises(S5Error) as error:
+        transport.handle_request(
+            httpx.Request(
+                "POST",
+                "https://api.openai.com/v1/responses",
+                headers={"Authorization": "Bearer " + secret},
+            )
+        )
+    assert error.value.category == "provider/API_error"
+    assert "model_not_found" in error.value.detail
+    assert secret not in error.value.detail
+    event = transport.events[0]
+    assert set(event["provider_error"]) == {"type", "code", "param", "message"}
+    assert (
+        event["provider_error"]["message"]
+        == "Model gpt-6-astra unavailable for [REDACTED]"
+    )
+    assert secret not in json.dumps(event)
+    assert transport.budget.requests == 1

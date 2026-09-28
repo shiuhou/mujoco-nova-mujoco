@@ -14,17 +14,27 @@ import socket
 import sys
 import time
 from contextlib import contextmanager, nullcontext
+from urllib.parse import urlsplit
 
 import httpx
 from inspect_robots_agent.policy import agent_policy
 
-from s5_common import Budget, S5Error, live_settings, verify_official_stack
+from s5_common import (
+    FORBIDDEN_HARDWARE_ADDRESSES,
+    Budget,
+    S5Error,
+    live_settings,
+    provider_base_url,
+    verify_official_stack,
+)
 
 
 class SimulationIOGuard:
     """Python audit backstop, not an OS sandbox. No hardware/device backend."""
 
-    def __init__(self):
+    def __init__(self, base_url: str | None = None):
+        self.base_url = provider_base_url(base_url)
+        self.hostname = urlsplit(self.base_url).hostname
         self.active = False
         self.addresses: set[str] = set()
         self.blocked = {"network": 0, "physical_device": 0}
@@ -32,13 +42,14 @@ class SimulationIOGuard:
     def check(self, event: str, args: tuple) -> None:
         network_allowed = self.active
         if event == "socket.getaddrinfo":
-            network_allowed &= args[0] == "api.openai.com" and args[1] == 443
+            network_allowed &= args[0] == self.hostname and args[1] == 443
         elif event == "socket.connect":
             address = args[1]
             network_allowed &= (
                 isinstance(address, tuple)
                 and len(address) >= 2
                 and address[0] in self.addresses
+                and address[0] not in FORBIDDEN_HARDWARE_ADDRESSES
                 and address[1] == 443
             )
         elif event == "socket.bind":
@@ -79,13 +90,12 @@ class SimulationIOGuard:
     def provider_network(self):
         self.active = True
         try:
-            resolved = socket.getaddrinfo(
-                "api.openai.com", 443, type=socket.SOCK_STREAM
-            )
+            resolved = socket.getaddrinfo(self.hostname, 443, type=socket.SOCK_STREAM)
             self.addresses = {
                 str(result[4][0])
                 for result in resolved
                 if ipaddress.ip_address(result[4][0]).is_global
+                and str(result[4][0]) not in FORBIDDEN_HARDWARE_ADDRESSES
             }
             if not self.addresses:
                 raise S5Error(
@@ -107,20 +117,24 @@ class BoundedTransport(httpx.BaseTransport):
         *,
         live: bool,
         guard: SimulationIOGuard | None = None,
+        base_url: str | None = None,
     ):
         self.inner = inner
         self.budget = budget
         self.live = live
         self.guard = guard
+        self.base_url = provider_base_url(base_url)
+        self.destination = str(httpx.URL(self.base_url + "/responses"))
+        if guard is not None and guard.base_url != self.base_url:
+            raise S5Error(
+                "invalid_provider_configuration", "guard and transport endpoints differ"
+            )
         self.events: list[dict] = []
         self.seconds = 0.0
         self.turn_first_request: float | None = None
 
     def handle_request(self, request: httpx.Request) -> httpx.Response:
-        if (
-            request.method != "POST"
-            or str(request.url) != "https://api.openai.com/v1/responses"
-        ):
+        if request.method != "POST" or str(request.url) != self.destination:
             raise S5Error(
                 "provider/API_error", "unexpected provider destination or method"
             )
@@ -147,8 +161,10 @@ class BoundedTransport(httpx.BaseTransport):
                 response = self.inner.handle_request(request)
                 response.read()
             event["status"] = response.status_code
-            # Explicit metadata allowlist; never persist output/reasoning items,
-            # request headers, raw API errors, or the wire-capture transcript.
+            # Explicit metadata allowlist; no output/reasoning items or headers.
+            credential = request.headers.get("authorization", "").removeprefix(
+                "Bearer "
+            )
             try:
                 payload = response.json()
             except ValueError:
@@ -157,15 +173,19 @@ class BoundedTransport(httpx.BaseTransport):
                 ) from None
             if isinstance(payload, dict):
                 request_id = response.headers.get("x-request-id")
-                credential = request.headers.get("authorization", "").removeprefix(
-                    "Bearer "
-                )
                 if (
                     request_id
                     and re.fullmatch(r"req_[A-Za-z0-9_-]{1,100}", request_id)
                     and (not credential or credential not in request_id)
                 ):
                     event["request_id"] = request_id
+                response_id = payload.get("id")
+                if (
+                    isinstance(response_id, str)
+                    and re.fullmatch(r"resp_[A-Za-z0-9_-]{1,150}", response_id)
+                    and (not credential or credential not in response_id)
+                ):
+                    event["response_id"] = response_id
                 usage = payload.get("usage")
                 if isinstance(usage, dict):
                     event["usage"] = {
@@ -174,8 +194,29 @@ class BoundedTransport(httpx.BaseTransport):
                         if type(usage.get(key)) is int and usage[key] >= 0
                     }
             if response.status_code != 200:
+                # Preserve only ordinary provider error fields, with credential
+                # redaction before any persistence or exception construction.
+                error = payload.get("error") if isinstance(payload, dict) else None
+                safe_error = {}
+                if isinstance(error, dict):
+                    for key in ("type", "code", "param", "message"):
+                        value = error.get(key)
+                        if isinstance(value, str):
+                            safe_error[key] = (
+                                value.replace(credential, "[REDACTED]")
+                                if credential
+                                else value
+                            )
+                if safe_error:
+                    event["provider_error"] = safe_error
                 raise S5Error(
-                    "provider/API_error", f"provider HTTP status {response.status_code}"
+                    "provider/API_error",
+                    f"provider HTTP status {response.status_code}"
+                    + (
+                        ": " + json.dumps(safe_error, ensure_ascii=False)
+                        if safe_error
+                        else ""
+                    ),
                 )
             return response
         except httpx.TimeoutException:
@@ -205,16 +246,22 @@ def make_live_policy(
     *,
     effort: str = "medium",
     guard: SimulationIOGuard,
+    base_url: str | None = None,
 ):
-    """No injected fake transports, alternate endpoints or fallback providers."""
-    requested = live_settings(model, env)
+    """Official provider with explicit endpoint; no fake or provider fallback."""
+    requested = live_settings(model, env, base_url=base_url)
     verify_official_stack()
     transport = BoundedTransport(
-        httpx.HTTPTransport(retries=0, trust_env=False), budget, live=True, guard=guard
+        httpx.HTTPTransport(retries=0, trust_env=False),
+        budget,
+        live=True,
+        guard=guard,
+        base_url=base_url,
     )
     try:
         policy = agent_policy(
             model=requested,
+            base_url=base_url,
             wire="responses",
             api_key_env="OPENAI_API_KEY",
             # Do not pass ambient alternate-provider keys or default model values.

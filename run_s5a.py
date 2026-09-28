@@ -87,7 +87,10 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", required=True, choices=("live", "replay"))
     parser.add_argument(
-        "--model", help="Explicit operator-verified openai/<Astra API id>; no default"
+        "--model", help="Explicit Astra ID; bare with --base-url, openai/ID otherwise"
+    )
+    parser.add_argument(
+        "--base-url", help="Explicit operator-approved HTTPS Responses base"
     )
     parser.add_argument(
         "--effort",
@@ -163,7 +166,9 @@ def main(argv=None) -> int:
         quality = quality_result(args.quality_gates)
         # Credential/model gate precedes imports, simulator construction and I/O.
         model = (
-            live_settings(args.model, dict(os.environ)) if args.mode == "live" else None
+            live_settings(args.model, dict(os.environ), base_url=args.base_url)
+            if args.mode == "live"
+            else None
         )
         if args.mode == "live" and quality["status"] != "PASS":
             raise S5Error(
@@ -180,7 +185,7 @@ def main(argv=None) -> int:
         from s5_loop import run_loop
 
         environment.update({"mujoco": mujoco.__version__, "numpy": np.__version__})
-        guard = SimulationIOGuard()
+        guard = SimulationIOGuard(args.base_url if args.mode == "live" else None)
         guard.install()
         budget = Budget(limits)
         with wall_deadline(limits.max_wall_time):
@@ -193,6 +198,7 @@ def main(argv=None) -> int:
                     dict(os.environ),
                     effort=args.effort,
                     guard=guard,
+                    base_url=args.base_url,
                 )
             else:
                 policy, transport = make_replay_policy(embodiment, budget)

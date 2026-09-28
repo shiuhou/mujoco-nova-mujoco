@@ -3,10 +3,12 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A BLOCKED; S5B BLOCKED**. The S5A implementation and
-explicit offline replay are complete. No live request has been made: the
-operator's `OPENAI_API_KEY` and verified Astra API model identifier are absent.
-S5B has not been implemented or launched; it stays gated on live S5A PASS.
+Current live status: **S5A NOT YET RUN; S5B BLOCKED pending S5A PASS**.
+The offline implementation is committed at
+`2689e4a772d6eb8ec48bc5df0aba220944f916d0` (OFFLINE_S5_HEAD). The operator
+has supplied a runtime credential source and confirmed `gpt-6-astra` through
+the Responses relay at `https://sub.scitrace.cc/`. No live request preceded
+the offline rollback freeze.
 The full benchmark instruction remains:
 
 > Pick up the blue block and place it inside the red box.
@@ -68,9 +70,9 @@ Accepted configuration was verified from the pinned source:
 | Setting | S5A value |
 |---|---|
 | Factory | `inspect_robots_agent.policy.agent_policy` |
-| Provider | direct OpenAI; no OpenRouter or custom endpoint fallback |
-| Model | explicit `--model openai/<operator-verified API id>` or `INSPECT_ROBOTS_MODEL` |
-| Actual live model used | none; unavailable until operator configuration |
+| Provider | OpenAI Responses wire; direct OpenAI or explicit operator-approved HTTPS relay; no fallback |
+| Model | explicit bare `--model gpt-6-astra` with `--base-url`; direct routing requires `openai/` prefix |
+| Checkpoint target | operator-confirmed `gpt-6-astra`; live account access is tested only by the bounded run |
 | Wire | `responses` |
 | Effort | `medium` by default, configurable using the official accepted names |
 | Images / image horizon | `always` / `2` |
@@ -81,12 +83,11 @@ Accepted configuration was verified from the pinned source:
 | Maximum episode waypoints | 32 by default, CLI maximum 64 |
 | Maximum wall time | 90 s by default, CLI maximum 300 s |
 
-The historical `openai/gpt-6-astra` recipe is **not** asserted to be a verified
-current model identifier. Official documentation lookup did not establish an
-identifier for this run. The operator must supply the exact available Astra
-identifier. The runner checks explicit routing syntax; it does not invent an
-alias or pretend to verify account/model access without a live response.
-Whether a particular model accepts an effort value is likewise a live gate.
+The operator explicitly selected `gpt-6-astra` and the HTTPS relay above.
+With an explicit base URL, the pinned official resolver keeps the model string
+unchanged and the official `ResponsesClient` posts to `<base>/responses`.
+No alias, provider substitution, custom serialization or response parser is
+introduced. A provider rejection stops immediately and is reported.
 
 Live preflight checks the integrated ancestor/evidence, credentials, explicit
 model, source fingerprints, and current test/lint/type/benchmark results.
@@ -94,13 +95,15 @@ There is no implicit `.env` loader: export `OPENAI_API_KEY` manually in the
 runner's environment. `.env.example` contains only `OPENAI_API_KEY=`; real
 `.env` files are ignored. Do not send the key in a chat, argument or evidence.
 
-Only the official `POST https://api.openai.com/v1/responses` destination is
-accepted by the live transport. Ambient proxy settings and alternate-provider
-keys are not used. A Python audit backstop permits network sockets only during
-the provider transport, with public addresses resolved for that hostname and
-port 443. Robot addresses/ports, listeners, physical camera nodes and serial
-devices are denied. EGL graphics access is allowed. This is an audited Python
-backstop, not an OS sandbox or physical safety certification.
+The transport accepts only POST to the configured HTTPS base plus `/responses`.
+The endpoint may not carry credentials, query strings or fragments. It uses
+port 443, public DNS destinations, and an explicit controller-address denylist
+because the local Nova address is outside RFC1918. The audit guard pins DNS
+and connection attempts to that endpoint during the provider transport.
+Unexpected destinations, redirects, robot ports, listeners, physical cameras
+and serial devices are denied. Ambient proxies and alternate-provider keys are
+not used. EGL graphics access is allowed. This is a Python audit backstop,
+not an OS sandbox or physical safety certification.
 
 Every actual request attempt consumes the shared budget before transmission.
 Transport errors and non-200 responses stop immediately with sanitized
@@ -201,7 +204,8 @@ Action evidence includes exact ordered samples, execution counts, failed index,
 IK status/iterations/residuals, generation references and timestamps.
 
 Normal tool names/numeric targets and safe request IDs/token counts are retained.
-No raw provider error, request headers, complete wire response, assistant prose,
+Only redacted provider error `type`, `code`, `param`, and `message` fields may
+be saved. No arbitrary raw provider body, request headers, complete wire response, assistant prose,
 private reasoning, encrypted reasoning item or hidden chain-of-thought is saved.
 The official Responses client may retain encrypted reasoning internally for
 protocol replay; S5 disables wire capture and never exports it.
@@ -255,13 +259,14 @@ MUJOCO_GL=egl .venv-s5/bin/python run_s5a.py --mode replay \
   --output evidence/sim_s5a/UNIQUE-offline
 ```
 
-For live S5A, manually export `OPENAI_API_KEY` and set `INSPECT_ROBOTS_MODEL`
-to `openai/` followed by the operator-verified Astra API identifier. Do not use
-the literal placeholder below as a model. No default identifier is provided.
+For this live checkpoint, load the supplied credential into the runner process
+as `OPENAI_API_KEY` without displaying or persisting it, and pass the confirmed
+model and endpoint explicitly. The credential source is not committed here.
 
 ```bash
 # Only after both operator-supplied environment values and current gates exist:
 MUJOCO_GL=egl .venv-s5/bin/python run_s5a.py --mode live \
+  --model gpt-6-astra --base-url https://sub.scitrace.cc/ \
   --quality-gates /tmp/nova-s5-quality-UNIQUE/quality_gates.json \
   --max-llm-calls 2 --max-episode-steps 32 --max-decisions 2 \
   --max-wall-time 90 --output evidence/sim_s5a/UNIQUE-live
@@ -295,7 +300,7 @@ The pinned Responses policy does not expose a Responses output-token cap in
 its accepted constructor configuration. Request count and wall time are
 bounded; they are not a hard dollar or output-token spending limit.
 
-## Completion record — September 28, 2026
+## Historical pre-credential record — September 28, 2026
 
 - **S5A live: BLOCKED.** The credential is absent and no explicit Astra model
   identifier is configured. No live request occurred.
@@ -356,3 +361,7 @@ openai_requests = 0
 ## Offline rollback freeze before live requests
 
 The operator authorized a local rollback checkpoint before paid execution. The unchanged implementation was revalidated with the complete pytest suite, 48/48 S1/S2 benchmark, Ruff lint/format, S5 mypy, compilation/imports and Git diff review. Fresh offline replay evidence is `evidence/sim_s5a/20260928T052717Z-offline-freeze`; the result is `OFFLINE_LOOP_PASS`. No live request preceded this freeze. Source fingerprints match the earlier 224-test checkpoint. The operator has now confirmed the relay endpoint and exact `gpt-6-astra` identifier; that subsequent live configuration is separate from this offline rollback snapshot.
+
+The subsequent endpoint configuration adds offline tests for exact model forwarding,
+no endpoint fallback, credential-free provider errors, and denied hardware/private
+destinations. The official source pin and all embodiment validation stay unchanged.
