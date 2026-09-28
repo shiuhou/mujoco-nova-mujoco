@@ -274,7 +274,9 @@ def main(argv=None) -> int:
         0,
     )
     if transport is not None and transport.live:
-        side_effects["openai_requests"] = len(transport.events)
+        side_effects["openai_requests"] = transport.transmitted_requests
+        if result.get("failure_category") == "provider_network_configuration":
+            result["status"] = "BLOCKED"
     result.update(
         {
             "mode": args.mode,
@@ -284,6 +286,9 @@ def main(argv=None) -> int:
         }
     )
     result["provider_attempts"] = 0 if budget is None else budget.requests
+    result["transmitted_requests"] = (
+        0 if transport is None else transport.transmitted_requests
+    )
     result["provider_events"] = [] if transport is None else transport.events
     result["blocked_io_attempts"] = {} if guard is None else guard.blocked
     json_write(output / "environment.json", environment)

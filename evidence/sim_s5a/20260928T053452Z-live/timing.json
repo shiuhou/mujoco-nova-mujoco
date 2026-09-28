@@ -1,0 +1,11 @@
+{
+  "T_encode_or_request_prep": 0.015773329010698944,
+  "T_model": 0.0016461299965158105,
+  "T_policy_parse": 8.777016773819923e-06,
+  "T_total_step": 0.017567600996699184,
+  "T_render": 0.005531249975319952,
+  "T_chunk_validation": 0.0,
+  "T_IK": 0.0,
+  "T_execute": 0.0,
+  "T_settle": 0.0
+}

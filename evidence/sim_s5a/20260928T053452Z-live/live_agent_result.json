@@ -1,0 +1,335 @@
+{
+  "loop_pass": false,
+  "checks": {
+    "official_agent_used": true,
+    "generic_move_to_used": false,
+    "actionchunk_executed": false,
+    "simulation_eef_changed_through_execution": false,
+    "settle_occurred": false,
+    "fresh_post_motion_observation": false,
+    "new_observation_received_by_next_decision": false,
+    "no_policy_privileged_state": true,
+    "no_abort": false
+  },
+  "failure_category": "provider/API_error",
+  "failure_detail": "no public provider address resolved",
+  "decisions": 0,
+  "provider_attempts": 1,
+  "action_count": 0,
+  "path_length_m": 0.0,
+  "initial": {
+    "robot_q_rad": [
+      0.1057414219467702,
+      -0.07307772766776358,
+      1.949250880153336,
+      -0.30537314570463386,
+      -1.5707963268520606,
+      1.6765303917661518
+    ],
+    "object_poses_evaluator_only": {
+      "blue_block": {
+        "semantic_name": "blue_block",
+        "frame": "world",
+        "position_m": [
+          -0.3,
+          -0.15,
+          0.06
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": true
+      },
+      "black_block": {
+        "semantic_name": "black_block",
+        "frame": "world",
+        "position_m": [
+          -0.48,
+          -0.28,
+          0.055
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": true
+      },
+      "red_box": {
+        "semantic_name": "red_box",
+        "frame": "world",
+        "position_m": [
+          -0.3,
+          0.08,
+          0.07
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": false
+      }
+    }
+  },
+  "initial_eef_state": [
+    -0.2999999999842532,
+    -0.14999999999960137,
+    0.14999999999096555,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "last_observation_eef_state": [
+    -0.2999999999842532,
+    -0.14999999999960137,
+    0.14999999999096555,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "final_eef_state": [
+    -0.2999999999842532,
+    -0.14999999999960137,
+    0.14999999999096555,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "episode_duration_s": 0.34789121500216424,
+  "simulation_time_s": 0.0,
+  "timing": {
+    "T_encode_or_request_prep": 0.015773329010698944,
+    "T_model": 0.0016461299965158105,
+    "T_policy_parse": 8.777016773819923e-06,
+    "T_total_step": 0.017567600996699184,
+    "T_render": 0.005531249975319952,
+    "T_chunk_validation": 0.0,
+    "T_IK": 0.0,
+    "T_execute": 0.0,
+    "T_settle": 0.0
+  },
+  "events": [
+    {
+      "decision": 0,
+      "input_generation": 1,
+      "failure": "provider/API_error",
+      "T_total_step": 0.017567600996699184
+    }
+  ],
+  "tools": [],
+  "evaluation_only": {
+    "object_grasped": false,
+    "holding_now": false,
+    "lift_height": 0.0,
+    "max_lift_height": 0.0,
+    "grasp_stable": false,
+    "slip_distance": 0.0,
+    "inside_target": false,
+    "released": true,
+    "settled": false,
+    "settled_duration_s": 0.0,
+    "black_block_displacement": 0.0,
+    "max_black_block_displacement": 0.0,
+    "black_distractor_acceptable": true,
+    "collision_contact_summary": {
+      "pair_tick_counts": {},
+      "pair_max_normal_force_n": {},
+      "max_penetration_m": 0.0,
+      "max_arm_projection_error_rad": 0.0,
+      "final_contacts": [
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -3.469446951953614e-18,
+          "normal_force_n": 0.19365194805194919
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -3.469446951953614e-18,
+          "normal_force_n": 0.19365194805194919
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -3.469446951953614e-18,
+          "normal_force_n": 0.19365194805194919
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -3.469446951953614e-18,
+          "normal_force_n": 0.19365194805194919
+        }
+      ],
+      "fault": null
+    },
+    "final_blue_pose": {
+      "position_m": [
+        -0.3,
+        -0.15,
+        0.06
+      ],
+      "rotation_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "final_black_pose": {
+      "position_m": [
+        -0.48,
+        -0.28,
+        0.055
+      ],
+      "rotation_matrix": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0
+        ]
+      ]
+    },
+    "final_gripper_opening": 0.095,
+    "robot_faulted": false,
+    "success": false
+  },
+  "live_request_performed": false,
+  "status": "PARTIAL",
+  "validation_results": [],
+  "mode": "live",
+  "instruction": "Simulation-only action-loop check. From the initial observed EEF position, use move_to to move the nominal grasp center 0.005 metres upward in base Z with gripper fully open (1). After receiving the fresh post-motion images and EEF state, use move_to to move 0.005 metres downward with gripper 1. Keep X and Y unchanged and yaw, pitch and roll zero. Do not grasp objects. Use only the observations; no simulator internals are available.",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 1
+  },
+  "S5B": "BLOCKED; not implemented or launched before live S5A PASS",
+  "provider_events": [
+    {
+      "attempt": 1,
+      "live": true,
+      "status": null,
+      "error": "provider/API_error",
+      "T_model": 0.0016461299965158105
+    }
+  ],
+  "blocked_io_attempts": {
+    "network": 0,
+    "physical_device": 0
+  }
+}

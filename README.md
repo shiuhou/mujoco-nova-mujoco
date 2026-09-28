@@ -11,8 +11,8 @@ model identifier, and passing regression gates for the exact current sources.
 It cannot fall back to replay. The S5A bring-up permits two small open-gripper
 decisions; it does not launch the autonomous pick-and-place benchmark.
 
-**Offline S5: committed and PASS. Live S5A: awaiting bounded execution with
-operator-confirmed configuration. S5B: BLOCKED pending live S5A PASS.** Offline replay is not a live-Astra success claim. See
+**Offline S5: committed and PASS. Live S5A: BLOCKED before HTTP transmission
+by provider DNS/network validation. S5B: BLOCKED; not started.** Offline replay is not a live-Astra success claim. See
 [S5 architecture, commands, evidence and limitations](docs/sim_tracks/s5_astra_closed_loop.md).
 S5 validates the model-facing closed loop in simulation. It does NOT authorize
 autonomous physical Nova execution.

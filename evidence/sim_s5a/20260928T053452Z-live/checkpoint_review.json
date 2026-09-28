@@ -1,0 +1,36 @@
+{
+  "status": "BLOCKED",
+  "S5A": "BLOCKED",
+  "S5B": "BLOCKED; not started because S5A did not pass",
+  "failure_layer": "provider network configuration; before HTTP transport",
+  "failure_category": "provider_network_configuration",
+  "exact_original_error": "no public provider address resolved",
+  "configured_model": "gpt-6-astra",
+  "wire": "responses",
+  "base_url": "https://sub.scitrace.cc/",
+  "resolver_addresses": [
+    "198.18.0.65"
+  ],
+  "ambient_proxy_present": true,
+  "ambient_proxy_used": false,
+  "provider_response_received": false,
+  "provider_attempts": 1,
+  "transmitted_requests": 0,
+  "policy_decisions_completed": 0,
+  "executed_actions": 0,
+  "observation_generations": [
+    1
+  ],
+  "evidence_correction": "Original runner reported openai_requests=1 by counting transport attempts. The guard raised before inner HTTPTransport.handle_request; no HTTP request was transmitted. Original artifacts are preserved. This review corrects the count, and the runner now distinguishes attempts, HTTP transport entry and transmitted requests.",
+  "offline_s5_head": "2689e4a772d6eb8ec48bc5df0aba220944f916d0",
+  "run_source_head": "863994647414ccab52a4cf9343afc7c1eaab0616",
+  "s5a_pass_head": null,
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "resume_requirement": "Review provider network routing so the approved HTTPS relay can be reached within the destination restrictions. No automatic proxy enablement, endpoint/model substitution or live retry was performed."
+}

@@ -748,3 +748,41 @@ def test_provider_error_fields_are_exact_except_secret_redaction():
     )
     assert secret not in json.dumps(event)
     assert transport.budget.requests == 1
+
+
+def test_dns_rejection_counts_attempt_but_no_transmitted_request(monkeypatch):
+    monkeypatch.setattr(
+        "socket.getaddrinfo", lambda *a, **k: [(2, 1, 6, "", ("198.18.0.65", 443))]
+    )
+    endpoint = "https://relay.example"
+    transport = BoundedTransport(
+        httpx.MockTransport(lambda _r: pytest.fail("no HTTP request permitted")),
+        Budget(RunLimits()),
+        live=True,
+        base_url=endpoint,
+        guard=SimulationIOGuard(endpoint),
+    )
+    with pytest.raises(S5Error, match="provider_network_configuration"):
+        transport.handle_request(httpx.Request("POST", endpoint + "/responses"))
+    assert transport.budget.requests == 1
+    assert transport.transmitted_requests == 0
+    assert transport.events[0]["http_transport_entered"] is False
+    assert transport.events[0]["status"] is None
+
+
+def test_transmitted_request_remains_counted_when_response_times_out():
+    def timeout_after_send(request):
+        request.extensions["trace"]("http11.send_request_headers.complete", {})
+        raise httpx.ReadTimeout("synthetic-sensitive-text")
+
+    transport = BoundedTransport(
+        httpx.MockTransport(timeout_after_send),
+        Budget(RunLimits()),
+        live=False,
+    )
+    with pytest.raises(S5Error, match="model_timeout"):
+        transport.handle_request(
+            httpx.Request("POST", "https://api.openai.com/v1/responses")
+        )
+    assert transport.budget.requests == transport.transmitted_requests == 1
+    assert "synthetic-sensitive-text" not in json.dumps(transport.events)

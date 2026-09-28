@@ -3,12 +3,13 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A NOT YET RUN; S5B BLOCKED pending S5A PASS**.
+Current live status: **S5A BLOCKED before HTTP transmission; S5B BLOCKED / not started**.
 The offline implementation is committed at
 `2689e4a772d6eb8ec48bc5df0aba220944f916d0` (OFFLINE_S5_HEAD). The operator
 has supplied a runtime credential source and confirmed `gpt-6-astra` through
-the Responses relay at `https://sub.scitrace.cc/`. No live request preceded
-the offline rollback freeze.
+the Responses relay at `https://sub.scitrace.cc/`. The bounded attempt stopped
+on DNS validation; no live API request was transmitted. See the current
+blocked checkpoint record below. No live request preceded the offline freeze.
 The full benchmark instruction remains:
 
 > Pick up the blue block and place it inside the red box.
@@ -365,3 +366,74 @@ The operator authorized a local rollback checkpoint before paid execution. The u
 The subsequent endpoint configuration adds offline tests for exact model forwarding,
 no endpoint fallback, credential-free provider errors, and denied hardware/private
 destinations. The official source pin and all embodiment validation stay unchanged.
+
+## Current S5A blocked checkpoint — September 28, 2026
+
+OFFLINE_S5_HEAD is `2689e4a772d6eb8ec48bc5df0aba220944f916d0`.
+The reviewed endpoint configuration and its offline replay were committed as
+`863994647414ccab52a4cf9343afc7c1eaab0616` before the live-mode attempt.
+The branch was clean at both boundaries. No push was performed.
+
+The attempted configuration was `model=gpt-6-astra`, `wire=responses`,
+`base_url=https://sub.scitrace.cc/`, `effort=medium`, `images=always`,
+`image_horizon=2`, `depth=off`. Limits were two model attempts, two decisions,
+32 waypoints and 180 seconds. Gripper remained open; the instruction was the
+small up/down S5A check, not the manipulation mission.
+
+At `20260928T053452Z`, the installed official agent processed the integrated
+three-camera/EEF observation, prepared its first Responses request, and entered
+the bounded transport. DNS returned `198.18.0.65`. The public-destination guard
+rejected it with the exact error **`no public provider address resolved`**
+before calling the inner HTTP transport. There was no provider response,
+authentication result, model-access result or paid inference. Ambient local
+proxies were present but were not used; the guard was not relaxed and no
+retry, alternate endpoint, different model or replay substitution occurred.
+
+**S5A = BLOCKED. S5B = BLOCKED, not started.** There is no S5A PASS commit.
+The model-facing live loop remains unvalidated. The failure is provider network
+configuration, not evidence of an unavailable model or failed manipulation.
+Correct network routing must be reviewed before resuming bounded S5A. S5B
+continues to require a genuine live S5A PASS.
+
+Evidence: [`20260928T053452Z-live`](../../evidence/sim_s5a/20260928T053452Z-live/).
+The original runner classified the outcome PARTIAL and counted one transport
+attempt as one `openai_request`. Those original artifacts are retained.
+[`checkpoint_review.json`](../../evidence/sim_s5a/20260928T053452Z-live/checkpoint_review.json)
+provides the explicit correction: **one attempt, zero transmitted requests**.
+The runner now records HTTP-transport entry and transmission separately,
+using httpcore send-header completion without inspecting trace payloads.
+A transmitted request that later times out remains counted.
+
+Only generation 1 exists. No `move_to`, ActionChunk execution, motion, settle,
+or post-motion generation occurred. The `after_*` PNGs are the initial/failure
+observation because execution never began; `failure_montage.png` labels that
+state explicitly. No object coordinates or evaluator data entered the policy.
+The original and reviewed evidence contain no credentials or private reasoning.
+
+Measured timings from this attempt (seconds): render `0.00553125`, request
+preparation `0.01577333`, DNS/transport gate `0.00164613`, policy residual
+`0.00000878`, decision-to-stop `0.01756760`. Chunk validation, IK, execution
+and settle were zero. The transport-gate time is **not model inference latency**;
+this blocked run cannot establish whether a live loop is model-bound.
+
+Physical robot connections, robot commands, serial connections, physical camera
+connections and transmitted OpenAI requests all remain **zero**. S6 is not
+started. Future physical execution still requires the separate safety gates
+already described; this result grants no physical authority.
+
+### Postflight regression and freeze
+
+After correcting request-count telemetry, **241 tests passed in 40.83 s**:
+the original 176 tests, the original 48 S5 tests and 17 endpoint/telemetry
+regressions. S1/S2 remains 48/48. S3 manipulation, S4 observations and integrated
+S3/S4 regressions pass in the full suite. Ruff lint/format, S5 mypy, compilation,
+imports, official-source fingerprints and Git diff checks all pass.
+
+The exact-source quality record is saved as `postflight_quality_gates.json`
+inside the blocked evidence directory; the original preflight record remains
+unchanged. A new postflight replay at
+`evidence/sim_s5a/20260928-blocked-postflight-offline/` is `OFFLINE_LOOP_PASS`,
+with two mock requests, two decisions, four waypoints and generations 1 → 2 → 3.
+It is not a live retry or live PASS. Native failure images were visually reviewed.
+No S1–S4 source or original test changed, and unrelated root/reference work
+remains untouched.

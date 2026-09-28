@@ -99,7 +99,8 @@ class SimulationIOGuard:
             }
             if not self.addresses:
                 raise S5Error(
-                    "provider/API_error", "no public provider address resolved"
+                    "provider_network_configuration",
+                    "no public provider address resolved",
                 )
             yield
         finally:
@@ -150,7 +151,20 @@ class BoundedTransport(httpx.BaseTransport):
             "attempt": self.budget.requests,
             "live": self.live,
             "status": None,
+            "http_transport_entered": False,
+            "request_transmitted": False,
         }
+
+        def trace(name: str, _info: dict) -> None:
+            # httpcore's trace exposes completion boundaries. Never inspect or
+            # persist its kwargs, which can contain credential-bearing headers.
+            if name in {
+                "http11.send_request_headers.complete",
+                "http2.send_request_headers.complete",
+            }:
+                event["request_transmitted"] = True
+
+        request.extensions["trace"] = trace
         try:
             context = (
                 self.guard.provider_network()
@@ -158,8 +172,10 @@ class BoundedTransport(httpx.BaseTransport):
                 else nullcontext()
             )
             with context:
+                event["http_transport_entered"] = True
                 response = self.inner.handle_request(request)
                 response.read()
+                event["request_transmitted"] = True
             event["status"] = response.status_code
             # Explicit metadata allowlist; no output/reasoning items or headers.
             credential = request.headers.get("authorization", "").removeprefix(
@@ -236,6 +252,10 @@ class BoundedTransport(httpx.BaseTransport):
 
     def close(self) -> None:
         self.inner.close()
+
+    @property
+    def transmitted_requests(self) -> int:
+        return sum(bool(event["request_transmitted"]) for event in self.events)
 
 
 def make_live_policy(
