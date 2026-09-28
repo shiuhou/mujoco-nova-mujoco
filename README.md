@@ -1,5 +1,22 @@
 # Dobot Nova2 MuJoCo research simulator
 
+## S5A official-agent simulation loop
+
+The S5A adapter and bounded runner now connect the pinned official
+`inspect-robots-agent` Responses policy to S3/S4 RGB/EEF observations and the
+existing validated `ManipulationChunkExecutor(NovaMujocoChunkExecutor)` path.
+Explicit replay mode exercises that entire software path offline. Live mode
+requires an operator-provided `OPENAI_API_KEY`, an explicit verified Astra API
+model identifier, and passing regression gates for the exact current sources.
+It cannot fall back to replay. The S5A bring-up permits two small open-gripper
+decisions; it does not launch the autonomous pick-and-place benchmark.
+
+**Live S5A: BLOCKED pending credentials/model configuration. S5B: BLOCKED pending
+live S5A PASS.** Offline replay is not a live-Astra success claim. See
+[S5 architecture, commands, evidence and limitations](docs/sim_tracks/s5_astra_closed_loop.md).
+S5 validates the model-facing closed loop in simulation. It does NOT authorize
+autonomous physical Nova execution.
+
 ## Unified S1–S4 production simulator
 
 The S3 production manipulation scene is integrated with S4's camera rig. The
@@ -19,8 +36,8 @@ MUJOCO_GL=egl /home/dsa/project/xivirobotpi/mainproj/openpi/.venv/bin/python \
 
 [Integration architecture, results and usage](docs/sim_tracks/s3_s4_integration.md)
 describe the production camera profile, measured gripper observation, freshness,
-failure checks and evidence. This validates the simulation boundary for future
-S5 work; S5 has not started. No hardware or provider is accessed. This remains
+failure checks and evidence. This checkpoint validated the simulation boundary
+used by S5A. The integration runner accesses no hardware or provider. This remains
 an uncalibrated simulator, not a dynamics digital twin.
 
 ## Frozen standalone S4 checkpoint — three-camera observations

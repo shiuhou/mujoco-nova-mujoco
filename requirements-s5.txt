@@ -1,0 +1,27 @@
+# Tested isolated Python 3.11 environment; official source pins installed separately.
+PyOpenGL==3.1.9
+PyYAML==6.0.3
+Pygments==2.21.0
+absl-py==2.5.0
+anyio==4.15.1
+ast_serialize==0.11.2
+certifi==2026.7.22
+glfw==2.10.2
+h11==0.16.0
+httpcore==1.0.9
+httpx==0.28.1
+idna==3.20
+iniconfig==2.3.0
+librt==0.15.0
+mujoco==2.3.7
+mypy==2.3.1
+mypy_extensions==1.1.0
+numpy==1.26.4
+packaging==26.3
+pathspec==1.1.1
+pillow==11.2.1
+pluggy==1.6.0
+pytest==8.3.5
+ruff==0.11.12
+typing_extensions==4.16.0
+websockets==17.1

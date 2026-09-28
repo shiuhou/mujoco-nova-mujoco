@@ -1,0 +1,13 @@
+{
+  "status": "BLOCKED",
+  "live_s5a_pass": false,
+  "checks": {},
+  "failure_category": "missing_api_key",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  }
+}

@@ -9,3 +9,10 @@ DOBOT_6Axis_ROS2_V4/
 
 # Local runtime output.
 MUJOCO_LOG.TXT
+
+# Isolated S5 dependencies and local credentials (never evidence).
+.s5-deps/
+.venv-s5/
+.env
+.env.*
+!.env.example

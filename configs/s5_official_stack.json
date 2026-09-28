@@ -1,0 +1,18 @@
+{
+  "repository": "https://github.com/robocurve/inspect-robots",
+  "revision": "7e506e3b6f39530f18e75cf97b23c4287aa90f12",
+  "agent_entry_point": "inspect_robots_agent.policy:agent_policy",
+  "yam_reference_revision": "178c93037afcf593618e0a1db6ae1f1b0cfeaa0f",
+  "packages": {
+    "inspect_robots": {
+      "source_path": "src/inspect_robots/",
+      "python_files": 44,
+      "python_tree_sha256": "cf42febbcb7eeadf05c915e3152ab7e2a4888f588b4f34a7236794de728cd065"
+    },
+    "inspect_robots_agent": {
+      "source_path": "plugins/inspect-robots-agent/src/inspect_robots_agent/",
+      "python_files": 11,
+      "python_tree_sha256": "78ea8475d78a1deddab8f7f9e9550d51f9cdbb6fd144aedeff7bbc9d0fa3d617"
+    }
+  }
+}

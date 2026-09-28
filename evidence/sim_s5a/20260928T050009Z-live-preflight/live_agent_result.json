@@ -1,0 +1,19 @@
+{
+  "status": "BLOCKED",
+  "loop_pass": false,
+  "failure_category": "missing_api_key",
+  "failure_detail": "OPENAI_API_KEY must be set by the operator",
+  "mode": "live",
+  "instruction": "Simulation-only action-loop check. From the initial observed EEF position, use move_to to move the nominal grasp center 0.005 metres upward in base Z with gripper fully open (1). After receiving the fresh post-motion images and EEF state, use move_to to move 0.005 metres downward with gripper 1. Keep X and Y unchanged and yaw, pitch and roll zero. Do not grasp objects. Use only the observations; no simulator internals are available.",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "S5B": "BLOCKED; not implemented or launched before live S5A PASS",
+  "provider_attempts": 0,
+  "provider_events": [],
+  "blocked_io_attempts": {}
+}
