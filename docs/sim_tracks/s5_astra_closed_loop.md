@@ -3,7 +3,7 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A PASS; S5B not started** (October 9, 2026).
+Current live status: **S5A PASS; S5B PARTIAL (first autonomous attempt)** (October 9, 2026).
 The single live episode used the pinned official agent with configured and
 relay-reported `gpt-6-astra`: two Responses requests, two `move_to` decisions,
 four validated waypoints and fresh generations 1 → 2 → 3. See the S5A live
@@ -612,3 +612,121 @@ format, S5 mypy, compilation and diff checks PASS. Offline runner evidence is
 fresh generations 1 → 2 → 3 and correctly finish PARTIAL/max_calls_reached
 without claiming benchmark success. This fixture contains no manipulation
 trajectory and made zero provider requests.
+
+
+## S5B first autonomous attempt — PARTIAL, October 9, 2026
+
+Live source checkpoint: `1b140d6a748a504b0dfa46c4691a2e74cad9457e`.
+Evidence: [`20261009T131911Z-live`](../../evidence/sim_s5b/20261009T131911Z-live/).
+There was exactly one live benchmark episode. Twelve transmitted Responses
+requests returned HTTP 200; twelve policy decisions produced 236 ordered
+waypoints over a 1.069247 m path. Configured and relay-claimed model was
+`gpt-6-astra`, using the same official pin/provider/proxy as S5A. Usage totals:
+114,556 input tokens, 788 output tokens, 115,344 total. No episode retry,
+provider change, scripted trajectory or privileged task input was used.
+
+The blue block was contacted, stably grasped, lifted and transported above the
+red box. Maximum lift was **0.142930 m**, maximum slip **0.004507 m**. The final
+model decision commanded gripper 1. At the final live observation, however,
+measured opening was **0.059613 m** and finger contacts persisted. The unchanged
+S3 evaluator reported **released=false, inside_target=false, settled=false,
+holding_now=false, success=false**. `holding_now=false` alone is not release:
+the S3 detector leaves HOLDING when an opening command is active. Black maximum
+displacement was **0.0000170434 m** (0.017 mm), acceptable. No simulator fault
+occurred. Primary stop category: **max_calls_reached**. Task-stage symptoms:
+**release_fail / place_miss**. All limits were respected. The conservative
+automated task classifier reported place_miss because the block was not inside;
+the diagnosis below identifies the release timing cause.
+
+All 12 chunks passed whole-chunk validation and isolated IK, executed through
+NovaMujocoChunkExecutor, completed the then-configured hold and produced fresh
+observations. Generations **1 → 2 → … → 13** and complete state/image hashes are
+saved; every next decision used its preceding post-action observation. The
+contact and release result exposed that the hold was insufficient to finish
+actuator slewing, despite fresh images. No frame was reused after motion.
+
+| Timing component | Seconds |
+| --- | ---: |
+| Render | 0.047915 |
+| Request preparation | 0.174804 |
+| Provider/model path | 165.129231 |
+| Policy parse residual | 0.006744 |
+| Chunk validation | 0.015391 |
+| IK | 0.165192 |
+| Execute overhead | 0.034602 |
+| Settle/physics hold | 3.378482 |
+| Decision-to-observation total | 169.199489 |
+| Episode total | 169.543063 |
+
+The run is provider/model-bound (about 97% of episode wall time); provider time
+includes relay/network and cannot isolate upstream inference. Per-decision
+component timings are in `episode_trace.jsonl`. Montage I/O is included in
+step totals but not render time. Initial, all twelve post-decision, contact,
+lifted, transport and final montages preserve the visual episode.
+
+### Confirmed defects and offline diagnosis
+
+On lift decisions 3 and 6 the model omitted `gripper`. The pinned official
+`_tools.Toolset._move_absolute` starts a target from the measured EEF state,
+so omitted gripper reused the contact aperture (~0.628), rather than the prior
+zero command. Those lifts did not establish a stable grasp. On decision 9,
+Astra explicitly included `gripper=0`; stable lift and transport then succeeded.
+This is observable official action semantics, not a provider failure. Future
+policy-facing robot documentation should explicitly explain omission behavior;
+no state falsification or hidden command substitution is appropriate.
+
+The terminal release failed because S5's post-chunk wait estimated gripper
+travel from commanded versus measured aperture only. Contact can keep measured
+opening near 60 mm while the internal actuator setpoint has slewed closed.
+The open command must traverse that internal distance before measured fingers
+start moving. The live final command was 95 mm, internal setpoint 50.64 mm and
+measured aperture 59.61 mm.
+
+An **offline diagnostic** replayed only the recorded autonomous ActionChunks
+through the same simulator boundary and matched every live state hash. It then
+held the simulator an additional **1.239333 s**, with no new action/model call.
+The actuator reached 95 mm, fingers opened, and the unchanged S3 evaluator
+reported released, settled and inside_target true, success true. This is
+recorded in `offline_release_diagnostic.json` and the explicitly OFFLINE-labeled
+montage. **It does not change the live result to PASS.** No object teleport,
+weld, target reset or hidden motion was involved.
+
+The implementation now computes the wait from the larger of commanded-to-
+measured and commanded-to-setpoint travel, divided by existing slew speed,
+plus the original 0.25 s hold. This uses robot actuator state only. The added
+contact-release regression verifies the final observation is captured after
+setpoint travel and physical finger opening. It does not weaken action/IK or
+collision checks. This fix has not been tested with another live paid episode.
+The original live evidence and its source fingerprints remain unchanged.
+
+### Postflight evidence and next research checkpoint
+
+The first postflight suite had one S4 static image identity failure (front_rgb);
+295 other tests passed. Reset identity and the other camera repeats passed.
+The isolated unchanged S4 test passed immediately afterward. The original
+failed quality record and S4 diagnostic flags are retained; the transient GPU
+rendering mismatch's root cause is unconfirmed. It is not silently discarded.
+Final regression after the settle fix: **297 tests passed (121 S5), S1/S2
+48/48, Ruff, format, S5 mypy, compilation and diff checks PASS**. The final
+record is saved separately alongside the original exact-source preflight
+record. S1-S4 sources/tests were not changed. The passing rerun does not
+explain the earlier transient static-image mismatch.
+
+**S5A remains PASS. S5B remains PARTIAL.** Before another paid mission, review
+these two action/settle findings and the intermittent S4 static-render check.
+No S6 work has started. The proposed next research stage is:
+
+**S6 — Sim/Real Observation & Action Contract Bring-up**
+
+- **S6A:** real observation-only parity for front_rgb/right_rgb/wrist_rgb and
+  real eef_state; no model-issued physical motion.
+- **S6B:** real Astra shadow mode; generic move_to proposals evaluated by the
+  safety stack as WOULD_SEND only, without physical execution.
+- **S6C:** supervised one-action physical execution with human review,
+  pre_check/approver, one-use authority, bounded MovL, settle and fresh
+  observation; physical E-stop remains primary.
+- **S6D:** incremental supervised manipulation after the preceding gates.
+
+This is a proposal only. Physical robot, serial and camera counters remain
+zero. This S5B episode made 12 provider requests; offline diagnosis made zero.
+No changes were pushed. Simulator results do not authorize physical autonomy.

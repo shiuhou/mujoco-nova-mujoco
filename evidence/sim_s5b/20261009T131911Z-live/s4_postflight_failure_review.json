@@ -1,0 +1,38 @@
+{
+  "status": "FAIL",
+  "static_repeat_exact": {
+    "front_rgb": false,
+    "right_rgb": true,
+    "wrist_rgb": true
+  },
+  "reset_repeat_exact": {
+    "front_rgb": true,
+    "right_rgb": true,
+    "wrist_rgb": true
+  },
+  "renderer": {
+    "mujoco_version": "2.3.7",
+    "backend": "egl",
+    "renderer": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+    "vendor": "NVIDIA Corporation",
+    "opengl_version": "4.6.0 NVIDIA 595.84",
+    "parameters": {
+      "near_m": 0.01,
+      "far_m": 10.0,
+      "multisamples": 4,
+      "max_geoms": 10000
+    },
+    "resizing": false,
+    "color_order": "RGB",
+    "depth": false
+  },
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "isolated_rerun": "test_s4_evidence.py PASS in 0.60s without S4 changes",
+  "assessment": "Transient front_rgb static byte-identity mismatch; root cause unconfirmed. All reset comparisons and other camera repeats passed. Initial failure preserved."
+}

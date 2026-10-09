@@ -1,0 +1,67 @@
+{
+  "S5A": "PASS",
+  "S5B": "PARTIAL",
+  "live_attempt_count": 1,
+  "live_source_head": "1b140d6a748a504b0dfa46c4691a2e74cad9457e",
+  "stop_category": "max_calls_reached",
+  "task_categories": [
+    "release_fail",
+    "place_miss"
+  ],
+  "root_cause_confirmed": "post-chunk hold underestimated actuator setpoint travel after contact closure",
+  "early_lift_issue": "omitted gripper targets reused measured aperture through official move_to semantics; explicit gripper=0 later lifted successfully",
+  "live_result_unchanged": true,
+  "diagnostic_only": "Recorded action replay matched all live state hashes. Additional 1.239333 simulated seconds allowed release/settle/inside_target and evaluator success; not a live PASS.",
+  "settle_fix": "Use maximum of commanded-to-measured and commanded-to-setpoint distance / slew speed, then existing 0.25 s hold. Not live-retested.",
+  "provider_responses": [
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200,
+    200
+  ],
+  "configured_model": "gpt-6-astra",
+  "relay_claimed_models": [
+    "gpt-6-astra"
+  ],
+  "usage_totals": {
+    "input_tokens": 114556,
+    "output_tokens": 788,
+    "total_tokens": 115344
+  },
+  "frame_generations": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13
+  ],
+  "freshness_all_steps": true,
+  "simulation_fault": false,
+  "budget_respected": true,
+  "loop_bound": "provider/model-bound; provider latency includes relay/network",
+  "no_additional_paid_attempt": true,
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 12
+  },
+  "S6": "proposal only; not started"
+}

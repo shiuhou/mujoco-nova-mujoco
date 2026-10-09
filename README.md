@@ -12,7 +12,7 @@ the exact current sources.
 It cannot fall back to replay. The S5A bring-up permits two small open-gripper
 decisions; it does not launch the autonomous pick-and-place benchmark.
 
-**Offline S5: PASS. Live S5A: PASS (October 9, 2026). S5B: not started.**
+**Offline S5: PASS. Live S5A: PASS (October 9, 2026). S5B: PARTIAL (one autonomous attempt).**
 The live checkpoint completed two SciTrace Responses requests using configured
 `gpt-6-astra`, two official `move_to` decisions, four validated MuJoCo waypoints
 and fresh observation generations 1 → 2 → 3. Evidence:
@@ -20,6 +20,12 @@ and fresh observation generations 1 → 2 → 3. Evidence:
 [S5 architecture, commands, evidence and limitations](docs/sim_tracks/s5_astra_closed_loop.md).
 S5 validates the model-facing closed loop in simulation. It does NOT authorize
 autonomous physical Nova execution.
+
+The S5B attempt grasped, lifted and transported the blue block but reached its
+12-call budget before release completed. Evidence and the confirmed gripper
+settle-timing defect are preserved in
+[`20261009T131911Z-live`](evidence/sim_s5b/20261009T131911Z-live/).
+The settle fix is validated offline; no second paid attempt was run.
 
 ## Unified S1–S4 production simulator
 
