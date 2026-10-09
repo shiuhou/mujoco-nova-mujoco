@@ -188,3 +188,36 @@ def test_task_failure_uses_evaluator_facts(updates, closed, category):
         "released": False,
     }
     assert task_failure({**metrics, **updates}, closed_command=closed) == category
+
+
+def test_contact_release_waits_for_actuator_setpoint_before_observation(mission):
+    """Measured aperture cannot estimate opening time after contact closure."""
+    obs = mission.reset(
+        Scene(id="release_wait_regression", instruction="Offline regression")
+    )
+    start = obs.state["eef_state"][:3]
+    target = start.copy()
+    target[2] = 0.045
+    # Offline contact fixture only; never supplied as live policy guidance.
+    approach = [
+        np.r_[position, 0, 0, 0, 1] for position in np.linspace(start, target, 23)[1:]
+    ]
+    mission.begin_decision(obs)
+    obs = mission.execute_chunk(chunk(approach), obs).observation
+    mission.begin_decision(obs)
+    obs = mission.execute_chunk(
+        chunk([np.r_[obs.state["eef_state"][:3], 0, 0, 0, 0]]), obs
+    ).observation
+    state = mission.sim.get_gripper_state()
+    assert state["bilateral_blue_contact"]
+    assert state["measured_opening_m"] > state["setpoint_opening_m"] + 0.04
+    mission.begin_decision(obs)
+    fresh = mission.execute_chunk(
+        chunk([np.r_[obs.state["eef_state"][:3], 0, 0, 0, 1]]), obs
+    ).observation
+    state = mission.sim.get_gripper_state()
+    assert state["setpoint_opening_m"] == pytest.approx(0.095)
+    assert state["measured_opening_m"] > 0.094
+    assert not state["bilateral_blue_contact"]
+    assert fresh.state_time > obs.state_time
+    assert fresh.state["eef_state"][6] > 0.99

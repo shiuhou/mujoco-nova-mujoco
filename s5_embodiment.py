@@ -399,11 +399,15 @@ class NovaMujocoEmbodiment(EmbodimentBase):
                     else "safety_validation_abort"
                 )
                 raise S5Error(category, "executor rejected waypoint; remainder stopped")
-            # Gripper servo can still be slewing after the arm's settle. Wait a
-            # deterministic aperture-derived duration plus a fixed final hold.
+            # Contact may keep the measured aperture near 60 mm while the
+            # actuator setpoint has slewed all the way closed. Opening must
+            # wait for that setpoint to catch up, not only measured travel.
             gs = self.sim.get_gripper_state()
             duration = (
-                abs(gs["commanded_opening_m"] - gs["measured_opening_m"])
+                max(
+                    abs(gs["commanded_opening_m"] - gs["measured_opening_m"]),
+                    abs(gs["commanded_opening_m"] - gs["setpoint_opening_m"]),
+                )
                 / self.sim.scene_spec.gripper.opening_speed_m_s
             )
             self.sim.hold(duration + 0.25)
