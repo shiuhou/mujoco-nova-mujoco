@@ -1,0 +1,9 @@
+{
+  "status": "BLOCKED",
+  "settle_regression": "PASS",
+  "s4_isolated": "FAIL on repetition 3",
+  "credential_audit": "PASS",
+  "official_pin": "PASS",
+  "clean_start": "PASS",
+  "full_suite": "NOT_RUN; stopped at explicit reproducibility gate"
+}

@@ -1,0 +1,1046 @@
+{
+  "schema": "nova_mujoco_s4_validation_v1",
+  "status": "PASS",
+  "generated_at_utc": "2026-10-09T15:08:41.152199+00:00",
+  "git": {
+    "head": "4d199b10bca2a3e1cccb9e6c6f2997c97a1aeba2",
+    "branch": "research/astra-mujoco-embodiment",
+    "source_dirty": false
+  },
+  "frozen_base": "88d93cf686ba0c67afe06b163aa7fb48d65f1a07",
+  "files_sha256": {
+    "nova2.xml": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331",
+    "s4_cameras.json": "30c1746d3daabb7bfdd38a22d7026177a47e4811c9a04b9db628ec04b550e08e",
+    "visual_fixtures.xml": "caf5125ea7c067ebf66b71c40cec68770cd936bf27cd60fd1fd46f65dee7bd3c",
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "run_s4_camera_validation.py": "7266f7d4ef6f4676e33b45ba53069e7dfb53bec93f4b2c7e4b26cd85bbc30d6b",
+    "s4_validation.py": "a0b5f71ecbad45cd5338e99f4ca86de29a6b00f817e1542472bf8f3bca512701"
+  },
+  "render_scene_sha256": "60dd6eb591311419480044bb0356d9818a457bc9dcb3e4e5ce6b3833721914fb",
+  "renderer": {
+    "mujoco_version": "2.3.7",
+    "backend": "egl",
+    "renderer": "NVIDIA GeForce RTX 4090/PCIe/SSE2",
+    "vendor": "NVIDIA Corporation",
+    "opengl_version": "4.6.0 NVIDIA 595.84",
+    "parameters": {
+      "near_m": 0.01,
+      "far_m": 10.0,
+      "multisamples": 4,
+      "max_geoms": 10000
+    },
+    "resizing": false,
+    "color_order": "RGB",
+    "depth": false
+  },
+  "startup_host_s": 0.15352280787192285,
+  "initial_sample": "pose_01",
+  "q_start_rad": [
+    -0.014480996803796952,
+    -0.6406248472737707,
+    2.1574939908405466,
+    0.025497515042385163,
+    -1.5480773759216864,
+    -1.5568511460714618
+  ],
+  "state": {
+    "eef_state": [
+      -0.18149207189843694,
+      -0.1168826856028805,
+      0.3754770360029447,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "joint_pos": [
+      -0.014480996803796952,
+      -0.6406248472737707,
+      2.1574939908405466,
+      0.025497515042385163,
+      -1.5480773759216864,
+      -1.5568511460714618
+    ]
+  },
+  "state_time": 0.0,
+  "camera_metadata": {
+    "simulated": true,
+    "controlled_frame": "link6",
+    "frame_generation": 1,
+    "state_hash": "fba9567bef3b5ed0aede68f75355db5c8bb52d5d2d3c316a45aaa673f16533dc",
+    "timestamp_source": "simulation_state_time",
+    "camera": {
+      "frames": {
+        "front_rgb": {
+          "frame_generation": 1,
+          "sim_time": 0.0,
+          "state_time": 0.0,
+          "state_hash": "fba9567bef3b5ed0aede68f75355db5c8bb52d5d2d3c316a45aaa673f16533dc",
+          "render_started_host_monotonic_s": 1493583.50951906,
+          "render_finished_host_monotonic_s": 1493583.511943372,
+          "render_elapsed_s": 0.0024243120569735765,
+          "timestamp_source": "simulation_state_time",
+          "physical_exposure": false,
+          "width": 640,
+          "height": 480,
+          "camera_world_position_m": [
+            -1.0,
+            -0.15,
+            0.4
+          ],
+          "camera_to_world_rotation": [
+            [
+              0.05672669004870706,
+              0.1783189809305376,
+              -0.9823362070472681
+            ],
+            [
+              -0.9983897448572467,
+              0.010131760280144064,
+              -0.05581455721859463
+            ],
+            [
+              -5.551115123125783e-17,
+              0.9839205702055023,
+              0.17860658309950322
+            ]
+          ]
+        },
+        "right_rgb": {
+          "frame_generation": 1,
+          "sim_time": 0.0,
+          "state_time": 0.0,
+          "state_hash": "fba9567bef3b5ed0aede68f75355db5c8bb52d5d2d3c316a45aaa673f16533dc",
+          "render_started_host_monotonic_s": 1493583.511957288,
+          "render_finished_host_monotonic_s": 1493583.51238477,
+          "render_elapsed_s": 0.00042748195119202137,
+          "timestamp_source": "simulation_state_time",
+          "physical_exposure": false,
+          "width": 640,
+          "height": 480,
+          "camera_world_position_m": [
+            -0.32,
+            0.95,
+            0.38
+          ],
+          "camera_to_world_rotation": [
+            [
+              -0.988148826849317,
+              0.02328912541428932,
+              -0.15172182649096985
+            ],
+            [
+              -0.1534988468892143,
+              -0.14992374485448756,
+              0.9767092580356184
+            ],
+            [
+              0.0,
+              0.9884232329150525,
+              0.15172182649096988
+            ]
+          ]
+        },
+        "wrist_rgb": {
+          "frame_generation": 1,
+          "sim_time": 0.0,
+          "state_time": 0.0,
+          "state_hash": "fba9567bef3b5ed0aede68f75355db5c8bb52d5d2d3c316a45aaa673f16533dc",
+          "render_started_host_monotonic_s": 1493583.512390541,
+          "render_finished_host_monotonic_s": 1493583.515242806,
+          "render_elapsed_s": 0.0028522650245577097,
+          "timestamp_source": "simulation_state_time",
+          "physical_exposure": false,
+          "width": 1280,
+          "height": 720,
+          "camera_world_position_m": [
+            -0.1812484086778917,
+            -0.07269266363822638,
+            0.3694606149286855
+          ],
+          "camera_to_world_rotation": [
+            [
+              -0.9992007351072701,
+              -0.027774541421793895,
+              0.028748318383870923
+            ],
+            [
+              0.02842029813191239,
+              -0.9993472196861327,
+              0.02230294060633843
+            ],
+            [
+              0.02811009809987458,
+              0.023102150428167892,
+              0.9993378372854748
+            ]
+          ]
+        }
+      },
+      "same_state_snapshot": true,
+      "physical_exposure": false
+    }
+  },
+  "shapes": {
+    "front_rgb": [
+      480,
+      640,
+      3
+    ],
+    "right_rgb": [
+      480,
+      640,
+      3
+    ],
+    "wrist_rgb": [
+      720,
+      1280,
+      3
+    ]
+  },
+  "dtypes": {
+    "front_rgb": "uint8",
+    "right_rgb": "uint8",
+    "wrist_rgb": "uint8"
+  },
+  "static_repeat_exact": {
+    "front_rgb": true,
+    "right_rgb": true,
+    "wrist_rgb": true
+  },
+  "reset_repeat_exact": {
+    "front_rgb": true,
+    "right_rgb": true,
+    "wrist_rgb": true
+  },
+  "image_sha256": {
+    "front_rgb": "a71bc074ba8c43443d9492d2f424fc3b1f1637fe2e5983d179b736d126effcd3",
+    "right_rgb": "520f52a04aeea9a3c5128fc97b15c448e39821b6351b69129c9e64ebf7cc0884",
+    "wrist_rgb": "803c36185f08a1cefe9059713a1e72e6caf996a546a00bd631040bbce4b07344"
+  },
+  "fixture_visibility": {
+    "front_rgb": {
+      "s4_blue_box": {
+        "pixel_uv": [
+          371.59794561954334,
+          335.76298306376253
+        ],
+        "view_depth_m": 0.8616651343406663,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          4.0,
+          35.0,
+          251.0
+        ],
+        "color_visible": true
+      },
+      "s4_black_box": {
+        "pixel_uv": [
+          283.425568857626,
+          332.8529614440088
+        ],
+        "view_depth_m": 0.9024097611102403,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          4.0,
+          4.0,
+          4.0
+        ],
+        "color_visible": true
+      },
+      "s4_red_target": {
+        "pixel_uv": [
+          318.7760155432168,
+          394.954692559103
+        ],
+        "view_depth_m": 0.7264822767572295,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          236.0,
+          4.0,
+          2.0
+        ],
+        "color_visible": true
+      }
+    },
+    "right_rgb": {
+      "s4_blue_box": {
+        "pixel_uv": [
+          334.7744798499699,
+          290.5879661173421
+        ],
+        "view_depth_m": 1.1914904686618975,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          4.0,
+          34.0,
+          246.0
+        ],
+        "color_visible": true
+      },
+      "s4_black_box": {
+        "pixel_uv": [
+          312.15318061750617,
+          313.9301953512983
+        ],
+        "view_depth_m": 1.0315187678554811,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          4.0,
+          4.0,
+          4.0
+        ],
+        "color_visible": true
+      },
+      "s4_red_target": {
+        "pixel_uv": [
+          393.20864693109905,
+          319.43198198082956
+        ],
+        "view_depth_m": 1.0868972345246852,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          232.0,
+          4.0,
+          2.0
+        ],
+        "color_visible": true
+      }
+    },
+    "wrist_rgb": {
+      "s4_blue_box": {
+        "pixel_uv": [
+          615.150216487324,
+          135.00340747986243
+        ],
+        "view_depth_m": 0.30206576158649345,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          17.0,
+          64.0,
+          255.0
+        ],
+        "color_visible": true
+      },
+      "s4_black_box": {
+        "pixel_uv": [
+          568.843163739092,
+          453.165892966936
+        ],
+        "view_depth_m": 0.30740519050475457,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          30.0,
+          30.0,
+          30.0
+        ],
+        "color_visible": true
+      },
+      "s4_red_target": {
+        "pixel_uv": [
+          866.5146312081504,
+          304.9062438869753
+        ],
+        "view_depth_m": 0.3443442581809226,
+        "inside_frustum": true,
+        "patch_median_rgb": [
+          255.0,
+          11.0,
+          9.0
+        ],
+        "color_visible": true
+      }
+    }
+  },
+  "movement_checks": [
+    {
+      "label": "scripted_joint_state_1",
+      "q_rad": [
+        0.10551900319620304,
+        -0.6806248472737707,
+        2.1874939908405464,
+        0.025497515042385163,
+        -1.5480773759216864,
+        -1.4768511460714617
+      ],
+      "state_time": 0.12000000000000009,
+      "state": {
+        "eef_state": [
+          -0.15810353482661824,
+          -0.13691204104129862,
+          0.3720799473034919,
+          0.04005296498372595,
+          -0.008104363618170228,
+          -0.002880281122906123,
+          0.0
+        ],
+        "joint_pos": [
+          0.10551900319620304,
+          -0.6806248472737707,
+          2.1874939908405464,
+          0.025497515042385163,
+          -1.5480773759216864,
+          -1.4768511460714617
+        ]
+      },
+      "camera_metadata": {
+        "simulated": true,
+        "controlled_frame": "link6",
+        "frame_generation": 3,
+        "state_hash": "44de41b393f9d768e8bfe4254b82a150a0894e76e1c01e1574dfcf97c538b69e",
+        "timestamp_source": "simulation_state_time",
+        "camera": {
+          "frames": {
+            "front_rgb": {
+              "frame_generation": 3,
+              "sim_time": 0.12000000000000009,
+              "state_time": 0.12000000000000009,
+              "state_hash": "44de41b393f9d768e8bfe4254b82a150a0894e76e1c01e1574dfcf97c538b69e",
+              "render_started_host_monotonic_s": 1493583.602451521,
+              "render_finished_host_monotonic_s": 1493583.603007736,
+              "render_elapsed_s": 0.0005562149453908205,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 640,
+              "height": 480,
+              "camera_world_position_m": [
+                -1.0,
+                -0.15,
+                0.4
+              ],
+              "camera_to_world_rotation": [
+                [
+                  0.05672669004870706,
+                  0.1783189809305376,
+                  -0.9823362070472681
+                ],
+                [
+                  -0.9983897448572467,
+                  0.010131760280144064,
+                  -0.05581455721859463
+                ],
+                [
+                  -5.551115123125783e-17,
+                  0.9839205702055023,
+                  0.17860658309950322
+                ]
+              ]
+            },
+            "right_rgb": {
+              "frame_generation": 3,
+              "sim_time": 0.12000000000000009,
+              "state_time": 0.12000000000000009,
+              "state_hash": "44de41b393f9d768e8bfe4254b82a150a0894e76e1c01e1574dfcf97c538b69e",
+              "render_started_host_monotonic_s": 1493583.603016262,
+              "render_finished_host_monotonic_s": 1493583.603496503,
+              "render_elapsed_s": 0.0004802411422133446,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 640,
+              "height": 480,
+              "camera_world_position_m": [
+                -0.32,
+                0.95,
+                0.38
+              ],
+              "camera_to_world_rotation": [
+                [
+                  -0.988148826849317,
+                  0.02328912541428932,
+                  -0.15172182649096985
+                ],
+                [
+                  -0.1534988468892143,
+                  -0.14992374485448756,
+                  0.9767092580356184
+                ],
+                [
+                  0.0,
+                  0.9884232329150525,
+                  0.15172182649096988
+                ]
+              ]
+            },
+            "wrist_rgb": {
+              "frame_generation": 3,
+              "sim_time": 0.12000000000000009,
+              "state_time": 0.12000000000000009,
+              "state_hash": "44de41b393f9d768e8bfe4254b82a150a0894e76e1c01e1574dfcf97c538b69e",
+              "render_started_host_monotonic_s": 1493583.603502264,
+              "render_finished_host_monotonic_s": 1493583.604084948,
+              "render_elapsed_s": 0.000582684064283967,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 1280,
+              "height": 720,
+              "camera_world_position_m": [
+                -0.15991806436483627,
+                -0.09286326983187057,
+                0.36593560836231886
+              ],
+              "camera_to_world_rotation": [
+                [
+                  -0.9992808604736386,
+                  0.01247231688822569,
+                  0.035807865092796785
+                ],
+                [
+                  -0.011521556096236922,
+                  -0.9995787890346144,
+                  0.026636408489417132
+                ],
+                [
+                  0.03612500015481689,
+                  0.026204690868878944,
+                  0.9990036529163849
+                ]
+              ]
+            }
+          },
+          "same_state_snapshot": true,
+          "physical_exposure": false
+        }
+      },
+      "fixed_camera_position_changes_m": {
+        "front_rgb": 0.0,
+        "right_rgb": 0.0
+      },
+      "fixed_camera_rotation_changes": {
+        "front_rgb": 0.0,
+        "right_rgb": 0.0
+      },
+      "wrist_position_change_m": 0.029567932190559094,
+      "link6_pose_base": {
+        "position_m": [
+          -0.15810353482661824,
+          -0.13691204104129862,
+          0.3720799473034919
+        ],
+        "rotation_matrix": [
+          [
+            -0.9992808604736387,
+            -0.01247231688822569,
+            -0.035807865092796785
+          ],
+          [
+            -0.011521556096236922,
+            0.9995787890346143,
+            -0.026636408489417132
+          ],
+          [
+            0.03612500015481689,
+            -0.026204690868878944,
+            -0.9990036529163849
+          ]
+        ]
+      },
+      "changed_pixel_fraction": {
+        "front_rgb": 0.05236328125,
+        "right_rgb": 0.061604817708333336,
+        "wrist_rgb": 0.2537163628472222
+      },
+      "fixture_visibility": {
+        "front_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              371.59794561954334,
+              335.76298306376253
+            ],
+            "view_depth_m": 0.8616651343406663,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              35.0,
+              251.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              283.425568857626,
+              332.8529614440088
+            ],
+            "view_depth_m": 0.9024097611102403,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              318.7760155432168,
+              394.954692559103
+            ],
+            "view_depth_m": 0.7264822767572295,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              236.0,
+              4.0,
+              2.0
+            ],
+            "color_visible": true
+          }
+        },
+        "right_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              334.7744798499699,
+              290.5879661173421
+            ],
+            "view_depth_m": 1.1914904686618975,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              34.0,
+              246.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              312.15318061750617,
+              313.9301953512983
+            ],
+            "view_depth_m": 1.0315187678554811,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              4.0,
+              4.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              393.20864693109905,
+              319.43198198082956
+            ],
+            "view_depth_m": 1.0868972345246852,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              232.0,
+              4.0,
+              2.0
+            ],
+            "color_visible": true
+          }
+        },
+        "wrist_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              660.040033398787,
+              172.868376733776
+            ],
+            "view_depth_m": 0.29921358273299414,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              16.0,
+              63.0,
+              255.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              599.634164483357,
+              491.64839979829753
+            ],
+            "view_depth_m": 0.3036011938661732,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              26.0,
+              26.0,
+              26.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              900.9861797126491,
+              349.75172113240683
+            ],
+            "view_depth_m": 0.3421476318495215,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              255.0,
+              10.0,
+              7.0
+            ],
+            "color_visible": true
+          }
+        }
+      }
+    },
+    {
+      "label": "scripted_joint_state_2",
+      "q_rad": [
+        -0.11448099680379696,
+        -0.6006248472737706,
+        2.1374939908405466,
+        0.05549751504238516,
+        -1.5480773759216864,
+        -1.6168511460714619
+      ],
+      "state_time": 0.10000000000000007,
+      "state": {
+        "eef_state": [
+          -0.19715229962324604,
+          -0.0976165612426309,
+          0.371479682309354,
+          -0.03995055265562467,
+          0.04857572544401581,
+          -0.001957743754243844,
+          0.0
+        ],
+        "joint_pos": [
+          -0.11448099680379696,
+          -0.6006248472737706,
+          2.1374939908405466,
+          0.05549751504238516,
+          -1.5480773759216864,
+          -1.6168511460714619
+        ]
+      },
+      "camera_metadata": {
+        "simulated": true,
+        "controlled_frame": "link6",
+        "frame_generation": 4,
+        "state_hash": "f829d1430ea0a5e38561e076ee9610dddc8c183273fc53787a8ec5489e6cc249",
+        "timestamp_source": "simulation_state_time",
+        "camera": {
+          "frames": {
+            "front_rgb": {
+              "frame_generation": 4,
+              "sim_time": 0.10000000000000007,
+              "state_time": 0.10000000000000007,
+              "state_hash": "f829d1430ea0a5e38561e076ee9610dddc8c183273fc53787a8ec5489e6cc249",
+              "render_started_host_monotonic_s": 1493583.65177138,
+              "render_finished_host_monotonic_s": 1493583.65238403,
+              "render_elapsed_s": 0.0006126498337835073,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 640,
+              "height": 480,
+              "camera_world_position_m": [
+                -1.0,
+                -0.15,
+                0.4
+              ],
+              "camera_to_world_rotation": [
+                [
+                  0.05672669004870706,
+                  0.1783189809305376,
+                  -0.9823362070472681
+                ],
+                [
+                  -0.9983897448572467,
+                  0.010131760280144064,
+                  -0.05581455721859463
+                ],
+                [
+                  -5.551115123125783e-17,
+                  0.9839205702055023,
+                  0.17860658309950322
+                ]
+              ]
+            },
+            "right_rgb": {
+              "frame_generation": 4,
+              "sim_time": 0.10000000000000007,
+              "state_time": 0.10000000000000007,
+              "state_hash": "f829d1430ea0a5e38561e076ee9610dddc8c183273fc53787a8ec5489e6cc249",
+              "render_started_host_monotonic_s": 1493583.652393087,
+              "render_finished_host_monotonic_s": 1493583.6528045,
+              "render_elapsed_s": 0.0004114129114896059,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 640,
+              "height": 480,
+              "camera_world_position_m": [
+                -0.32,
+                0.95,
+                0.38
+              ],
+              "camera_to_world_rotation": [
+                [
+                  -0.988148826849317,
+                  0.02328912541428932,
+                  -0.15172182649096985
+                ],
+                [
+                  -0.1534988468892143,
+                  -0.14992374485448756,
+                  0.9767092580356184
+                ],
+                [
+                  0.0,
+                  0.9884232329150525,
+                  0.15172182649096988
+                ]
+              ]
+            },
+            "wrist_rgb": {
+              "frame_generation": 4,
+              "sim_time": 0.10000000000000007,
+              "state_time": 0.10000000000000007,
+              "state_hash": "f829d1430ea0a5e38561e076ee9610dddc8c183273fc53787a8ec5489e6cc249",
+              "render_started_host_monotonic_s": 1493583.652810942,
+              "render_finished_host_monotonic_s": 1493583.654080746,
+              "render_elapsed_s": 0.0012698040809482336,
+              "timestamp_source": "simulation_state_time",
+              "physical_exposure": false,
+              "width": 1280,
+              "height": 720,
+              "camera_world_position_m": [
+                -0.1933953569028576,
+                -0.05361207492048456,
+                0.3654312348404303
+              ],
+              "camera_to_world_rotation": [
+                [
+                  -0.9974496101311734,
+                  -0.06884740398849089,
+                  -0.01882312974018074
+                ],
+                [
+                  0.06836789188060201,
+                  -0.9973461158655876,
+                  0.025031111194431153
+                ],
+                [
+                  -0.02049650235948713,
+                  0.023680374403104186,
+                  0.9995094463081158
+                ]
+              ]
+            }
+          },
+          "same_state_snapshot": true,
+          "physical_exposure": false
+        }
+      },
+      "fixed_camera_position_changes_m": {
+        "front_rgb": 0.0,
+        "right_rgb": 0.0
+      },
+      "fixed_camera_rotation_changes": {
+        "front_rgb": 0.0,
+        "right_rgb": 0.0
+      },
+      "wrist_position_change_m": 0.02297505431748197,
+      "link6_pose_base": {
+        "position_m": [
+          -0.19715229962324604,
+          -0.0976165612426309,
+          0.371479682309354
+        ],
+        "rotation_matrix": [
+          [
+            -0.9974496101311734,
+            0.06884740398849089,
+            0.01882312974018074
+          ],
+          [
+            0.06836789188060201,
+            0.9973461158655876,
+            -0.025031111194431153
+          ],
+          [
+            -0.02049650235948713,
+            -0.023680374403104186,
+            -0.9995094463081158
+          ]
+        ]
+      },
+      "changed_pixel_fraction": {
+        "front_rgb": 0.05158854166666667,
+        "right_rgb": 0.059033203125,
+        "wrist_rgb": 0.321162109375
+      },
+      "fixture_visibility": {
+        "front_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              371.59794561954334,
+              335.76298306376253
+            ],
+            "view_depth_m": 0.8616651343406663,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              35.0,
+              251.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              283.425568857626,
+              332.8529614440088
+            ],
+            "view_depth_m": 0.9024097611102403,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              318.7760155432168,
+              394.954692559103
+            ],
+            "view_depth_m": 0.7264822767572295,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              236.0,
+              4.0,
+              2.0
+            ],
+            "color_visible": true
+          }
+        },
+        "right_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              334.7744798499699,
+              290.5879661173421
+            ],
+            "view_depth_m": 1.1914904686618975,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              4.0,
+              34.0,
+              246.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              312.15318061750617,
+              313.9301953512983
+            ],
+            "view_depth_m": 1.0315187678554811,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              2.0,
+              2.0,
+              2.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              393.20864693109905,
+              319.43198198082956
+            ],
+            "view_depth_m": 1.0868972345246852,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              232.0,
+              4.0,
+              2.0
+            ],
+            "color_visible": true
+          }
+        },
+        "wrist_rgb": {
+          "s4_blue_box": {
+            "pixel_uv": [
+              607.2998243725146,
+              99.21390689470724
+            ],
+            "view_depth_m": 0.2992027049285673,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              15.0,
+              62.0,
+              255.0
+            ],
+            "color_visible": true
+          },
+          "s4_black_box": {
+            "pixel_uv": [
+              574.5030780865758,
+              422.46289877890763
+            ],
+            "view_depth_m": 0.3055072043808006,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              25.0,
+              25.0,
+              25.0
+            ],
+            "color_visible": true
+          },
+          "s4_red_target": {
+            "pixel_uv": [
+              875.5629751984673,
+              262.40989862046905
+            ],
+            "view_depth_m": 0.334106813312366,
+            "inside_frustum": true,
+            "patch_median_rgb": [
+              255.0,
+              13.0,
+              11.0
+            ],
+            "color_visible": true
+          }
+        }
+      }
+    }
+  ],
+  "performance": {
+    "front_rgb": {
+      "repetitions": 1,
+      "host_elapsed_s": 0.00038462202064692974,
+      "states_per_host_second": 2599.9551412007345,
+      "mean_ms_per_state": 0.38462202064692974,
+      "images_per_state": 1
+    },
+    "right_rgb": {
+      "repetitions": 1,
+      "host_elapsed_s": 0.0003831589128822088,
+      "states_per_host_second": 2609.8831747845084,
+      "mean_ms_per_state": 0.3831589128822088,
+      "images_per_state": 1
+    },
+    "wrist_rgb": {
+      "repetitions": 1,
+      "host_elapsed_s": 0.0006342509295791388,
+      "states_per_host_second": 1576.663041965987,
+      "mean_ms_per_state": 0.6342509295791388,
+      "images_per_state": 1
+    },
+    "all_three": {
+      "repetitions": 1,
+      "host_elapsed_s": 0.001556742936372757,
+      "states_per_host_second": 642.3668138363425,
+      "mean_ms_per_state": 1.556742936372757,
+      "images_per_state": 3
+    }
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  },
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 0
+  },
+  "limitations": [
+    "Engineering camera transforms/FOV; not calibrated",
+    "Test-only visual fixtures; no S3 physics",
+    "Same-state render coherence is not physical exposure synchronization",
+    "Static image identity tested on the recorded GL stack, not across GPU drivers"
+  ]
+}

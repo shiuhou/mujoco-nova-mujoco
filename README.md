@@ -25,7 +25,10 @@ The S5B attempt grasped, lifted and transported the blue block but reached its
 12-call budget before release completed. Evidence and the confirmed gripper
 settle-timing defect are preserved in
 [`20261009T131911Z-live`](evidence/sim_s5b/20261009T131911Z-live/).
-The settle fix is validated offline; no second paid attempt was run.
+The settle fix is validated offline. Controlled replication was blocked before
+paid execution when the S4 front-camera reset-identity check failed on isolated
+repetition 3; no second live attempt was run.
+[Replication preflight evidence](evidence/sim_s5b/20261009T151042Z-postfix-replication/).
 
 ## Unified S1–S4 production simulator
 

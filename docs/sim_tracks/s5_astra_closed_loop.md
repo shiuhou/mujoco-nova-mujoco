@@ -3,7 +3,7 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A PASS; S5B PARTIAL (first autonomous attempt)** (October 9, 2026).
+Current live status: **S5A PASS; S5B attempt #1 PARTIAL; post-fix replication BLOCKED before live execution** (October 9, 2026).
 The single live episode used the pinned official agent with configured and
 relay-reported `gpt-6-astra`: two Responses requests, two `move_to` decisions,
 four validated waypoints and fresh generations 1 → 2 → 3. See the S5A live
@@ -730,3 +730,58 @@ No S6 work has started. The proposed next research stage is:
 This is a proposal only. Physical robot, serial and camera counters remain
 zero. This S5B episode made 12 provider requests; offline diagnosis made zero.
 No changes were pushed. Simulator results do not authorize physical autonomy.
+
+
+## Controlled post-fix replication preflight — BLOCKED, October 9, 2026
+
+Starting HEAD: `4d199b10bca2a3e1cccb9e6c6f2997c97a1aeba2`, clean branch
+`research/astra-mujoco-embodiment`. The operator authorized exactly one new live
+S5B episode with the same task, provider/model, cameras, action semantics,
+initial scene, evaluator, effort, image horizon and 12-call/12-decision budget.
+Only the committed gripper settle correction was to vary from attempt #1.
+No production code, policy prompt, renderer or validation rule was changed.
+
+The contact-release settle regression passed. The official source fingerprints
+and credential-content audit passed. Before paid execution, ten isolated S4
+runs were planned, with an explicit stop on any recurrence. Repetitions 1 and 2
+passed. **Repetition 3 failed** in
+`test_s4_evidence.py::test_evidence_records_frames_and_side_effects_without_overwrite`:
+`reset_repeat_exact.front_rgb=false`. Static repeats passed for all three
+cameras; reset repeats for right_rgb and wrist_rgb also passed. This differs
+from the earlier static-front mismatch but reproduces the broader front-camera
+byte-identity reproducibility issue. Root cause remains unconfirmed. Renderer:
+MuJoCo 2.3.7, EGL, NVIDIA GeForce RTX 4090, OpenGL 4.6.0 NVIDIA 595.84.
+
+The operator's stop condition was enforced immediately: **no live episode,
+provider request or attempt #3; attempt #2 NOT_RUN**. Remaining isolated runs,
+new offline replay and full quality suite were not run after this blocker.
+Prior 297-test and 48/48 results remain historical and are not presented as
+passing this preflight. No renderer workaround or tolerance change was made.
+
+Evidence: `evidence/sim_s5b/20261009T151042Z-postfix-replication/`, containing
+all three isolated S4 reports/images, pytest outputs, source/historical hashes,
+credential audit, blocked preflight result and `attempt_comparison.json`.
+Attempt #1 files were compared against their preflight hashes and remain
+byte-for-byte unchanged. No live observation/action traces or mission montages
+were fabricated for this blocked preflight.
+
+| Measure | Attempt #1 | Attempt #2 |
+| --- | --- | --- |
+| Settle implementation | Old defect | Fixed, not live exercised |
+| Call budget | 12 | 12 planned |
+| Calls / decisions / waypoints | 12 / 12 / 236 | 0 / 0 / 0 |
+| Grasp / transport | PASS / PASS | Not evaluated |
+| Maximum lift | 142.9 mm | Not evaluated |
+| Release / inside target / success | false / false / false | Not evaluated |
+| Duration / provider time | 169.54 s / 165.13 s | Not applicable |
+| Tokens | 115,344 | 0 |
+| Distractor displacement | 0.017 mm | Not evaluated |
+| Result | PARTIAL | NOT_RUN; reproducibility blocker |
+
+S5 remains **S5A PASS / S5B PARTIAL**, with the controlled replication blocked.
+No conclusion about live sufficiency of the settle fix can be drawn from this
+preflight. S5 is frozen with this blocker preserved; resolving renderer
+reproducibility requires separate focused work before another live episode.
+No S6, E0 or interface experiments started. Robot connections, robot commands,
+serial connections, physical-camera connections and transmitted provider
+requests are all zero for this preflight. Commits are local only; no push.

@@ -1,0 +1,27 @@
+{
+  "status": "BLOCKED",
+  "stage": "S5B_POSTFIX_REPLICATION_PREFLIGHT",
+  "failure_category": "reproducibility_blocker",
+  "failure_detail": "S4 isolated repetition 3: reset_repeat_exact.front_rgb=false",
+  "live_episode_started": false,
+  "attempt_2_result": "NOT_RUN",
+  "requested_live_episodes": 1,
+  "executed_live_episodes": 0,
+  "starting_head": "4d199b10bca2a3e1cccb9e6c6f2997c97a1aeba2",
+  "settle_regression": "PASS",
+  "s4_repetitions_planned": 10,
+  "s4_repetitions_executed": 3,
+  "s4_passed": 2,
+  "s4_failed": 1,
+  "root_cause": "unconfirmed",
+  "production_code_changed": false,
+  "attempt_1_unchanged": true,
+  "offline_replay": "NOT_RUN in this preflight; stopped at S4 gate",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "transmitted_provider_requests": 0
+  }
+}

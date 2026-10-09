@@ -1,0 +1,29 @@
+{
+  "checks": [
+    {
+      "name": "settle_regression",
+      "exit_code": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 1.06s\n",
+      "stderr": ""
+    },
+    {
+      "name": "s4_isolated_01",
+      "exit_code": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 0.57s\n",
+      "stderr": ""
+    },
+    {
+      "name": "s4_isolated_02",
+      "exit_code": 0,
+      "stdout": ".                                                                        [100%]\n1 passed in 0.57s\n",
+      "stderr": ""
+    },
+    {
+      "name": "s4_isolated_03",
+      "exit_code": 1,
+      "stdout": "F                                                                        [100%]\n=================================== FAILURES ===================================\n_______ test_evidence_records_frames_and_side_effects_without_overwrite ________\n\ntmp_path = PosixPath('/tmp/s5b-replication-preflight-ygettr34/s4-03/test_evidence_records_frames_a0')\n\n    def test_evidence_records_frames_and_side_effects_without_overwrite(tmp_path):\n        output = tmp_path / \"s4-evidence\"\n        doc = run(output, repetitions=1, debug=True)\n>       assert doc[\"status\"] == \"PASS\"\nE       AssertionError: assert 'FAIL' == 'PASS'\nE         \nE         - PASS\nE         + FAIL\n\ntest_s4_evidence.py:13: AssertionError\n=========================== short test summary info ============================\nFAILED test_s4_evidence.py::test_evidence_records_frames_and_side_effects_without_overwrite\n1 failed in 0.60s\n",
+      "stderr": ""
+    }
+  ],
+  "status": "FAIL"
+}

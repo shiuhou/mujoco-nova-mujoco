@@ -1,0 +1,40 @@
+{
+  "comparison_status": "Replication blocked before live execution; no causal inference possible",
+  "attempt_1": {
+    "status": "PARTIAL",
+    "settle": "old defect",
+    "call_budget": 12,
+    "calls_used": 12,
+    "decisions": 12,
+    "waypoints": 236,
+    "grasp": true,
+    "max_lift_m": 0.1429297538222901,
+    "transport": true,
+    "released": false,
+    "inside_target": false,
+    "success": false,
+    "duration_s": 169.54306279611774,
+    "provider_s": 165.12923100939952,
+    "tokens": 115344,
+    "distractor_displacement_m": 1.7043406126953915e-05
+  },
+  "attempt_2": {
+    "status": "NOT_RUN",
+    "preflight_status": "BLOCKED",
+    "settle": "fixed",
+    "call_budget": 12,
+    "calls_used": 0,
+    "decisions": 0,
+    "waypoints": 0,
+    "grasp": null,
+    "max_lift_m": null,
+    "transport": null,
+    "released": null,
+    "inside_target": null,
+    "success": null,
+    "duration_s": null,
+    "provider_s": 0,
+    "tokens": 0,
+    "distractor_displacement_m": null
+  }
+}
