@@ -24,7 +24,10 @@ from s5_common import (
     RunLimits,
     S5Error,
     live_settings,
+    install_log_redaction,
     parse_env_file,
+    redact_value,
+    register_credentials,
     provider_profile,
     runtime_versions,
     verify_official_stack,
@@ -44,15 +47,12 @@ def source_manifest() -> dict:
 
 def json_write(path: Path, value, *, lines=False):
     # Final defense, without ever printing or writing the credential itself.
+    value = redact_value(value)
     text = (
         "".join(json.dumps(row, allow_nan=False) + "\n" for row in value)
         if lines
         else json.dumps(value, indent=2, allow_nan=False) + "\n"
     )
-    for name in ("OPENAI_API_KEY", "RELAY_API_KEY"):
-        secret = os.environ.get(name)
-        if secret:
-            text = text.replace(secret, "[REDACTED]")
     path.write_text(text)
 
 
@@ -117,6 +117,8 @@ def main(argv=None) -> int:
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     runtime_env = dict(os.environ)
+    register_credentials(runtime_env)
+    install_log_redaction()
     output = args.output or ROOT / "evidence/sim_s5a" / (
         datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + args.mode
     )
@@ -158,6 +160,7 @@ def main(argv=None) -> int:
             runtime_env.update(
                 parse_env_file(args.provider_env_file, allowed_names={"RELAY_API_KEY"})
             )
+            register_credentials(runtime_env)
         if args.provider_proxy:
             runtime_env["S5_PROVIDER_HTTPS_PROXY"] = args.provider_proxy
         if subprocess.run(
@@ -195,6 +198,9 @@ def main(argv=None) -> int:
                 "base_url": profile["base_url"],
                 "api_key_env": profile["api_key_env"],
                 "explicit_proxy_configured": bool(profile["proxy"]),
+                "transport_mode": "explicit_proxy" if profile["proxy"] else "direct",
+                "tls_verification": True,
+                "redirects_allowed": False,
             }
             environment["api_key_present"] = True
         if args.mode == "live" and quality["status"] != "PASS":
@@ -212,7 +218,10 @@ def main(argv=None) -> int:
         from s5_loop import run_loop
 
         environment.update({"mujoco": mujoco.__version__, "numpy": np.__version__})
-        guard = SimulationIOGuard(args.base_url if args.mode == "live" else None)
+        guard = SimulationIOGuard(
+            args.base_url if args.mode == "live" else None,
+            proxy=profile["proxy"] if args.mode == "live" else None,
+        )
         guard.install()
         budget = Budget(limits)
         with wall_deadline(limits.max_wall_time):
@@ -309,7 +318,7 @@ def main(argv=None) -> int:
             "mode": args.mode,
             "instruction": S5A_INSTRUCTION,
             "side_effects": side_effects,
-            "S5B": "BLOCKED; not implemented or launched before live S5A PASS",
+            "S5B": "NOT_STARTED; this runner is S5A only",
         }
     )
     result["provider_attempts"] = 0 if budget is None else budget.requests

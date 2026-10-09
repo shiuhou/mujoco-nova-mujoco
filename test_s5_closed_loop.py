@@ -890,3 +890,216 @@ def test_transmitted_request_remains_counted_when_response_times_out():
         )
     assert transport.budget.requests == transport.transmitted_requests == 1
     assert "synthetic-sensitive-text" not in json.dumps(transport.events)
+
+
+@pytest.mark.parametrize("address", ["198.18.0.1", "198.19.255.254", "10.0.0.1", "::1"])
+def test_direct_guard_preserves_special_address_rejection(monkeypatch, address):
+    monkeypatch.setattr(
+        "socket.getaddrinfo", lambda *a, **k: [(2, 1, 6, "", (address, 443))]
+    )
+    guard = SimulationIOGuard("https://sub.scitrace.cc")
+    with pytest.raises(S5Error, match="no public provider address"):
+        with guard.provider_network():
+            pytest.fail("direct special-use destination allowed")
+
+
+@pytest.mark.parametrize(
+    "provider,proxy",
+    [
+        ("https://arbitrary.example", "http://127.0.0.1:7890"),
+        ("https://sub.scitrace.cc.evil.example", "http://127.0.0.1:7890"),
+        ("http://sub.scitrace.cc", "http://127.0.0.1:7890"),
+        ("https://sub.scitrace.cc", "http://127.0.0.1:7891"),
+        ("https://sub.scitrace.cc", "http://192.168.1.2:7890"),
+        ("https://sub.scitrace.cc", "http://user:secret@127.0.0.1:7890"),
+        ("https://sub.scitrace.cc", "http://localhost:7890"),
+    ],
+)
+def test_proxy_guard_rejects_unapproved_provider_or_boundary(provider, proxy):
+    with pytest.raises(S5Error, match="invalid_provider_configuration"):
+        SimulationIOGuard(provider, proxy=proxy)
+
+
+def test_proxy_guard_allows_only_explicit_boundary_without_provider_dns(monkeypatch):
+    monkeypatch.setattr(
+        "socket.getaddrinfo", lambda *a, **k: pytest.fail("proxy must own provider DNS")
+    )
+    guard = SimulationIOGuard("https://sub.scitrace.cc/", proxy="http://127.0.0.1:7890")
+    with guard.provider_network():
+        guard.check("socket.getaddrinfo", ("127.0.0.1", 7890))
+        guard.check("socket.connect", (None, ("127.0.0.1", 7890)))
+        for address in [
+            ("127.0.0.1", 443),
+            ("127.0.0.1", 7891),
+            ("198.18.0.65", 443),
+            ("172.10.10.100", 29999),
+        ]:
+            with pytest.raises(S5Error, match="prohibited_io"):
+                guard.check("socket.connect", (None, address))
+        with pytest.raises(S5Error, match="prohibited_io"):
+            guard.check("socket.getaddrinfo", ("sub.scitrace.cc", 443))
+    assert not guard.active and not guard.addresses
+    with pytest.raises(S5Error, match="prohibited_io"):
+        guard.check("socket.connect", (None, ("127.0.0.1", 7890)))
+
+
+def test_ambient_proxies_do_not_enable_proxy_mode(monkeypatch):
+    env = {"RELAY_API_KEY": "synthetic-key"}
+    for name in (
+        "HTTP_PROXY",
+        "HTTPS_PROXY",
+        "ALL_PROXY",
+        "http_proxy",
+        "https_proxy",
+        "all_proxy",
+    ):
+        env[name] = "http://unapproved.example:8888"
+        monkeypatch.setenv(name, env[name])
+    assert provider_profile("https://sub.scitrace.cc", env)["proxy"] is None
+    guard = SimulationIOGuard("https://sub.scitrace.cc")
+    assert guard.proxy is None and guard.connect_port == 443
+
+
+def test_relay_constructor_keeps_tls_and_exact_official_client(embodiment, monkeypatch):
+    options = []
+    monkeypatch.setattr(
+        httpx,
+        "HTTPTransport",
+        lambda **kw: options.append(kw)
+        or httpx.MockTransport(lambda r: pytest.fail("offline constructor only")),
+    )
+    endpoint, proxy = "https://sub.scitrace.cc", "http://127.0.0.1:7890"
+    policy, transport = make_live_policy(
+        embodiment,
+        embodiment.budget,
+        "gpt-6-astra",
+        {
+            "RELAY_API_KEY": "inert-relay-constructor-key",
+            "S5_PROVIDER_HTTPS_PROXY": proxy,
+        },
+        base_url=endpoint,
+        guard=SimulationIOGuard(endpoint, proxy=proxy),
+    )
+    try:
+        assert options == [
+            {"retries": 0, "trust_env": False, "proxy": proxy, "verify": True}
+        ]
+        assert policy.config.model == "gpt-6-astra"
+        assert policy._client.__class__.__module__ == "inspect_robots_agent._responses"
+        assert policy._client._http.follow_redirects is False
+    finally:
+        policy._client.close()
+
+
+def test_redirect_response_cannot_leave_configured_destination():
+    calls = []
+
+    def redirect(request):
+        calls.append(str(request.url))
+        return httpx.Response(
+            302, headers={"location": "https://arbitrary.example/responses"}, json={}
+        )
+
+    transport = BoundedTransport(
+        httpx.MockTransport(redirect),
+        Budget(RunLimits()),
+        live=False,
+        base_url="https://sub.scitrace.cc",
+    )
+    with httpx.Client(transport=transport, follow_redirects=True) as client:
+        with pytest.raises(S5Error, match="provider HTTP status 302"):
+            client.post("https://sub.scitrace.cc/responses")
+    assert calls == ["https://sub.scitrace.cc/responses"]
+
+
+def test_proxy_connect_headers_are_not_counted_as_provider_transmission():
+    from types import SimpleNamespace
+
+    def connect_then_fail(request):
+        trace = request.extensions["trace"]
+        trace(
+            "http11.send_request_headers.started",
+            {"request": SimpleNamespace(method=b"CONNECT")},
+        )
+        trace("http11.send_request_headers.complete", {})
+        raise httpx.ProxyError("inert-transport-error")
+
+    transport = BoundedTransport(
+        httpx.MockTransport(connect_then_fail), Budget(RunLimits()), live=False
+    )
+    with pytest.raises(S5Error, match="proxy_connect"):
+        transport.handle_request(
+            httpx.Request("POST", "https://api.openai.com/v1/responses")
+        )
+    assert transport.transmitted_requests == 0
+
+
+@pytest.mark.parametrize("source", ["environment", "runtime", "file"])
+def test_all_credential_sources_redacted_in_evidence_errors_and_logs(
+    tmp_path, monkeypatch, source
+):
+    import logging
+    from run_s5a import json_write
+    from s5_common import register_credentials, install_log_redaction
+
+    secret = "inert-private-value-" + source
+    if source == "environment":
+        monkeypatch.setenv("RELAY_API_KEY", secret)
+    else:
+        monkeypatch.delenv("RELAY_API_KEY", raising=False)
+        if source == "file":
+            path = tmp_path / "operator.env"
+            path.write_text("export RELAY_API_KEY=" + secret + "\n")
+            runtime_env = parse_env_file(path, allowed_names={"RELAY_API_KEY"})
+        else:
+            runtime_env = {"RELAY_API_KEY": secret}
+        register_credentials(runtime_env)
+        assert secret not in os.environ.values()
+    error = S5Error("provider/API_error", "upstream echoed " + secret)
+    assert secret not in str(error) and secret not in error.detail
+    output = tmp_path / "evidence.json"
+    json_write(
+        output, {"command": ["arg=" + secret], "error": str(error), secret: secret}
+    )
+    assert secret not in output.read_text()
+    assert "[REDACTED]" in output.read_text()
+    old_factory = logging.getLogRecordFactory()
+    sink = io.StringIO()
+    handler = logging.StreamHandler(sink)
+    logger = logging.getLogger("s5-redaction-test")
+    logger.addHandler(handler)
+    try:
+        install_log_redaction()
+        try:
+            raise RuntimeError(secret)
+        except RuntimeError:
+            logger.error("provider echoed %s", secret, exc_info=True)
+    finally:
+        logging.setLogRecordFactory(old_factory)
+        logger.removeHandler(handler)
+    assert secret not in sink.getvalue()
+    assert "[REDACTED]" in sink.getvalue()
+
+
+def test_runtime_only_secondary_secret_redacted_from_provider_error():
+    from s5_common import register_credentials
+
+    secondary = "inert-secondary-runtime-key"
+    register_credentials({"RELAY_API_KEY": secondary})
+    transport = BoundedTransport(
+        httpx.MockTransport(
+            lambda r: httpx.Response(401, json={"error": {"message": secondary}})
+        ),
+        Budget(RunLimits()),
+        live=False,
+    )
+    with pytest.raises(S5Error) as error:
+        transport.handle_request(
+            httpx.Request(
+                "POST",
+                "https://api.openai.com/v1/responses",
+                headers={"Authorization": "Bearer inert-primary"},
+            )
+        )
+    assert secondary not in str(error.value)
+    assert secondary not in json.dumps(transport.events)

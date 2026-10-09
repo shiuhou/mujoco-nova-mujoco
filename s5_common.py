@@ -8,6 +8,8 @@ import ipaddress
 from importlib.metadata import version
 import json
 import math
+import os
+import logging
 import re
 import signal
 import time
@@ -25,6 +27,68 @@ OFFICIAL_REVISION = "7e506e3b6f39530f18e75cf97b23c4287aa90f12"
 FORBIDDEN_HARDWARE_ADDRESSES = frozenset({"172.10.10.100"})
 YAM_REVISION = "178c93037afcf593618e0a1db6ae1f1b0cfeaa0f"
 BENCHMARK_INSTRUCTION = "Pick up the blue block and place it inside the red box."
+APPROVED_RELAY = "https://sub.scitrace.cc"
+APPROVED_PROXY = "http://127.0.0.1:7890"
+_runtime_secrets: set[str] = set()
+
+
+def register_credentials(env: dict[str, str]) -> None:
+    """Retain known secrets only in process memory for all output defenses."""
+    _runtime_secrets.update(
+        value
+        for name, value in env.items()
+        if value
+        and any(
+            word in name.upper() for word in ("API_KEY", "TOKEN", "SECRET", "PASSWORD")
+        )
+    )
+
+
+def redact_text(text: str) -> str:
+    register_credentials(dict(os.environ))
+    for secret in sorted(_runtime_secrets, key=len, reverse=True):
+        text = text.replace(secret, "[REDACTED]")
+    return text
+
+
+def redact_value(value):
+    """Redact before JSON encoding, including keys and command metadata."""
+    if isinstance(value, str):
+        return redact_text(value)
+    if isinstance(value, dict):
+        return {redact_text(k): redact_value(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [redact_value(v) for v in value]
+    return value
+
+
+def install_log_redaction() -> None:
+    """Sanitize log messages before handlers format or persist them."""
+    original = logging.getLogRecordFactory()
+
+    def factory(*args, **kwargs):
+        record = original(*args, **kwargs)
+        record.msg = redact_text(record.getMessage())
+        record.args = ()
+        if record.exc_info:
+            # Raw exception chains can carry wire data or credentials.
+            record.exc_info = None
+            record.exc_text = "[exception details suppressed]"
+        record.stack_info = None
+        return record
+
+    logging.setLogRecordFactory(factory)
+
+
+def validate_provider_proxy(base_url: str, proxy: str | None) -> str | None:
+    if proxy is not None and (base_url != APPROVED_RELAY or proxy != APPROVED_PROXY):
+        raise S5Error(
+            "invalid_provider_configuration",
+            "explicit proxy requires the approved relay and exact loopback proxy",
+        )
+    return proxy
+
+
 S5A_INSTRUCTION = (
     "Simulation-only action-loop check. From the initial observed EEF position, "
     "use move_to to move the nominal grasp center 0.005 metres upward in base Z "
@@ -39,9 +103,9 @@ class S5Error(RuntimeError):
     """A fixed, secret-free reason for a closed-loop stop."""
 
     def __init__(self, category: str, detail: str):
-        self.category = category
-        self.detail = detail
-        super().__init__(f"{category}: {detail}")
+        self.category = redact_text(category)
+        self.detail = redact_text(detail)
+        super().__init__(f"{self.category}: {self.detail}")
 
 
 @dataclass(frozen=True)
@@ -301,16 +365,5 @@ def provider_profile(base_url: str | None, env: dict[str, str]) -> ProviderProfi
         proxy = env.get("S5_PROVIDER_HTTPS_PROXY", "").strip() or None
     if not env.get(key_env, "").strip():
         raise S5Error("missing_api_key", f"{key_env} must be set by the operator")
-    if proxy is not None:
-        parsed = urlsplit(proxy)
-        if parsed.scheme not in {"http", "https", "socks5"} or not parsed.hostname:
-            raise S5Error(
-                "invalid_provider_configuration",
-                "explicit provider proxy URL is invalid",
-            )
-        if parsed.username or parsed.password or parsed.query or parsed.fragment:
-            raise S5Error(
-                "invalid_provider_configuration",
-                "provider proxy credentials/query are not permitted",
-            )
+    validate_provider_proxy(selected, proxy)
     return {"base_url": selected, "api_key_env": key_env, "proxy": proxy}

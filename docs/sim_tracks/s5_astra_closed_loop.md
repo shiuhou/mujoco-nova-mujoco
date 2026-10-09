@@ -437,3 +437,52 @@ with two mock requests, two decisions, four waypoints and generations 1 → 2 �
 It is not a live retry or live PASS. Native failure images were visually reviewed.
 No S1–S4 source or original test changed, and unrelated root/reference work
 remains untouched.
+
+## Explicit relay proxy and redaction freeze — October 9, 2026
+
+Resumed from `b92fb96`. The literal credential parser is unchanged. It accepts
+plain or `export` assignments as data and never sources the operator file.
+The two earlier `20260928-shared-provider-live*` directories are preserved:
+both stopped at missing credentials with zero transmitted requests.
+`20260928-parser-offline` is the earlier successful offline replay.
+
+Direct mode still resolves the configured HTTPS provider and permits only
+public addresses on port 443, excluding the physical controller. Special-use
+`198.18.0.0/15` remains rejected. Explicit proxy mode is opt-in and permits
+only `https://sub.scitrace.cc` through `http://127.0.0.1:7890`. During that
+transport scope, the socket guard permits only that loopback host/port;
+upstream provider DNS belongs to the authorized proxy. HTTPX retains TLS
+verification for the relay, ignores ambient proxies, and uses zero transport
+retries. The exact POST `/responses` destination is checked before transmission;
+redirect responses stop the operation. Proxy CONNECT headers do not count as
+transmitted provider requests. TCP and TLS completion flags are safe telemetry.
+The Python audit guard is a backstop, not an operating-system sandbox.
+
+Shared real/sim code remains the pinned `inspect_robots_agent.policy.agent_policy`
+factory, `LLMAgentPolicy`, provider resolution and `_responses.ResponsesClient`,
+plus the official generic `move_to` tools and ActionChunk interpolation.
+S5 adds guarded HTTPX transport, budgets and metadata only. It imports no real
+motion backend. Configured model is explicitly `gpt-6-astra`, wire `responses`,
+relay credential variable `RELAY_API_KEY`, effort `medium`, images `always`,
+image horizon 2 and depth `off`. A relay model claim is recorded separately
+from the requested model; it cannot independently prove upstream model identity.
+
+Credentials from the process environment and file-loaded runtime environment
+enter an in-memory redaction set. Exceptions, normal log records, provider
+error fields and recursively sanitized JSON/JSONL (including command metadata)
+use that set. Raw log exception chains are suppressed; wire capture and
+transcript echo stay disabled. No secret or credential file is committed.
+
+Pre-live validation: **275 pytest tests passed (99 S5), S1/S2 48/48**, Ruff,
+format, S5 mypy, compilation and diff checks PASS. This includes all frozen
+S1-S4 tests. A content audit of 310 tracked/untracked repository artifacts
+found zero credential matches before adding this documentation. Fresh replay
+`evidence/sim_s5a/20261009-prelive-offline` is `OFFLINE_LOOP_PASS`, with two
+mock requests, two decisions and fresh generations 1 → 2 → 3. Its quality
+record binds the exact implementation bytes used for the subsequent live run.
+This replay makes no live success claim.
+
+The authorized live checkpoint is one S5A episode with at most two requests,
+two decisions, 32 waypoints and 180 seconds. S5B is not started by this work.
+S5 validates the model-facing closed loop in simulation. It does NOT authorize
+autonomous physical Nova execution.

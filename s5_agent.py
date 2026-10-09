@@ -11,6 +11,7 @@ import json
 import os
 import re
 import socket
+import ssl
 import sys
 import time
 from contextlib import contextmanager, nullcontext
@@ -23,6 +24,10 @@ from s5_common import (
     FORBIDDEN_HARDWARE_ADDRESSES,
     Budget,
     S5Error,
+    live_settings,
+    redact_text,
+    register_credentials,
+    validate_provider_proxy,
     provider_profile,
     provider_base_url,
     verify_official_stack,
@@ -32,9 +37,12 @@ from s5_common import (
 class SimulationIOGuard:
     """Python audit backstop, not an OS sandbox. No hardware/device backend."""
 
-    def __init__(self, base_url: str | None = None):
+    def __init__(self, base_url: str | None = None, *, proxy: str | None = None):
         self.base_url = provider_base_url(base_url)
         self.hostname = urlsplit(self.base_url).hostname
+        self.proxy = validate_provider_proxy(self.base_url, proxy)
+        self.connect_host = "127.0.0.1" if self.proxy else self.hostname
+        self.connect_port = 7890 if self.proxy else 443
         self.active = False
         self.addresses: set[str] = set()
         self.blocked = {"network": 0, "physical_device": 0}
@@ -42,7 +50,9 @@ class SimulationIOGuard:
     def check(self, event: str, args: tuple) -> None:
         network_allowed = self.active
         if event == "socket.getaddrinfo":
-            network_allowed &= args[0] == self.hostname and args[1] == 443
+            network_allowed &= (
+                args[0] == self.connect_host and args[1] == self.connect_port
+            )
         elif event == "socket.connect":
             address = args[1]
             network_allowed &= (
@@ -50,7 +60,7 @@ class SimulationIOGuard:
                 and len(address) >= 2
                 and address[0] in self.addresses
                 and address[0] not in FORBIDDEN_HARDWARE_ADDRESSES
-                and address[1] == 443
+                and address[1] == self.connect_port
             )
         elif event == "socket.bind":
             network_allowed = False
@@ -90,6 +100,12 @@ class SimulationIOGuard:
     def provider_network(self):
         self.active = True
         try:
+            if self.proxy:
+                # Exact operator-approved CONNECT transport boundary. Upstream
+                # DNS belongs to the proxy; no fake IP is classified as public.
+                self.addresses = {"127.0.0.1"}
+                yield
+                return
             resolved = socket.getaddrinfo(self.hostname, 443, type=socket.SOCK_STREAM)
             self.addresses = {
                 str(result[4][0])
@@ -155,14 +171,24 @@ class BoundedTransport(httpx.BaseTransport):
             "request_transmitted": False,
         }
 
-        def trace(name: str, _info: dict) -> None:
+        sending_method = b"POST"
+
+        def trace(name: str, info: dict) -> None:
+            nonlocal sending_method
             # httpcore's trace exposes completion boundaries. Never inspect or
-            # persist its kwargs, which can contain credential-bearing headers.
+            # persist headers. CONNECT completion is not a provider request.
+            if name.endswith("send_request_headers.started"):
+                sending_method = getattr(info.get("request"), "method", b"")
+            if name.endswith("connect_tcp.complete"):
+                event["tcp_connected"] = True
+            if name.endswith("start_tls.complete"):
+                event["tls_completed"] = True
             if name in {
                 "http11.send_request_headers.complete",
                 "http2.send_request_headers.complete",
             }:
-                event["request_transmitted"] = True
+                if sending_method == b"POST":
+                    event["request_transmitted"] = True
 
         request.extensions["trace"] = trace
         try:
@@ -181,6 +207,7 @@ class BoundedTransport(httpx.BaseTransport):
             credential = request.headers.get("authorization", "").removeprefix(
                 "Bearer "
             )
+            register_credentials({"API_KEY": credential})
             try:
                 payload = response.json()
             except ValueError:
@@ -188,6 +215,11 @@ class BoundedTransport(httpx.BaseTransport):
                     "provider/API_error", "provider returned invalid JSON"
                 ) from None
             if isinstance(payload, dict):
+                claimed_model = payload.get("model")
+                if isinstance(claimed_model, str) and re.fullmatch(
+                    r"[A-Za-z0-9._/-]{1,100}", claimed_model
+                ):
+                    event["relay_claimed_model"] = redact_text(claimed_model)
                 request_id = response.headers.get("x-request-id")
                 if (
                     request_id
@@ -218,11 +250,7 @@ class BoundedTransport(httpx.BaseTransport):
                     for key in ("type", "code", "param", "message"):
                         value = error.get(key)
                         if isinstance(value, str):
-                            safe_error[key] = (
-                                value.replace(credential, "[REDACTED]")
-                                if credential
-                                else value
-                            )
+                            safe_error[key] = redact_text(value)
                 if safe_error:
                     event["provider_error"] = safe_error
                 raise S5Error(
@@ -241,6 +269,28 @@ class BoundedTransport(httpx.BaseTransport):
         except S5Error as exc:
             event["error"] = exc.category
             raise
+        except httpx.ConnectError as exc:
+            cause: BaseException | None = exc
+            tls_failure = False
+            while cause is not None:
+                tls_failure |= isinstance(cause, ssl.SSLError)
+                cause = cause.__cause__
+            event["error"] = (
+                "TLS"
+                if tls_failure
+                else "proxy_connect"
+                if self.guard and self.guard.proxy
+                else "provider_connect"
+            )
+            raise S5Error(
+                event["error"],
+                "provider TLS verification failed"
+                if tls_failure
+                else "approved transport connection failed",
+            ) from None
+        except httpx.ProxyError:
+            event["error"] = "proxy_connect"
+            raise S5Error("proxy_connect", "approved proxy CONNECT failed") from None
         except Exception:  # noqa: BLE001 - suppress arbitrary transport/credential text
             event["error"] = "provider/API_error"
             raise S5Error("provider/API_error", "provider transport failed") from None
@@ -269,10 +319,9 @@ def make_live_policy(
     base_url: str | None = None,
 ):
     """Official provider with explicit endpoint; no fake or provider fallback."""
+    register_credentials(env)
     profile = provider_profile(base_url, env)
-    requested = model or ("gpt-6-astra" if base_url else None)
-    if requested is None:
-        raise S5Error("missing_model_identifier", "model must be explicitly configured")
+    requested = live_settings(model, env, base_url=base_url)
     if not env[profile["api_key_env"]].strip():
         raise S5Error(
             "missing_api_key",
@@ -281,8 +330,13 @@ def make_live_policy(
     provider_base_url(base_url)
     verify_official_stack()
     proxy = profile["proxy"]
+    if guard.proxy != proxy:
+        raise S5Error(
+            "invalid_provider_configuration",
+            "guard and transport proxy settings differ",
+        )
     transport = BoundedTransport(
-        httpx.HTTPTransport(retries=0, trust_env=False, proxy=proxy),
+        httpx.HTTPTransport(retries=0, trust_env=False, proxy=proxy, verify=True),
         budget,
         live=True,
         guard=guard,
