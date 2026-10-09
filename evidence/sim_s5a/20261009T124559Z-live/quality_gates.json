@@ -1,0 +1,227 @@
+{
+  "status": "PASS",
+  "source_manifest": {
+    "analyze_gripper_calibration.py": "3ca21ee75f4e8f5e608f0780a82cb837fcd6db9695377e57950c11ca7f0319c1",
+    "audit_xtrainer_assembly.py": "655e5ee464ccd2439a6d9faf6afe477e6b27b76206ef7d146c9291161b68dcb2",
+    "benchmark_scene.py": "3e376360f8ea93c964be63561e70450026048050879d89cebdcd97ac651edbde",
+    "build_nova2_gripper.py": "5ef4b028a50013701ad332f21791ab92c98a2c052ad23ce41f4e148d59fc3b24",
+    "capture_real_pose.py": "7f82bf4c517187052a42f44fa5aa028c4d92d7082e25266636d058287d0b97ec",
+    "cartesian_bridge.py": "fcdb728da914f32468f18b7b9176b18501df813848d2350541fea19ee8ed75dd",
+    "collision_review.py": "a9fda3fd7c4058130977ecf0c4792a5e6f613459bc49dab3604e48dbf65be48e",
+    "compare_pose.py": "cc590ae6df19745ca6404cfd5a45b9278bc973d58a13b41a6db3aad4485953b0",
+    "conftest.py": "4e7c808b3c524ec59629e53dfa6583db766e0e56ffe2e2aa50ebb3c403f8e76b",
+    "extract_xtrainer_gripper.py": "a1df4065bfd9109da9e6a33407d8437cc02d2f5ccf3dd523601f936f87025c04",
+    "manipulation_simulator.py": "85f2ccc64d2b77ee2cb9caa3dd4eea3bd41aa2e80c3e0711fd8100532f86402d",
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "nova_fk.py": "746cb80e03500cb06460ce626faf255e1155772f0decae007fa88bf824886ff9",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "run_s1_s2_benchmark.py": "922a0d2de17e77a013bbdcb3804c5a311674e7b22746b73bf622cbec73e1ccec",
+    "run_s3_benchmark.py": "0df48c3f34184a0799b76d5da531a0e83a7afc3c80276fcc455c9ce1a3736eed",
+    "run_s3_s4_integration.py": "00d080225620f780b641c3b9f8d0a5cfa8c5d1ddf2491187d60c0e478e201508",
+    "run_s4_camera_validation.py": "7266f7d4ef6f4676e33b45ba53069e7dfb53bec93f4b2c7e4b26cd85bbc30d6b",
+    "run_s5_quality.py": "313e4660110869ff285c485a342d2d7245647aeaaff09ef317fe2edc940050f2",
+    "run_s5a.py": "9d09ea4e92a611bd8170544e8de74bcd9d82d0f10cebb4ca325ab7961290d1ab",
+    "s4_offline_guard.py": "c3fbb88b428b832d30c6be906e3fab5c964a4e5e04b29c9d0c67d76e2f396263",
+    "s4_validation.py": "a0b5f71ecbad45cd5338e99f4ca86de29a6b00f817e1542472bf8f3bca512701",
+    "s5_agent.py": "26154efeb7558cc9f748a9bb8c135887d330387971a553d0306172abe98abc75",
+    "s5_common.py": "0348288b2b22fd2f1718ab40c51bbca1b4bcfbf6fa9f19fe080b0867b12a40ad",
+    "s5_embodiment.py": "c8cd6b3bfc697f2bff7a605e55b7f875464b35a80624a1f6f8efd3a215498122",
+    "s5_loop.py": "5e93630013c08b1bfa80d1c1c76481084da3f554cb52d5f100ad671f25c99d4b",
+    "test_benchmark.py": "46a4e31dcc403bc2dec56032e7c164ea2ac237a0e101de74abd82171c3528141",
+    "test_cartesian_bridge.py": "9425a34a51850ce12d3eb050d3dd10070bf116c133d53731c4d540bd3477b3e4",
+    "test_collision_review.py": "18224aca9fda15aaaa104edfa7f7ec5f956daf8c49475c9a13251dce97aad503",
+    "test_nova_cameras.py": "24d74ef5841318b55c372b16c1f8378afc5b457335a54bee0c3add58d51cd15e",
+    "test_nova_fk.py": "9e63512f4eae7d5bbf006717461ebc0498f2865972ccc60a6374f5a0f1e68585",
+    "test_nova_simulator.py": "fffdf162eba362f0e26ed7f31a5ca2807fd4b605e2efcd6131ee2f65ce62a4f7",
+    "test_phase15.py": "74fe1b6df49a2ca21b3a63acef05fc7240921b47eb2f123efd3408c277c80892",
+    "test_phase22a.py": "58e2bb4da8810750f8282288ac64991f21cf8e25c4e994f3acc921024c158240",
+    "test_s3_manipulation.py": "db6c1b55b1edaf8d00e7102ac2c37ed24bb002e391a43064a0673ff29636ab59",
+    "test_s3_s4_integration.py": "59abfb08de3cedfb9f7dd5bb98c3e316126109a99ef7101dc4083f57eae479d1",
+    "test_s3_scene.py": "b669a7e1cead58be59c6a413fd07ac7aa3bbdfe33f12c3b529e5ca8d82446e66",
+    "test_s4_evidence.py": "d39402a9e9e82a4ff2f65fc9c0756dc32447b4d3642c9346850a19bfe9cb8b9e",
+    "test_s5_closed_loop.py": "0978a10656a702422aceeed657322bc84b0d20ea22648e4a2b6453dc50c6b649",
+    "visualize.py": "e68656866be7d96abdcdc73fe628ce4ac99338b6f7f75a1549ea8470eab889c8",
+    "visualize_xtrainer_gripper.py": "0a1e701f37294fb1d56ab1e29b8cdbc6bf1f9731f65b6da496a8a3961c01c722",
+    "configs/s3_s4_cameras.json": "0e53a41985b3f50327ef5912235a27e8112dacaec8f780171beae9b85fdd26b9",
+    "configs/s4_cameras.json": "30c1746d3daabb7bfdd38a22d7026177a47e4811c9a04b9db628ec04b550e08e",
+    "configs/s4_source_audit.json": "39a69cde5d6817e3174da089f80efa286de1193b7c8a9a2b4271bc5631984a7b",
+    "configs/s5_official_stack.json": "2cfc8614d4b23e21cb02419bb1a37d7769afb25ca7a92992b02a532be930bb0e",
+    "scenes/benchmark_v0/arm.xml": "ddc70dec91255d4f6fd3ce8e6fac43a96b28532055f14e74f88ff0c8f7ad68b2",
+    "scenes/benchmark_v0/gripper.xml": "81c2cc31d8e911e584538e1f239bb539e4296e881bc2ddb6773663f0664d5125",
+    "scenes/benchmark_v0/objects.xml": "d428b9d536c8b45b16498bc1a971a3110e57c6497b6f446325a789892839b833",
+    "scenes/benchmark_v0/scene.xml": "5f565260e3035e30150323a9aa8df94ed86b6bfd179e76736aac8ab5f8944735",
+    "nova2.xml": "a29d742f848ac9dadba360487c711b3daddb56d812969a8cfea48706fccf3331",
+    "pytest.ini": "a0668546c0259b721e4113d3678662d6db0e29f972d3c699df645db1c480bcf2"
+  },
+  "runtime_versions": {
+    "mujoco": "2.3.7",
+    "numpy": "1.26.4",
+    "httpx": "0.28.1",
+    "httpcore": "1.0.9",
+    "websockets": "17.1",
+    "Pillow": "11.2.1",
+    "PyOpenGL": "3.1.9",
+    "pytest": "8.3.5",
+    "ruff": "0.11.12",
+    "mypy": "2.3.1"
+  },
+  "official_stack": {
+    "repository": "https://github.com/robocurve/inspect-robots",
+    "revision": "7e506e3b6f39530f18e75cf97b23c4287aa90f12",
+    "agent_entry_point": "inspect_robots_agent.policy:agent_policy",
+    "yam_reference_revision": "178c93037afcf593618e0a1db6ae1f1b0cfeaa0f",
+    "packages": {
+      "inspect_robots": {
+        "source_path": "src/inspect_robots/",
+        "python_files": 44,
+        "python_tree_sha256": "cf42febbcb7eeadf05c915e3152ab7e2a4888f588b4f34a7236794de728cd065"
+      },
+      "inspect_robots_agent": {
+        "source_path": "plugins/inspect-robots-agent/src/inspect_robots_agent/",
+        "python_files": 11,
+        "python_tree_sha256": "78ea8475d78a1deddab8f7f9e9550d51f9cdbb6fd144aedeff7bbc9d0fa3d617"
+      }
+    }
+  },
+  "checks": {
+    "pytest": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "-m",
+        "pytest",
+        "-q"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 41.14286548784003,
+      "stdout": "........................................................................ [ 26%]\n........................................................................ [ 52%]\n........................................................................ [ 78%]\n...........................................................              [100%]\n275 passed in 40.96s\n",
+      "stderr": ""
+    },
+    "ruff": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "-m",
+        "ruff",
+        "check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.0211435800883919,
+      "stdout": "All checks passed!\n",
+      "stderr": ""
+    },
+    "ruff_format": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "-m",
+        "ruff",
+        "format",
+        "--check",
+        "--exclude",
+        "DOBOT_6Axis_ROS2_V4",
+        "."
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.020142510067671537,
+      "stdout": "41 files already formatted\n",
+      "stderr": ""
+    },
+    "mypy": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "-m",
+        "mypy",
+        "--follow-imports=skip",
+        "--ignore-missing-imports",
+        "--check-untyped-defs",
+        "s5_common.py",
+        "s5_agent.py",
+        "s5_embodiment.py",
+        "s5_loop.py",
+        "run_s5a.py",
+        "run_s5_quality.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.14731495920568705,
+      "stdout": "Success: no issues found in 6 source files\n",
+      "stderr": ""
+    },
+    "compile": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "-m",
+        "py_compile",
+        "analyze_gripper_calibration.py",
+        "audit_xtrainer_assembly.py",
+        "benchmark_scene.py",
+        "build_nova2_gripper.py",
+        "capture_real_pose.py",
+        "cartesian_bridge.py",
+        "collision_review.py",
+        "compare_pose.py",
+        "conftest.py",
+        "extract_xtrainer_gripper.py",
+        "manipulation_simulator.py",
+        "nova_cameras.py",
+        "nova_fk.py",
+        "nova_simulator.py",
+        "run_s1_s2_benchmark.py",
+        "run_s3_benchmark.py",
+        "run_s3_s4_integration.py",
+        "run_s4_camera_validation.py",
+        "run_s5_quality.py",
+        "run_s5a.py",
+        "s4_offline_guard.py",
+        "s4_validation.py",
+        "s5_agent.py",
+        "s5_common.py",
+        "s5_embodiment.py",
+        "s5_loop.py",
+        "test_benchmark.py",
+        "test_cartesian_bridge.py",
+        "test_collision_review.py",
+        "test_nova_cameras.py",
+        "test_nova_fk.py",
+        "test_nova_simulator.py",
+        "test_phase15.py",
+        "test_phase22a.py",
+        "test_s3_manipulation.py",
+        "test_s3_s4_integration.py",
+        "test_s3_scene.py",
+        "test_s4_evidence.py",
+        "test_s5_closed_loop.py",
+        "visualize.py",
+        "visualize_xtrainer_gripper.py"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.05735883396118879,
+      "stdout": "",
+      "stderr": ""
+    },
+    "s1_s2_benchmark": {
+      "command": [
+        "/home/dsa/project/dobot/nova_mujoco/.venv-s5/bin/python",
+        "run_s1_s2_benchmark.py",
+        "--output",
+        "/tmp/nova-s5-20261009-prelive-quality/s1_s2_benchmark"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 2.7600902270060033,
+      "stdout": "{\n  \"case_count\": 48,\n  \"pass_count\": 48,\n  \"success_rate\": 1.0,\n  \"position_error_mm\": {\n    \"mean\": 0.0001387744826403371,\n    \"rms\": 0.00019761439468699265,\n    \"max\": 0.0005348498584503841\n  },\n  \"orientation_residual_deg\": {\n    \"mean\": 4.190676712674285e-06,\n    \"rms\": 1.1158505345247846e-05,\n    \"max\": 3.914134502542342e-05\n  },\n  \"joint_displacement_rad\": {\n    \"mean\": 0.08277206988631874,\n    \"max\": 0.20327388628687487\n  },\n  \"ik_iterations\": {\n    \"mean\": 2.3125,\n    \"max\": 4\n  },\n  \"contact_case_count\": 4,\n  \"host_elapsed_s\": 2.309129773871973,\n  \"ik_solves_per_host_second\": 20.787051703687098\n}\nevidence: /tmp/nova-s5-20261009-prelive-quality/s1_s2_benchmark\n",
+      "stderr": ""
+    },
+    "diff_check": {
+      "command": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "elapsed_s": 0.0026284169871360064,
+      "stdout": "",
+      "stderr": ""
+    }
+  },
+  "mypy_scope": "S5 adapter/runner bodies; imported frozen S1-S4 and official packages skipped"
+}

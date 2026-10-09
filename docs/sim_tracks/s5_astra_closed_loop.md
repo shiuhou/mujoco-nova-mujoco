@@ -3,13 +3,15 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A BLOCKED before HTTP transmission; S5B BLOCKED / not started**.
-The offline implementation is committed at
-`2689e4a772d6eb8ec48bc5df0aba220944f916d0` (OFFLINE_S5_HEAD). The operator
-has supplied a runtime credential source and confirmed `gpt-6-astra` through
-the Responses relay at `https://sub.scitrace.cc/`. The bounded attempt stopped
-on DNS validation; no live API request was transmitted. See the current
-blocked checkpoint record below. No live request preceded the offline freeze.
+Current live status: **S5A PASS; S5B not started** (October 9, 2026).
+The single live episode used the pinned official agent with configured and
+relay-reported `gpt-6-astra`: two Responses requests, two `move_to` decisions,
+four validated waypoints and fresh generations 1 → 2 → 3. See the S5A live
+PASS record at the end and `evidence/sim_s5a/20261009T124559Z-live/`.
+PRE_LIVE_S5_HEAD is `02c80a7c6ea840dfe9d7fc4f236e27330269c1cf`.
+The original OFFLINE_S5_HEAD remains
+`2689e4a772d6eb8ec48bc5df0aba220944f916d0`. Earlier blocked attempts below are
+retained as historical evidence; no live request preceded the offline freeze.
 The full benchmark instruction remains:
 
 > Pick up the blue block and place it inside the red box.
@@ -261,16 +263,18 @@ MUJOCO_GL=egl .venv-s5/bin/python run_s5a.py --mode replay \
 ```
 
 For this live checkpoint, load the supplied credential into the runner process
-as `OPENAI_API_KEY` without displaying or persisting it, and pass the confirmed
+as `RELAY_API_KEY` without displaying or persisting it, and pass the confirmed
 model and endpoint explicitly. The credential source is not committed here.
 
 ```bash
 # Only after both operator-supplied environment values and current gates exist:
 MUJOCO_GL=egl .venv-s5/bin/python run_s5a.py --mode live \
   --model gpt-6-astra --base-url https://sub.scitrace.cc/ \
+  --provider-proxy http://127.0.0.1:7890 \
+  --provider-env-file /path/to/operator-credential.env \
   --quality-gates /tmp/nova-s5-quality-UNIQUE/quality_gates.json \
   --max-llm-calls 2 --max-episode-steps 32 --max-decisions 2 \
-  --max-wall-time 90 --output evidence/sim_s5a/UNIQUE-live
+  --max-wall-time 180 --output evidence/sim_s5a/UNIQUE-live
 ```
 
 An explicit `--model` overrides `INSPECT_ROBOTS_MODEL`. Missing credentials,
@@ -280,9 +284,9 @@ Offline tests inject mock transports independently and never access OpenAI.
 
 ## Results and remaining boundary
 
-Current evidence paths and final quality counts are recorded in the completion
-record below. The live exit gate remains unfulfilled even when all offline
-checks pass. S5B must wait for a live S5A PASS and then use the exact benchmark
+Current evidence paths and final quality counts are recorded in the October 9
+live completion record below. The S5A live gate has passed. A subsequent,
+separately scoped S5B implementation and attempt must use the exact benchmark
 instruction, autonomous official-agent decisions, and S3 geometric/contact
 evaluation. It must not feed the scripted S3 trajectory or hidden coordinates
 to the model. No S5B evidence or success claim is produced here.
@@ -294,8 +298,9 @@ physical execution and removes none of those requirements.
 
 Existing limitations remain: primitive assets, unmeasured TCP, engineering
 camera extrinsics/FOV, simplified gripper/contact dynamics and prescribed arm
-references. Live API availability, exact Astra identifier, latency, visual
-competence and autonomous pick-and-place success are unvalidated.
+references. The bounded live route and its latency are now measured. Upstream
+model identity beyond the relay claim, visual task competence and autonomous
+pick-and-place success remain unvalidated.
 
 The pinned Responses policy does not expose a Responses output-token cap in
 its accepted constructor configuration. Request count and wall time are
@@ -486,3 +491,86 @@ The authorized live checkpoint is one S5A episode with at most two requests,
 two decisions, 32 waypoints and 180 seconds. S5B is not started by this work.
 S5 validates the model-facing closed loop in simulation. It does NOT authorize
 autonomous physical Nova execution.
+
+
+## S5A live PASS — October 9, 2026
+
+This result supersedes the earlier blocked-live status. Starting implementation
+HEAD was `b92fb96`; PRE_LIVE_S5_HEAD is
+`02c80a7c6ea840dfe9d7fc4f236e27330269c1cf`. The repository was clean before
+transmitting credentials. Exactly one live episode ran, with no retry or
+provider/model/proxy substitution. Evidence is
+[`20261009T124559Z-live`](../../evidence/sim_s5a/20261009T124559Z-live/).
+The local commit containing this section and evidence is the S5A checkpoint;
+its SHA is reported in the completion message rather than embedded recursively.
+
+The configured provider was SciTrace `https://sub.scitrace.cc/`, explicit proxy
+`http://127.0.0.1:7890`, wire `responses`, configured model `gpt-6-astra`.
+Both provider responses also reported `gpt-6-astra`. This is relay-reported
+identity; S5 cannot independently attest which upstream weights the relay used.
+The pinned official revision remained
+`7e506e3b6f39530f18e75cf97b23c4287aa90f12`. Effort was medium, images always,
+image horizon 2, depth off, transcript echo and wire capture off. Credentials
+were loaded from the supplied operator file as data into `runtime_env` and
+registered for redaction; only their presence was recorded.
+
+Both requests were transmitted and returned HTTP 200. TCP and verified TLS
+completion were observed on the first request; the second reused the connection.
+The official policy emitted two `move_to` calls, first raising the observed EEF
+by 5 mm and then returning it by 5 mm, with gripper 1 and zero relative
+orientation. Its official interpolation created two ActionChunks of two ordered
+waypoints each. Whole-chunk validation and isolated IK preflight passed. All
+four execution waypoints converged and completed through
+`ManipulationChunkExecutor(NovaMujocoChunkExecutor)`. Total Cartesian path was
+approximately 10 mm. The gripper stayed open.
+
+Deterministic settle completed after both decisions; simulation times were
+0.00 → 0.38 → 0.76 seconds. Fresh generations were **1 → 2 → 3**. State hashes
+changed from `14124e228981…` to `0abbf628b3a4…` to `32e083bd2d0d…`; complete
+hashes and per-camera hashes are in `observation_trace.jsonl`. All three RGB
+frames changed after each action. Decision 2 consumed generation 2. The
+model-facing observations remained exactly front/right RGB at 480×640×3,
+wrist RGB at 720×1280×3, HWC uint8 RGB, plus seven-value `eef_state`; evaluator
+object poses, contacts and success data were not policy inputs.
+
+Limits of two requests, two decisions, 32 waypoints and 180 seconds were all
+respected: actual counts were **2 requests, 2 decisions, 4 waypoints**, duration
+**24.037959 s**. The safe usage totals were 16,496 input tokens, 216 output tokens,
+16,712 total tokens. Response IDs and individual usage are recorded; no private
+reasoning or raw responses are persisted.
+
+| Measured component | Seconds |
+| --- | ---: |
+| Render, all observations | 0.012403 |
+| Request preparation | 0.031296 |
+| Provider/model path | 23.625336 |
+| Policy parse/interpolation residual | 0.000882 |
+| Chunk validation | 0.001046 |
+| IK | 0.003616 |
+| Execution overhead | 0.000669 |
+| Settle / physics hold | 0.054999 |
+| Decision-to-fresh-observation steps | 23.730093 |
+| Episode including initialization | 24.037959 |
+
+This small run is provider/model-bound. Provider time includes relay/network
+latency and model inference, which are not independently measured. Policy parse
+is a residual from the public act() boundary. Timings are wall-clock durations;
+settle simulation time is separately recorded. The final montage uses the actual
+saved generation-3 RGB frames and was visually reviewed.
+
+All S5A exit checks passed. The full postflight regression record accompanies
+this evidence. Credential-content audits cover repository/evidence bytes and
+the staged commit before recording the checkpoint; zero secret matches were
+found. `robot_connections=0`, `robot_commands=0`, `serial_connections=0`,
+`physical_camera_connections=0`, `transmitted_provider_requests=2`; there were
+zero blocked hardware or network attempts. No push was performed.
+
+**S5B readiness: READY for a separately scoped benchmark implementation and
+attempt; S5B has not started and this run does not prove manipulation success.**
+The current S5A action limits deliberately require the open gripper and short
+moves. Camera geometry and nominal grasp-center calibration remain engineering
+assumptions; supported orientation stays the validated reset-relative subset.
+This result validates the simulator model-facing loop only. Real deployment
+still requires independent pre_check, human approver, one-use authority,
+bounded MovL, settle, fresh real observations and physical E-stop as primary
+emergency stop. No physical execution or S6 work is authorized by this result.

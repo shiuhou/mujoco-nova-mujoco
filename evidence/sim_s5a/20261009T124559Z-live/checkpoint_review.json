@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "pre_live_s5_head": "02c80a7c6ea840dfe9d7fc4f236e27330269c1cf",
+  "episode_attempts": 1,
+  "transmitted_provider_requests": 2,
+  "provider_responses": [
+    200,
+    200
+  ],
+  "configured_model": "gpt-6-astra",
+  "relay_claimed_models": [
+    "gpt-6-astra",
+    "gpt-6-astra"
+  ],
+  "upstream_model_identity_independently_verified": false,
+  "provider_host": "sub.scitrace.cc",
+  "proxy": "http://127.0.0.1:7890",
+  "tls_verified": true,
+  "no_redirects": true,
+  "budgets": {
+    "requests": 2,
+    "decisions": 2,
+    "waypoints": 32,
+    "wall_seconds": 180
+  },
+  "budgets_respected": true,
+  "frame_generations": [
+    1,
+    2,
+    3
+  ],
+  "all_exit_checks_pass": true,
+  "usage_totals": {
+    "input_tokens": 16496,
+    "output_tokens": 216,
+    "total_tokens": 16712
+  },
+  "timing_interpretation": "provider/model-bound; T_model includes relay, network and inference latency",
+  "credential_content_audit": "PASS; zero matches before evidence review",
+  "S5B": "NOT_STARTED; no authorization in this checkpoint",
+  "hardware_access": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 2
+  }
+}

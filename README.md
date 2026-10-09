@@ -6,13 +6,17 @@ The S5A adapter and bounded runner now connect the pinned official
 `inspect-robots-agent` Responses policy to S3/S4 RGB/EEF observations and the
 existing validated `ManipulationChunkExecutor(NovaMujocoChunkExecutor)` path.
 Explicit replay mode exercises that entire software path offline. Live mode
-requires an operator-provided `OPENAI_API_KEY`, an explicit verified Astra API
-model identifier, and passing regression gates for the exact current sources.
+requires an operator-provided credential (`RELAY_API_KEY` for SciTrace), an
+explicit verified Astra API model identifier, and passing regression gates for
+the exact current sources.
 It cannot fall back to replay. The S5A bring-up permits two small open-gripper
 decisions; it does not launch the autonomous pick-and-place benchmark.
 
-**Offline S5: committed and PASS. Live S5A: BLOCKED before HTTP transmission
-by provider DNS/network validation. S5B: BLOCKED; not started.** Offline replay is not a live-Astra success claim. See
+**Offline S5: PASS. Live S5A: PASS (October 9, 2026). S5B: not started.**
+The live checkpoint completed two SciTrace Responses requests using configured
+`gpt-6-astra`, two official `move_to` decisions, four validated MuJoCo waypoints
+and fresh observation generations 1 → 2 → 3. Evidence:
+[`20261009T124559Z-live`](evidence/sim_s5a/20261009T124559Z-live/). See
 [S5 architecture, commands, evidence and limitations](docs/sim_tracks/s5_astra_closed_loop.md).
 S5 validates the model-facing closed loop in simulation. It does NOT authorize
 autonomous physical Nova execution.

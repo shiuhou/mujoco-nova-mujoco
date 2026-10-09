@@ -1,0 +1,2 @@
+{"decision": 0, "input_generation": 1, "output_generation": 2, "fresh_after_settle": true, "eef_displacement_m": 0.00499999953608915, "changed_images": ["front_rgb", "right_rgb", "wrist_rgb"], "waypoints": 2, "T_total_step": 12.744327406166121}
+{"decision": 1, "input_generation": 2, "output_generation": 3, "fresh_after_settle": true, "eef_displacement_m": 0.005000000003899996, "changed_images": ["front_rgb", "right_rgb", "wrist_rgb"], "waypoints": 2, "T_total_step": 10.98576587694697}
