@@ -18,6 +18,7 @@ os.environ.setdefault("MUJOCO_GL", "egl")
 
 from s5_common import (
     INTEGRATED_HEAD,
+    BENCHMARK_INSTRUCTION,
     ROOT,
     S5A_INSTRUCTION,
     Budget,
@@ -86,7 +87,7 @@ def quality_result(path: Path | None) -> dict:
     return record
 
 
-def main(argv=None) -> int:
+def main(argv=None, *, benchmark: bool = False) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--mode", required=True, choices=("live", "replay"))
     parser.add_argument(
@@ -109,19 +110,23 @@ def main(argv=None) -> int:
         default="medium",
         choices=("none", "minimal", "low", "medium", "high", "xhigh", "max"),
     )
-    parser.add_argument("--max-llm-calls", type=int, default=2)
-    parser.add_argument("--max-episode-steps", type=int, default=32)
-    parser.add_argument("--max-decisions", type=int, default=2)
-    parser.add_argument("--max-wall-time", type=float, default=90.0)
+    parser.add_argument("--max-llm-calls", type=int, default=12 if benchmark else 2)
+    parser.add_argument(
+        "--max-episode-steps", type=int, default=384 if benchmark else 32
+    )
+    parser.add_argument("--max-decisions", type=int, default=12 if benchmark else 2)
+    parser.add_argument(
+        "--max-wall-time", type=float, default=600.0 if benchmark else 90.0
+    )
     parser.add_argument("--quality-gates", type=Path)
     parser.add_argument("--output", type=Path)
     args = parser.parse_args(argv)
     runtime_env = dict(os.environ)
     register_credentials(runtime_env)
     install_log_redaction()
-    output = args.output or ROOT / "evidence/sim_s5a" / (
-        datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + args.mode
-    )
+    output = args.output or ROOT / (
+        "evidence/sim_s5b" if benchmark else "evidence/sim_s5a"
+    ) / (datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ") + "-" + args.mode)
     output.mkdir(parents=True, exist_ok=False)
     head = subprocess.check_output(
         ["git", "rev-parse", "HEAD"], cwd=ROOT, text=True
@@ -131,6 +136,7 @@ def main(argv=None) -> int:
         "integrated_base": INTEGRATED_HEAD,
         "python": platform.python_version(),
         "mode": args.mode,
+        "stage": "S5B" if benchmark else "S5A",
         "model_identifier_used": None,
         "source_manifest": source_manifest(),
         "scene": "benchmark_v0",
@@ -156,6 +162,18 @@ def main(argv=None) -> int:
     events: list[dict] = []
     guard = embodiment = policy = transport = budget = None
     try:
+        if benchmark:
+            from s5_benchmark import S5A_HEAD, require_s5a_pass
+
+            require_s5a_pass()
+            if subprocess.run(
+                ["git", "merge-base", "--is-ancestor", S5A_HEAD, "HEAD"],
+                cwd=ROOT,
+                check=False,
+            ).returncode:
+                raise S5Error(
+                    "precondition_failure", "S5A checkpoint must be an ancestor"
+                )
         if args.provider_env_file is not None:
             runtime_env.update(
                 parse_env_file(args.provider_env_file, allowed_names={"RELAY_API_KEY"})
@@ -178,12 +196,23 @@ def main(argv=None) -> int:
             raise S5Error(
                 "precondition_failure", "S3/S4 integration evidence is not PASS"
             )
-        limits = RunLimits(
-            args.max_llm_calls,
-            args.max_episode_steps,
-            args.max_decisions,
-            args.max_wall_time,
-        )
+        limits: RunLimits
+        if benchmark:
+            from s5_common import BenchmarkRunLimits
+
+            limits = BenchmarkRunLimits(
+                args.max_llm_calls,
+                args.max_episode_steps,
+                args.max_decisions,
+                args.max_wall_time,
+            )
+        else:
+            limits = RunLimits(
+                args.max_llm_calls,
+                args.max_episode_steps,
+                args.max_decisions,
+                args.max_wall_time,
+            )
         environment["limits"] = asdict(limits)
         quality = quality_result(args.quality_gates)
         # Credential/model gate precedes imports, simulator construction and I/O.
@@ -206,7 +235,7 @@ def main(argv=None) -> int:
         if args.mode == "live" and quality["status"] != "PASS":
             raise S5Error(
                 "quality_gate_failure",
-                "live S5A requires passing current regression checks",
+                "live S5 requires passing current regression checks",
             )
         environment["official_stack"] = verify_official_stack()
         environment["runtime_versions"] = runtime_versions()
@@ -225,7 +254,12 @@ def main(argv=None) -> int:
         guard.install()
         budget = Budget(limits)
         with wall_deadline(limits.max_wall_time):
-            embodiment = NovaMujocoEmbodiment(budget)
+            if benchmark:
+                from s5_benchmark import benchmark_action_limits
+
+                embodiment = NovaMujocoEmbodiment(budget, benchmark_action_limits())
+            else:
+                embodiment = NovaMujocoEmbodiment(budget)
             if args.mode == "live":
                 policy, transport = make_live_policy(
                     embodiment,
@@ -241,7 +275,15 @@ def main(argv=None) -> int:
             environment["policy_configuration"] = asdict(policy.config)
             environment["model_identifier_used"] = policy.config.model
             environment["renderer"] = embodiment.rig.renderer_info
-            result = run_loop(embodiment, policy, transport)
+            environment["action_limits"] = asdict(embodiment.limits)
+            benchmark_recorder = None
+            if benchmark:
+                from s5_benchmark import BenchmarkRecorder
+
+                benchmark_recorder = BenchmarkRecorder(output)
+            result = run_loop(
+                embodiment, policy, transport, benchmark=benchmark_recorder
+            )
             live_request = args.mode == "live" and any(
                 e["status"] == 200 for e in transport.events
             )
@@ -253,6 +295,14 @@ def main(argv=None) -> int:
                 if result["loop_pass"] and args.mode == "replay"
                 else "PARTIAL"
             )
+            if benchmark:
+                result["status"] = (
+                    "PASS"
+                    if result.get("benchmark_success")
+                    and live_request
+                    and quality["status"] == "PASS"
+                    else "PARTIAL"
+                )
             # Human review only; these images are the exact policy RGB frames.
             if embodiment.current is not None:
                 from PIL import Image
@@ -316,9 +366,11 @@ def main(argv=None) -> int:
     result.update(
         {
             "mode": args.mode,
-            "instruction": S5A_INSTRUCTION,
+            "instruction": BENCHMARK_INSTRUCTION if benchmark else S5A_INSTRUCTION,
             "side_effects": side_effects,
-            "S5B": "NOT_STARTED; this runner is S5A only",
+            "S5B": "BENCHMARK_ATTEMPTED"
+            if benchmark
+            else "NOT_STARTED; this runner is S5A only",
         }
     )
     result["provider_attempts"] = 0 if budget is None else budget.requests
@@ -334,7 +386,8 @@ def main(argv=None) -> int:
         output / "validation.json",
         {
             "status": result["status"],
-            "live_s5a_pass": result["status"] == "PASS",
+            "live_s5b_pass" if benchmark else "live_s5a_pass": result["status"]
+            == "PASS",
             "checks": result.get("checks", {}),
             "failure_category": result.get("failure_category"),
             "side_effects": side_effects,
@@ -344,6 +397,14 @@ def main(argv=None) -> int:
     json_write(output / "observation_trace.jsonl", observations, lines=True)
     json_write(output / "action_trace.jsonl", actions, lines=True)
     json_write(output / "episode_trace.jsonl", events, lines=True)
+    if benchmark:
+        json_write(output / "episode_result.json", result)
+        json_write(output / "evaluator_metrics.json", result.get("evaluation_only", {}))
+        json_write(
+            output / "evaluator_trace.jsonl",
+            result.get("evaluator_trace", []),
+            lines=True,
+        )
     print(
         json.dumps(
             {

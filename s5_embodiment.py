@@ -146,8 +146,13 @@ class NovaMujocoEmbodiment(EmbodimentBase):
                 "Nonzero orientation is rejected. Gripper 0=closed, 1=open; "
                 "maximum opening is 95 mm. eef_state reports measured aperture, "
                 "including small contact/compliance deviations at endpoints. "
-                "S5A requires gripper=1 and at most 0.010 m Cartesian path per "
-                "decision. All actions are validated without clamping by this "
+                + (
+                    "S5A requires gripper=1. "
+                    if self.limits.open_only
+                    else "Gripper commands in [0,1] are supported. "
+                )
+                + f"Each decision permits at most {self.limits.chunk_path_m:.3f} m Cartesian path and {self.limits.max_waypoints} interpolated waypoints. "
+                "All actions are validated without clamping by this "
                 "backend. A failure aborts the remaining chunk. The controller "
                 "executes bounded waypoints, settles, and supplies fresh images "
                 "before the next decision. This is not calibrated robot dynamics."

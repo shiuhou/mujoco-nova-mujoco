@@ -132,6 +132,32 @@ class RunLimits:
             raise ValueError("S5A max_wall_time must be finite in (0,300]")
 
 
+@dataclass(frozen=True)
+class BenchmarkRunLimits(RunLimits):
+    """One explicitly bounded S5B attempt; S5A ceilings remain unchanged."""
+
+    max_llm_calls: int = 12
+    max_episode_steps: int = 384
+    max_decisions: int = 12
+    max_wall_time: float = 600.0
+
+    def __post_init__(self):
+        for name, ceiling in (
+            ("max_llm_calls", 12),
+            ("max_episode_steps", 384),
+            ("max_decisions", 12),
+        ):
+            value = getattr(self, name)
+            if type(value) is not int or not 1 <= value <= ceiling:
+                raise ValueError(f"S5B {name} must be an integer in [1,{ceiling}]")
+        if (
+            isinstance(self.max_wall_time, bool)
+            or not math.isfinite(self.max_wall_time)
+            or not 0 < self.max_wall_time <= 600
+        ):
+            raise ValueError("S5B wall time must be finite in (0,600]")
+
+
 class Budget:
     def __init__(self, limits: RunLimits):
         self.limits = limits

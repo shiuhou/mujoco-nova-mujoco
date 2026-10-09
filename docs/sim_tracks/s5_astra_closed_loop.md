@@ -574,3 +574,41 @@ This result validates the simulator model-facing loop only. Real deployment
 still requires independent pre_check, human approver, one-use authority,
 bounded MovL, settle, fresh real observations and physical E-stop as primary
 emergency stop. No physical execution or S6 work is authorized by this result.
+
+## S5B implementation and first-attempt protocol — October 9, 2026
+
+The operator authorized proceeding after committed S5A PASS `5fb7d38`.
+`run_s5b.py` calls the same runner and official provider factory as S5A; no
+provider, parser or interpolation code is duplicated. The simulator evaluator
+and RGB montage recorder are in `s5_benchmark.py`. Neither generates actions.
+The instruction is exactly **Pick up the blue block and place it inside the red
+box.** No scripted S3 trajectory or object coordinates enter policy context.
+
+S5B permits normalized gripper commands [0,1], a 150 mm total Cartesian path per
+chunk, 1.8 m per episode and 32 waypoints per chunk. Workspace and 20 mm per
+waypoint bound, zero relative orientation, whole-chunk validation, isolated IK,
+ordered executor, collision aborts and deterministic settle are preserved.
+Official interpolation continues to use 5 mm per Cartesian component. These
+mission bounds are declared to the policy without target/object information.
+S5A retains its original open-only and short-path defaults.
+
+The first live attempt is capped at 12 transmitted/request attempts (including
+internal policy re-prompts), 12 decisions, 384 executed waypoints and 600 seconds.
+There is one episode and no automatic episode retry. The relay, proxy, key
+source, model, wire, effort and image configuration remain the S5A configuration.
+Live S5A evidence and its ancestor checkpoint are required before S5B starts.
+
+Success is defined by the unchanged S3 evaluator: stable contact grasp, lift,
+acceptable slip, object inside target and settled, released gripper, acceptable
+distractor displacement and no simulator fault; S5 also requires no loop abort
+or active holding. A model `done` is never evidence of success. Evaluation stays
+outside policy observations, with final object poses in evaluator artifacts only.
+Transport/drop stage observations are sampled after each settled chunk and may
+miss transient events; S3 max-lift/slip/contact diagnostics run during physics.
+
+Full preflight: 296 tests passed (176 S1-S4, 120 S5), S1/S2 48/48, Ruff,
+format, S5 mypy, compilation and diff checks PASS. Offline runner evidence is
+`evidence/sim_s5b/20261009-offline-loop`: the two mock vertical moves exercise
+fresh generations 1 → 2 → 3 and correctly finish PARTIAL/max_calls_reached
+without claiming benchmark success. This fixture contains no manipulation
+trajectory and made zero provider requests.

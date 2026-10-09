@@ -29,6 +29,8 @@ def main() -> int:
         "s5_agent.py",
         "s5_embodiment.py",
         "s5_loop.py",
+        "s5_benchmark.py",
+        "run_s5b.py",
         "run_s5a.py",
         "run_s5_quality.py",
     ]

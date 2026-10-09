@@ -1,0 +1,136 @@
+{
+  "object_grasped": false,
+  "holding_now": false,
+  "lift_height": -1.7043406127001393e-05,
+  "max_lift_height": 0.0,
+  "grasp_stable": false,
+  "slip_distance": 0.0,
+  "inside_target": false,
+  "released": true,
+  "settled": false,
+  "settled_duration_s": 0.0,
+  "black_block_displacement": 1.704340612600913e-05,
+  "max_black_block_displacement": 1.704340612600913e-05,
+  "black_distractor_acceptable": true,
+  "collision_contact_summary": {
+    "pair_tick_counts": {
+      "black_block_collision / work_surface": 380,
+      "blue_block_collision / work_surface": 380
+    },
+    "pair_max_normal_force_n": {
+      "black_block_collision / work_surface": 0.21093933722173608,
+      "blue_block_collision / work_surface": 0.37165553345029856
+    },
+    "max_penetration_m": 3.462041309744944e-05,
+    "max_arm_projection_error_rad": 5.831979343895455e-11,
+    "final_contacts": [
+      {
+        "geom1": "work_surface",
+        "geom2": "blue_block_collision",
+        "distance_m": -8.521703063498962e-06,
+        "normal_force_n": 0.24524999999997782
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "blue_block_collision",
+        "distance_m": -8.521703063498962e-06,
+        "normal_force_n": 0.24524999999997782
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "blue_block_collision",
+        "distance_m": -8.521703063498962e-06,
+        "normal_force_n": 0.24524999999997782
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "blue_block_collision",
+        "distance_m": -8.521703063498962e-06,
+        "normal_force_n": 0.24524999999997782
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "black_block_collision",
+        "distance_m": -8.52170306300283e-06,
+        "normal_force_n": 0.1962000000000036
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "black_block_collision",
+        "distance_m": -8.521703063002826e-06,
+        "normal_force_n": 0.19620000000000448
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "black_block_collision",
+        "distance_m": -8.521703063002048e-06,
+        "normal_force_n": 0.196200000000004
+      },
+      {
+        "geom1": "work_surface",
+        "geom2": "black_block_collision",
+        "distance_m": -8.521703063002043e-06,
+        "normal_force_n": 0.1962000000000049
+      }
+    ],
+    "fault": null
+  },
+  "final_blue_pose": {
+    "position_m": [
+      -0.3,
+      -0.15,
+      0.059982956593872996
+    ],
+    "rotation_matrix": [
+      [
+        1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        1.0,
+        -4.735341703003205e-24
+      ],
+      [
+        0.0,
+        4.735341703003205e-24,
+        1.0
+      ]
+    ]
+  },
+  "final_black_pose": {
+    "position_m": [
+      -0.48,
+      -0.28,
+      0.05498295659387399
+    ],
+    "rotation_matrix": [
+      [
+        1.0,
+        -4.210808204206611e-33,
+        1.9406386949379241e-19
+      ],
+      [
+        4.216884839465487e-33,
+        1.0,
+        -3.131255330900646e-17
+      ],
+      [
+        -1.9406386949379241e-19,
+        3.131255330900646e-17,
+        1.0
+      ]
+    ]
+  },
+  "final_gripper_opening": 0.09499999999402114,
+  "robot_faulted": false,
+  "success": false,
+  "transport_observed": false,
+  "dropped_observed": false,
+  "close_command_issued": false,
+  "grasp_contact_observed": false,
+  "task_failure_category": "approach_fail",
+  "target_selection": "unverified",
+  "evaluation_source": "unchanged S3 simulator, never supplied to policy"
+}

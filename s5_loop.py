@@ -8,15 +8,22 @@ import numpy as np
 from inspect_robots.scene import Scene
 
 from s5_agent import observable_tools
-from s5_common import S5A_INSTRUCTION, S5Error
+from s5_common import BENCHMARK_INSTRUCTION, S5A_INSTRUCTION, S5Error
 
 
-def run_loop(embodiment, policy, transport) -> dict:
+def run_loop(embodiment, policy, transport, *, benchmark=None) -> dict:
     budget = embodiment.budget
-    scene = Scene(id="s5a_bounded_vertical_check", instruction=S5A_INSTRUCTION)
+    scene = Scene(
+        id="benchmark_v0_s5b"
+        if benchmark is not None
+        else "s5a_bounded_vertical_check",
+        instruction=BENCHMARK_INSTRUCTION if benchmark is not None else S5A_INSTRUCTION,
+    )
     observation = embodiment.reset(scene)
     initial_eef = observation.state["eef_state"].copy()
     policy.reset(scene)
+    if benchmark is not None:
+        benchmark.capture(embodiment, "initial")
     events = []
     timing = dict.fromkeys(
         ("T_encode_or_request_prep", "T_model", "T_policy_parse", "T_total_step"), 0.0
@@ -35,6 +42,7 @@ def run_loop(embodiment, policy, transport) -> dict:
         started = time.perf_counter()
         input_generation = embodiment.observation_trace[-1]["generation"]
         event = {"decision": decision, "input_generation": input_generation}
+        step_timing_before = {**timing, **embodiment.timing}
         try:
             budget.remaining()
             if budget.requests >= budget.limits.max_llm_calls:
@@ -72,6 +80,14 @@ def run_loop(embodiment, policy, transport) -> dict:
                     raise S5Error(
                         "max_calls_reached", "official policy exhausted its call budget"
                     )
+                if benchmark is not None:
+                    from s5_benchmark import task_failure
+
+                    metrics = embodiment.sim.compute_manipulation_metrics()
+                    raise S5Error(
+                        task_failure(metrics, closed_command=benchmark.closed_command),
+                        "policy stopped before evaluator-defined success",
+                    )
                 raise S5Error(
                     "policy_stopped", "terminal model output did not execute motion"
                 )
@@ -106,6 +122,9 @@ def run_loop(embodiment, policy, transport) -> dict:
                     "stale_observation", "post-settle freshness was not established"
                 )
             observation = fresh
+            if benchmark is not None:
+                metrics = benchmark.capture(embodiment, f"decision_{decision + 1:02d}")
+                event["evaluation_only"] = metrics
         except S5Error as exc:
             failure, failure_detail = exc.category, exc.detail
             event["failure"] = failure
@@ -120,9 +139,32 @@ def run_loop(embodiment, policy, transport) -> dict:
         finally:
             event["T_total_step"] = time.perf_counter() - started
             timing["T_total_step"] += event["T_total_step"]
+            event["timing"] = {
+                key: value - step_timing_before[key]
+                for key, value in {**timing, **embodiment.timing}.items()
+            }
             events.append(event)
         if failure:
             break
+        if benchmark is not None and metrics["success"]:
+            break
+    if benchmark is not None:
+        metrics = embodiment.sim.compute_manipulation_metrics()
+        if failure is None and not metrics["success"]:
+            failure = (
+                "max_calls_reached"
+                if budget.requests >= budget.limits.max_llm_calls
+                else "max_steps_reached"
+            )
+            failure_detail = "bounded mission ended before evaluator-defined success"
+        # Render failure state after a partially executed chunk if time permits;
+        # never present an earlier frame as a post-failure observation.
+        if embodiment.current is None:
+            try:
+                embodiment.observe()
+            except S5Error:
+                pass
+        benchmark.capture(embodiment, "final")
     motion = any(event.get("eef_displacement_m", 0) > 1e-5 for event in events)
     fresh = bool(events) and all(
         event.get("fresh_after_settle", False) for event in events
@@ -152,7 +194,7 @@ def run_loop(embodiment, policy, transport) -> dict:
         for k, v in checks.items()
         if k != "new_observation_received_by_next_decision"
     }
-    return {
+    result = {
         "loop_pass": all(required.values()),
         "checks": checks,
         "failure_category": failure,
@@ -176,3 +218,8 @@ def run_loop(embodiment, policy, transport) -> dict:
         "tools": tools,
         "evaluation_only": embodiment.sim.compute_manipulation_metrics(),
     }
+    if benchmark is not None:
+        result["evaluation_only"] = benchmark.summary(metrics, failure)
+        result["benchmark_success"] = result["evaluation_only"]["success"]
+        result["evaluator_trace"] = benchmark.records
+    return result
