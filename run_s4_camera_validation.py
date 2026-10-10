@@ -29,7 +29,7 @@ from nova_cameras import (  # noqa: E402
 )
 from nova_simulator import NovaMujocoSimulator  # noqa: E402
 from s4_offline_guard import install  # noqa: E402
-from s4_validation import fixture_report  # noqa: E402
+from s4_validation import fixture_report, observation_repeat_report  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent
 
@@ -121,6 +121,7 @@ def run(
                 n: bool(np.array_equal(first.images[n], second.images[n]))
                 for n in CAMERA_NAMES
             }
+            static_repeat = observation_repeat_report(first, second)
             fixtures = fixture_report(rig, first)
             for name in CAMERA_NAMES:
                 Image.fromarray(first.images[name]).save(output / f"{name}.png")
@@ -179,6 +180,7 @@ def run(
                 n: bool(np.array_equal(first.images[n], reset_obs.images[n]))
                 for n in CAMERA_NAMES
             }
+            reset_repeat = observation_repeat_report(first, reset_obs)
             performance = _timing(rig, repetitions)
             roles = {
                 "schema": "nova_mujoco_camera_roles_v1",
@@ -199,8 +201,8 @@ def run(
                 ],
             }
             success = (
-                all(same_pixels.values())
-                and all(reset_same_pixels.values())
+                static_repeat["passed"]
+                and reset_repeat["passed"]
                 and all(
                     f["color_visible"]
                     for cam in fixtures.values()
@@ -246,6 +248,8 @@ def run(
                 "dtypes": {n: str(rgb.dtype) for n, rgb in first.images.items()},
                 "static_repeat_exact": same_pixels,
                 "reset_repeat_exact": reset_same_pixels,
+                "static_repeat_validation": static_repeat,
+                "reset_repeat_validation": reset_repeat,
                 "image_sha256": {
                     n: hashlib.sha256(rgb.tobytes()).hexdigest()
                     for n, rgb in first.images.items()
@@ -265,7 +269,7 @@ def run(
                     "Engineering camera transforms/FOV; not calibrated",
                     "Test-only visual fixtures; no S3 physics",
                     "Same-state render coherence is not physical exposure synchronization",
-                    "Static image identity tested on the recorded GL stack, not across GPU drivers",
+                    "Exact pixel identity reported separately; S4R permits at most eight 1-LSB pixels with exact state/camera parity and fresh generation",
                 ],
             }
             _save_json(output / "camera_config.json", rig.config_document)
@@ -290,7 +294,7 @@ def run(
             lines.extend(
                 [
                     "",
-                    "All camera images use one copied simulation state; static/reset pixels repeat exactly on this stack.",
+                    "All camera images use one copied simulation state; static/reset state and camera parity are exact. Pixel identity and bounded S4R residuals are reported separately.",
                     "Fixed cameras remain fixed; wrist follows Link6. Parameters and full residuals are in JSON.",
                     "",
                     "No robot, serial, physical camera, or OpenAI access.",

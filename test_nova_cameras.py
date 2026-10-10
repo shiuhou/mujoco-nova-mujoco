@@ -24,7 +24,7 @@ from nova_cameras import (
     relative_orientation,
 )
 from nova_simulator import NovaMujocoSimulator
-from s4_validation import fixture_report
+from s4_validation import fixture_report, observation_repeat_report, rgb_repeat_report
 
 ROOT = Path(__file__).resolve().parent
 
@@ -71,11 +71,10 @@ def test_logical_contract_and_coherent_three_view_observation(rig):
         assert not frame["physical_exposure"]
 
 
-def test_static_pixels_repeat_and_generation_always_advances(rig):
+def test_static_observation_repeats_and_generation_always_advances(rig):
     first = rig.observe()
     second = rig.observe()
-    for name in CAMERA_NAMES:
-        np.testing.assert_array_equal(first.images[name], second.images[name])
+    assert observation_repeat_report(first, second)["passed"]
     assert (
         second.extra["nova_mujoco"]["frame_generation"]
         == first.extra["nova_mujoco"]["frame_generation"] + 1
@@ -131,8 +130,7 @@ def test_state_change_without_time_advance_and_reset_generation(rig):
         third.extra["nova_mujoco"]["frame_generation"]
         > second.extra["nova_mujoco"]["frame_generation"]
     )
-    for name in CAMERA_NAMES:
-        np.testing.assert_array_equal(first.images[name], third.images[name])
+    assert observation_repeat_report(first, third)["passed"]
 
 
 def test_roles_projections_rgb_colors_and_distinct_views(rig):
@@ -165,7 +163,8 @@ def test_roles_projections_rgb_colors_and_distinct_views(rig):
 def test_independent_render_matches_observation(rig, name):
     frame = rig.render(name)
     obs = rig.observe()
-    np.testing.assert_array_equal(frame.rgb, obs.images[name])
+    assert rgb_repeat_report(frame.rgb, obs.images[name])["passed"]
+    assert frame.metadata["state_hash"] == obs.extra["nova_mujoco"]["state_hash"]
     assert (
         frame.metadata["frame_generation"]
         < obs.extra["nova_mujoco"]["frame_generation"]
@@ -212,8 +211,7 @@ def test_debug_frustums_are_optional_offline_output(rig):
     debug = rig.render_debug()
     assert debug.shape == (720, 1280, 3)
     after = rig.observe()
-    for name in CAMERA_NAMES:
-        np.testing.assert_array_equal(before.images[name], after.images[name])
+    assert observation_repeat_report(before, after)["passed"]
 
 
 def test_additional_scene_object_state_is_preserved(tmp_path):
@@ -314,7 +312,17 @@ def test_fresh_rig_reproduces_static_image(rig):
     with NovaMujocoCameraRig(rig.simulator, fixture_path=TEST_FIXTURES) as independent:
         second = independent.observe()
         for name in CAMERA_NAMES:
-            np.testing.assert_array_equal(first.images[name], second.images[name])
+            assert rgb_repeat_report(first.images[name], second.images[name])["passed"]
+            assert (
+                first.extra["nova_mujoco"]["state_hash"]
+                == second.extra["nova_mujoco"]["state_hash"]
+            )
+            np.testing.assert_array_equal(
+                rig.camera_pose(name)[0], independent.camera_pose(name)[0]
+            )
+            np.testing.assert_array_equal(
+                rig.camera_pose(name)[1], independent.camera_pose(name)[1]
+            )
 
 
 @pytest.mark.parametrize(

@@ -1,0 +1,332 @@
+{
+  "head": "2c71b740a38cadf1378b7511017662ce0b2ae35a",
+  "python": "3.11.14",
+  "cycles_per_mode": 300,
+  "intervention": "frozen_scene",
+  "source_sha256": {
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "run_s4_render_stress.py": "f21fc0bac63776e63aa97cdda53dde2aa7a6f8a8bf49016cac9457e328bf6ad5"
+  },
+  "modes": {
+    "static": {
+      "mismatch_counts": {
+        "front_rgb": 9,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [
+        {
+          "iteration": 14,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 67,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 78,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 107,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 160,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 173,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 191,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 233,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 280,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        }
+      ],
+      "readback_checks": []
+    },
+    "reset": {
+      "mismatch_counts": {
+        "front_rgb": 7,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [
+        {
+          "iteration": 24,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 95,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 147,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 150,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 174,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 220,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 296,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        }
+      ],
+      "readback_checks": []
+    }
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  },
+  "side_effects": {
+    "provider_requests": 0,
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0
+  }
+}

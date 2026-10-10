@@ -29,6 +29,7 @@ The settle fix is validated offline. Controlled replication was blocked before
 paid execution when the S4 front-camera reset-identity check failed on isolated
 repetition 3; no second live attempt was run.
 [Replication preflight evidence](evidence/sim_s5b/20261009T151042Z-postfix-replication/).
+S4R later established a bounded EGL/MSAA render residual and a state/camera/freshness integrity criterion; evidence is in [sim_s4r](evidence/sim_s4r/20261009T185711Z/).
 
 ## Unified S1–S4 production simulator
 

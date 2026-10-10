@@ -10,6 +10,8 @@ from PIL import Image
 
 from benchmark_scene import ROOT, SCENE_DIR, benchmark_v0
 from manipulation_simulator import ManipulationSimulator
+from s4_validation import observation_repeat_report
+
 from nova_cameras import (
     CAMERA_NAMES,
     DEFAULT_CONFIG,
@@ -186,8 +188,7 @@ def test_production_pixels_are_owned_by_real_objects_and_rgb_diagnostics_do_not_
         rig._generation == generation
     )  # Validation segmentation is not a policy frame.
     second = rig.observe()
-    for name in CAMERA_NAMES:
-        np.testing.assert_array_equal(first.images[name], second.images[name])
+    assert observation_repeat_report(first, second)["passed"]
 
 
 def test_finger_motion_changes_state_hash_and_observed_aperture(rig):

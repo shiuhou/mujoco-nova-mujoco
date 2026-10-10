@@ -1,0 +1,63 @@
+{
+  "head": "2c71b740a38cadf1378b7511017662ce0b2ae35a",
+  "python": "3.11.14",
+  "cycles_per_mode": 5,
+  "intervention": "none",
+  "source_sha256": {
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "run_s4_render_stress.py": "19c85d094a97f168766b2b3197cb1f300ac8f946b1299ad0bd1b619feb682fbc"
+  },
+  "modes": {
+    "reset": {
+      "mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    },
+    "history_reset": {
+      "mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 1
+      },
+      "mismatches": [
+        {
+          "iteration": 4,
+          "camera_name": "wrist_rgb",
+          "differing_pixels": 1,
+          "differing_channels": 1,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 3.616898148148148e-07,
+          "bbox_xyxy_inclusive": [
+            269,
+            436,
+            269,
+            436
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": false
+        }
+      ],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    }
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  },
+  "side_effects": {
+    "provider_requests": 0,
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0
+  }
+}

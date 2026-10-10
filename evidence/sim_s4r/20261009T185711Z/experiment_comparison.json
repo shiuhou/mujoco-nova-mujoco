@@ -1,0 +1,380 @@
+{
+  "after": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 3,
+      "camera_mismatch_counts": {
+        "front_rgb": 3,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 1,
+      "camera_mismatch_counts": {
+        "front_rgb": 1,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "fresh": {
+      "cycles": 300,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "history_reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 5,
+      "camera_mismatch_counts": {
+        "front_rgb": 1,
+        "right_rgb": 0,
+        "wrist_rgb": 4
+      },
+      "max_differing_pixels": 5,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "before": {
+    "static": {
+      "cycles": 100,
+      "exact_mismatch_observations": 2,
+      "camera_mismatch_counts": {
+        "front_rgb": 2,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 100,
+      "exact_mismatch_observations": 4,
+      "camera_mismatch_counts": {
+        "front_rgb": 4,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "fresh": {
+      "cycles": 100,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "history_reset": {
+      "cycles": 100,
+      "exact_mismatch_observations": 5,
+      "camera_mismatch_counts": {
+        "front_rgb": 3,
+        "right_rgb": 0,
+        "wrist_rgb": 2
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "confirmed_baseline": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 6,
+      "camera_mismatch_counts": {
+        "front_rgb": 6,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 4,
+      "camera_mismatch_counts": {
+        "front_rgb": 4,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "fresh": {
+      "cycles": 300,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "history_reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 8,
+      "camera_mismatch_counts": {
+        "front_rgb": 4,
+        "right_rgb": 0,
+        "wrist_rgb": 4
+      },
+      "max_differing_pixels": 5,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "finish": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 6,
+      "camera_mismatch_counts": {
+        "front_rgb": 6,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 7,
+      "camera_mismatch_counts": {
+        "front_rgb": 7,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "frozen_scene": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 9,
+      "camera_mismatch_counts": {
+        "front_rgb": 9,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 7,
+      "camera_mismatch_counts": {
+        "front_rgb": 7,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "msaa0": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "no_dither": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 6,
+      "camera_mismatch_counts": {
+        "front_rgb": 6,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 3,
+      "camera_mismatch_counts": {
+        "front_rgb": 3,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  },
+  "readback": {
+    "static": {
+      "cycles": 300,
+      "exact_mismatch_observations": 7,
+      "camera_mismatch_counts": {
+        "front_rgb": 7,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 903,
+      "readback_mismatches": 0
+    },
+    "reset": {
+      "cycles": 300,
+      "exact_mismatch_observations": 2,
+      "camera_mismatch_counts": {
+        "front_rgb": 2,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 4,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 6.510416666666667e-06,
+      "criterion_failures": null,
+      "readbacks": 903,
+      "readback_mismatches": 0
+    }
+  },
+  "scene_probe": {
+    "reset": {
+      "cycles": 5,
+      "exact_mismatch_observations": 0,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "max_differing_pixels": 0,
+      "max_channel_difference": 0,
+      "max_mean_absolute_difference": 0,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    },
+    "history_reset": {
+      "cycles": 5,
+      "exact_mismatch_observations": 1,
+      "camera_mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 1
+      },
+      "max_differing_pixels": 1,
+      "max_channel_difference": 1,
+      "max_mean_absolute_difference": 3.616898148148148e-07,
+      "criterion_failures": 0,
+      "readbacks": 0,
+      "readback_mismatches": 0
+    }
+  }
+}

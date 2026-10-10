@@ -1,0 +1,18 @@
+{
+  "iteration": 220,
+  "camera_name": "front_rgb",
+  "differing_pixels": 4,
+  "differing_channels": 6,
+  "max_channel_difference": 1,
+  "mean_absolute_difference": 6.510416666666667e-06,
+  "bbox_xyxy_inclusive": [
+    332,
+    220,
+    335,
+    223
+  ],
+  "same_state": true,
+  "same_camera": true,
+  "same_derived_state": true,
+  "same_scene": true
+}

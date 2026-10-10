@@ -1,0 +1,18 @@
+{
+  "iteration": 146,
+  "camera_name": "wrist_rgb",
+  "differing_pixels": 5,
+  "differing_channels": 9,
+  "max_channel_difference": 1,
+  "mean_absolute_difference": 3.2552083333333335e-06,
+  "bbox_xyxy_inclusive": [
+    224,
+    444,
+    231,
+    447
+  ],
+  "same_state": true,
+  "same_camera": true,
+  "same_derived_state": true,
+  "same_scene": true
+}

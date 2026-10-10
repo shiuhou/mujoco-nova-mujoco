@@ -1,0 +1,229 @@
+{
+  "head": "2c71b740a38cadf1378b7511017662ce0b2ae35a",
+  "python": "3.11.14",
+  "cycles_per_mode": 300,
+  "intervention": "none",
+  "source_sha256": {
+    "nova_cameras.py": "e7fe2de9b5af5ace1712c4e862c93dfa96660ba54483f4f7e662d74ad0c563f2",
+    "nova_simulator.py": "5f7505501cccfaf8ab4145a3a51917760853e54a0b9d3481bc70b67c43f3b3a1",
+    "run_s4_render_stress.py": "13fd7c9cb34b93cc5a66d9c4bec231aae65c1fc712a381263a6913ac11a9a8e4"
+  },
+  "modes": {
+    "static": {
+      "mismatch_counts": {
+        "front_rgb": 3,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [
+        {
+          "iteration": 108,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 109,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 130,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        }
+      ],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    },
+    "reset": {
+      "mismatch_counts": {
+        "front_rgb": 1,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [
+        {
+          "iteration": 7,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        }
+      ],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    },
+    "fresh": {
+      "mismatch_counts": {
+        "front_rgb": 0,
+        "right_rgb": 0,
+        "wrist_rgb": 0
+      },
+      "mismatches": [],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    },
+    "history_reset": {
+      "mismatch_counts": {
+        "front_rgb": 1,
+        "right_rgb": 0,
+        "wrist_rgb": 4
+      },
+      "mismatches": [
+        {
+          "iteration": 4,
+          "camera_name": "wrist_rgb",
+          "differing_pixels": 1,
+          "differing_channels": 1,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 3.616898148148148e-07,
+          "bbox_xyxy_inclusive": [
+            269,
+            436,
+            269,
+            436
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 41,
+          "camera_name": "wrist_rgb",
+          "differing_pixels": 1,
+          "differing_channels": 1,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 3.616898148148148e-07,
+          "bbox_xyxy_inclusive": [
+            815,
+            247,
+            815,
+            247
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 102,
+          "camera_name": "front_rgb",
+          "differing_pixels": 4,
+          "differing_channels": 6,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 6.510416666666667e-06,
+          "bbox_xyxy_inclusive": [
+            332,
+            220,
+            335,
+            223
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 146,
+          "camera_name": "wrist_rgb",
+          "differing_pixels": 5,
+          "differing_channels": 9,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 3.2552083333333335e-06,
+          "bbox_xyxy_inclusive": [
+            224,
+            444,
+            231,
+            447
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        },
+        {
+          "iteration": 252,
+          "camera_name": "wrist_rgb",
+          "differing_pixels": 1,
+          "differing_channels": 1,
+          "max_channel_difference": 1,
+          "mean_absolute_difference": 3.616898148148148e-07,
+          "bbox_xyxy_inclusive": [
+            293,
+            415,
+            293,
+            415
+          ],
+          "same_state": true,
+          "same_camera": true,
+          "same_derived_state": true,
+          "same_scene": true
+        }
+      ],
+      "readback_checks": [],
+      "repeat_validation_failures": 0
+    }
+  },
+  "blocked_io_attempts": {
+    "socket_attempts": 0,
+    "physical_device_attempts": 0
+  },
+  "side_effects": {
+    "provider_requests": 0,
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0
+  }
+}

@@ -785,3 +785,35 @@ reproducibility requires separate focused work before another live episode.
 No S6, E0 or interface experiments started. Robot connections, robot commands,
 serial connections, physical-camera connections and transmitted provider
 requests are all zero for this preflight. Commits are local only; no push.
+
+
+## S4R render determinism investigation — resolved, October 10, 2026
+
+The intermittent S4 front-camera identity failure was investigated locally before
+any further provider request. A 1,200-cycle stress run covered 300 cycles each
+of repeated render, reset plus render, fresh renderer plus render, and motion/debug
+then reset plus render. Every record includes simulator state hashes, qpos/qvel,
+simulation time, frame generation, camera transforms, image hashes, renderer
+metadata and diagnostics for mismatches.
+
+The mismatch is renderer-level, not simulator/reset or camera state: the recurring
+front-camera residual was four pixels at one 8-bit intensity level; the largest
+history/reset residual was five pixels at one level. Maximum whole-frame mean
+absolute difference was 6.510416666666667e-06. State hashes, qpos/qvel, derived
+MuJoCo transforms, camera poses and prepared scene inputs were equal. Repeated
+readback of the same framebuffer was exact in 1,806 checks. Explicit GPU finish,
+dithering changes and frozen scene inputs did not remove the residual; disabling
+MSAA removed it in 600 experimental cycles. Production MSAA remains unchanged.
+
+Bit-exact RGB equality is therefore not a valid requirement on this EGL/GPU
+stack. The production criterion now requires exact state hash and state values,
+exact simulation time, coherent camera metadata, unchanged camera poses, a fresh
+advancing generation, and RGB differences no greater than eight pixels at one
+8-bit level per view. The raw RGB arrays are never modified, blurred or
+quantized. Larger differences, stale generations, changed state, camera swaps,
+metadata mismatches and malformed frames fail closed. Focused integrity tests
+cover these cases.
+
+Stress evidence: `evidence/sim_s4r/20261009T185711Z/`. The replacement
+criterion passed all 1,200 post-change cycles with zero criterion failures.
+No physical devices or provider were accessed.
