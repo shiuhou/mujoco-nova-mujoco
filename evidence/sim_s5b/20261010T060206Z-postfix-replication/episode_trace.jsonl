@@ -1,0 +1,1 @@
+{"decision": 0, "input_generation": 1, "failure": "proxy_connect", "T_total_step": 5.0171819110400975, "timing": {"T_encode_or_request_prep": 0.01481801294721663, "T_model": 5.002175896195695, "T_policy_parse": 1.3897893950343132e-05, "T_total_step": 5.0171819110400975, "T_render": 0.0, "T_chunk_validation": 0.0, "T_IK": 0.0, "T_execute": 0.0, "T_settle": 0.0}}

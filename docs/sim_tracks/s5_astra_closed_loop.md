@@ -3,7 +3,7 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A PASS; S5B attempt #1 PARTIAL; post-fix replication BLOCKED before live execution** (October 9, 2026).
+Current live status: **S5A PASS; S5B attempt #1 PARTIAL; S5B post-fix replication #2 BLOCKED at proxy connection** (October 10, 2026).
 The single live episode used the pinned official agent with configured and
 relay-reported `gpt-6-astra`: two Responses requests, two `move_to` decisions,
 four validated waypoints and fresh generations 1 → 2 → 3. See the S5A live
@@ -785,6 +785,31 @@ reproducibility requires separate focused work before another live episode.
 No S6, E0 or interface experiments started. Robot connections, robot commands,
 serial connections, physical-camera connections and transmitted provider
 requests are all zero for this preflight. Commits are local only; no push.
+
+## S5B post-fix replication #2 — BLOCKED, October 10, 2026
+
+After the S4R criterion passed its 1,200-cycle stress validation and the local
+quality gates were green, exactly one post-fix S5B invocation was started with
+the frozen attempt configuration: `gpt-6-astra`, the pinned official
+`inspect-robots-agent`, SciTrace relay `https://sub.scitrace.cc/`, explicit
+proxy `http://127.0.0.1:7890`, the operator credential source, the unchanged
+benchmark scene and instruction, and 12 model-call / 12-decision limits.
+
+The runner initialized the MuJoCo benchmark and captured the initial
+observation, then stopped on the first provider attempt with the precise
+failure category **`proxy_connect`** (`approved transport connection failed`).
+No HTTP request was transmitted (`transmitted_requests=0`), no model decision
+or generic action was produced, and no ActionChunk, validation, IK, executor,
+settle or simulator motion occurred. The run used one internal provider attempt
+and zero paid requests; its wall time was 5.366 s. The failure is transport
+connectivity, not authentication, model access, Responses parsing, policy
+output, validation, IK, execution or freshness.
+
+Evidence is `evidence/sim_s5b/20261010T060206Z-postfix-replication/`.
+Attempt #1 remains unchanged and PARTIAL. Per the controlled-replication gate,
+this exact attempt is preserved and no retry or attempt #3 was run. Therefore
+the gripper-settle correction is not live-validated by attempt #2, and S5
+remains **S5A PASS / S5B PARTIAL with the post-fix replication blocked**.
 
 
 ## S4R render determinism investigation — resolved, October 10, 2026
