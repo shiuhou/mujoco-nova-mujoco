@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "live_s5b_pass": true,
+  "checks": {
+    "official_agent_used": true,
+    "generic_move_to_used": true,
+    "actionchunk_executed": true,
+    "simulation_eef_changed_through_execution": true,
+    "settle_occurred": true,
+    "fresh_post_motion_observation": true,
+    "new_observation_received_by_next_decision": true,
+    "no_policy_privileged_state": true,
+    "no_abort": true
+  },
+  "failure_category": null,
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 10
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "model_requests": 0,
+  "credentials_loaded": false,
+  "proxy": "http://127.0.0.1:7890",
+  "relay": "https://sub.scitrace.cc/",
+  "listener": "State  Recv-Q Send-Q Local Address:Port Peer Address:PortProcess\nLISTEN 0      4096       127.0.0.1:7890      0.0.0.0:*          \n",
+  "checks": [
+    {
+      "test": "raw_CONNECT_and_verified_TLS",
+      "status": "PASS",
+      "tcp_connected": true,
+      "connect_status": 200,
+      "tls_verified": true,
+      "hostname_verified": true,
+      "tls_version": "TLSv1.3",
+      "cipher": "TLS_AES_128_GCM_SHA256",
+      "elapsed_s": 5.598987801000476
+    },
+    {
+      "test": "existing_HTTPTransport_guard_HEAD_root",
+      "status": "PASS",
+      "trace": [
+        "connection.connect_tcp.complete",
+        {
+          "response_status": 200
+        },
+        "proxy.start_tls.complete",
+        {
+          "response_status": 200
+        }
+      ],
+      "http_status": 200,
+      "authorization_sent": false,
+      "elapsed_s": 3.3668937161564827
+    }
+  ],
+  "guard_blocked": {
+    "network": 0,
+    "physical_device": 0
+  },
+  "status": "PASS",
+  "historical_failure": {
+    "evidence": "evidence/sim_s5b/20261010T060206Z-postfix-replication",
+    "category": "proxy_connect",
+    "tcp_connected": true,
+    "tls_completed": false,
+    "transmitted_requests": 0,
+    "duration_s": 5.002175896195695,
+    "interpretation": "Not reproducible in two independent connections today; exact historical cause unavailable from sanitized trace. No configuration or timeout changes made."
+  },
+  "method": "One raw HTTP CONNECT plus default-CA hostname-verified TLS handshake, followed by one HEAD / using HTTPTransport(retries=0, trust_env=False, proxy=approved_proxy, verify=True), both inside existing SimulationIOGuard.provider_network(); no credentials, Responses POST or model calls."
+}

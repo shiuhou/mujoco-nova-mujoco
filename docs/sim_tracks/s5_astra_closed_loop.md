@@ -3,8 +3,12 @@
 S5 validates the model-facing closed loop in simulation.
 It does NOT authorize autonomous physical Nova execution.
 
-Current live status: **S5A PASS; S5B attempt #1 PARTIAL; S5B post-fix replication #2 BLOCKED at proxy connection** (October 10, 2026).
-The single live episode used the pinned official agent with configured and
+Current live status: **S5A PASS; S5B post-fix live replication PASS; S5 PASS / FROZEN** (October 11, 2026).
+Attempt #1 remains PARTIAL and the October 10 proxy-blocked invocation remains
+BLOCKED. The separately authorized October 11 resumption completed one live
+episode successfully; see the final section and
+`evidence/sim_s5b/20261011T040204Z-postfix-live/`.
+The S5A live episode used the pinned official agent with configured and
 relay-reported `gpt-6-astra`: two Responses requests, two `move_to` decisions,
 four validated waypoints and fresh generations 1 → 2 → 3. See the S5A live
 PASS record at the end and `evidence/sim_s5a/20261009T124559Z-live/`.
@@ -842,3 +846,109 @@ cover these cases.
 Stress evidence: `evidence/sim_s4r/20261009T185711Z/`. The replacement
 criterion passed all 1,200 post-change cycles with zero criterion failures.
 No physical devices or provider were accessed.
+
+## Resumed S5B post-fix live replication — PASS, October 11, 2026
+
+Source checkpoint: `d22a39a7accba01e0557a5ee5a56cbb5f23f6503`.
+Evidence: [`20261011T040204Z-postfix-live`](../../evidence/sim_s5b/20261011T040204Z-postfix-live/).
+This was one newly authorized resumption after the October 10 invocation failed
+before transmission, not an automatic retry. The earlier PARTIAL and BLOCKED
+records remain byte-for-byte unchanged. No production source, S4R criterion,
+scene, camera, prompt, action contract, IK, executor, workspace, evaluator or
+gripper-settle setting was changed during this resumption.
+
+### Credential-free connectivity diagnosis
+
+The explicit HTTP proxy at `127.0.0.1:7890` was listening. One raw HTTP CONNECT
+to `sub.scitrace.cc:443` returned 200, followed by a successful hostname and
+default-CA verified TLS 1.3 handshake (5.599 s combined). A second independent
+connection through the same `httpx.HTTPTransport(retries=0, trust_env=False,
+proxy=approved_proxy, verify=True)` and existing `SimulationIOGuard` completed
+CONNECT, verified TLS and an unauthenticated `HEAD /` with HTTP 200 (3.367 s).
+Neither probe loaded a credential or sent a Responses/model request. No
+redirect was followed and no guard rejection occurred.
+
+The prior 5.002 s failure had TCP connected but no completed TLS handshake or
+provider transmission. It is **not reproducible in these two connections**;
+the historical trace cannot distinguish a transient proxy/upstream-connect
+failure from another pre-TLS transport failure. The exact historical root cause
+remains unknown. No proxy, provider, TLS, timeout or network-guard workaround
+was needed or applied. `connectivity_preflight.json` preserves this distinction.
+
+### Evaluator result and unchanged configuration
+
+The exact instruction was **Pick up the blue block and place it inside the red
+box.** The pinned official agent revision remained
+`7e506e3b6f39530f18e75cf97b23c4287aa90f12`, with Responses, configured and
+relay-reported `gpt-6-astra`, SciTrace relay, the explicit HTTP proxy,
+`RELAY_API_KEY`, effort medium, images always, image horizon 2 and depth off.
+All recorded policy, scene, camera, renderer, action-limit and budget settings
+match attempt #1. The ceilings remained 12 requests, 12 decisions, 384 total
+waypoints, 32 per chunk and 600 seconds.
+
+Ten transmitted requests returned HTTP 200 and produced ten generic `move_to`
+decisions and 188 ordered waypoints over a 0.855000 m path. Every chunk passed
+validation and isolated IK, executed through NovaMujocoChunkExecutor, settled,
+and produced a fresh observation. Generations advanced from 1 through 11.
+No privileged task state was supplied to the policy. Evaluator success stopped
+the loop with two model calls still available; no model declaration of success
+was required.
+
+| Evaluator measure | Result |
+| --- | --- |
+| Correct object / stable grasp | Blue contact observed / true |
+| Lift / maximum lift | true / 0.143755 m |
+| Maximum slip | 0.005819 m |
+| Transport observed | true |
+| Released / active holding | true / false |
+| Inside target / settled | true / true |
+| Final settled duration | 0.710 s |
+| Final gripper aperture | 0.095000 m |
+| Maximum distractor displacement | 0.0000170434 m (0.017 mm), acceptable |
+| Simulator fault / loop abort | false / false |
+| Final evaluator success | true |
+
+The successful final placement does not erase intermediate limitations. Decision
+3 omitted gripper, so official `move_to` reused measured aperture (0.6284) and
+did not establish a stable lift. Astra then reopened, regrasped and explicitly
+kept gripper 0 during lift and transport. The recorder also retains
+`dropped_observed=true`: at decision 9, during lowering above the box, the
+post-chunk HOLDING flag became false while gripper was commanded closed and
+inside_target was still false. This is the recorder's coarse drop heuristic,
+not a reconstructed contact trajectory. Decision 10 opened the gripper, and
+the final evaluator confirmed release, settled containment and success. Neither
+the flag nor the evaluator was modified to obtain PASS.
+
+### Timing, usage and final gates
+
+| Timing component | Seconds |
+| --- | ---: |
+| Render | 0.041056 |
+| Request preparation | 0.145220 |
+| Provider/model path | 132.826602 |
+| Policy parse residual | 0.005591 |
+| Chunk validation | 0.013261 |
+| IK | 0.142528 |
+| Execute overhead | 0.028087 |
+| Settle/physics | 2.896470 |
+| Decision-to-observation total | 136.311728 |
+| Episode total | 136.653008 |
+
+The episode was provider/model-bound (97.2% of wall time); provider timing
+includes relay and network latency. Relay usage metadata totals 93,761 input,
+571 output and **94,332 total tokens**. Usage is provider-reported; no private
+reasoning or raw wire capture is stored.
+
+Final offline regression: **313 tests PASS; S1/S2 48/48; Ruff, format, S5 mypy,
+compilation and diff checks PASS**. The quality record and credential-content
+audit are stored with this episode. Initial, per-decision, grasp, lifted,
+transport and final montages are retained, alongside structured actions,
+observations, evaluator metrics and timing. One successful bounded episode
+supports this simulation checkpoint; it does not establish a general success
+rate or physical reliability.
+
+**S5A PASS; S5B attempt #1 PARTIAL; October 10 invocation BLOCKED; October 11
+resumed post-fix replication PASS; S5 PASS / FROZEN.** Robot connections,
+robot commands, serial connections and physical-camera connections were zero.
+This resumption transmitted ten model requests and made no further live
+attempt. No S6/E0 work or physical execution was started, and nothing was pushed.

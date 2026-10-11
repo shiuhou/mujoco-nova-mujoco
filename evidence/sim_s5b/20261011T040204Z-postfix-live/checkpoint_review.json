@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "source_head": "d22a39a7accba01e0557a5ee5a56cbb5f23f6503",
+  "result": "PASS",
+  "resumption": "one newly authorized live episode after previous pre-transmission blockage; no automatic retry",
+  "unchanged_configuration": {
+    "policy_configuration": true,
+    "action_limits": true,
+    "limits": true,
+    "renderer": true,
+    "official_stack": true,
+    "scene": true,
+    "camera_profile": true,
+    "initial_robot_and_object_state": true,
+    "task_instruction": true,
+    "sources_unchanged_during_resumption": true
+  },
+  "historical_artifacts_byte_identical": 469,
+  "history_preserved": [
+    "evidence/sim_s5b/20261009T131911Z-live",
+    "evidence/sim_s5b/20261010T060206Z-postfix-replication",
+    "evidence/sim_s4r"
+  ],
+  "transmitted_requests": 10,
+  "provider_attempts": 10,
+  "decisions": 10,
+  "waypoints": 188,
+  "usage": {
+    "input_tokens": 93761,
+    "output_tokens": 571,
+    "total_tokens": 94332
+  },
+  "quality_gate_status": "PASS",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 10
+  }
+}

@@ -1,0 +1,4205 @@
+{
+  "loop_pass": true,
+  "checks": {
+    "official_agent_used": true,
+    "generic_move_to_used": true,
+    "actionchunk_executed": true,
+    "simulation_eef_changed_through_execution": true,
+    "settle_occurred": true,
+    "fresh_post_motion_observation": true,
+    "new_observation_received_by_next_decision": true,
+    "no_policy_privileged_state": true,
+    "no_abort": true
+  },
+  "failure_category": null,
+  "failure_detail": null,
+  "decisions": 10,
+  "provider_attempts": 10,
+  "action_count": 188,
+  "path_length_m": 0.8550000045706618,
+  "initial": {
+    "robot_q_rad": [
+      0.1057414219467702,
+      -0.07307772766776358,
+      1.949250880153336,
+      -0.30537314570463386,
+      -1.5707963268520606,
+      1.6765303917661518
+    ],
+    "object_poses_evaluator_only": {
+      "blue_block": {
+        "semantic_name": "blue_block",
+        "frame": "world",
+        "position_m": [
+          -0.3,
+          -0.15,
+          0.06
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": true
+      },
+      "black_block": {
+        "semantic_name": "black_block",
+        "frame": "world",
+        "position_m": [
+          -0.48,
+          -0.28,
+          0.055
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": true
+      },
+      "red_box": {
+        "semantic_name": "red_box",
+        "frame": "world",
+        "position_m": [
+          -0.3,
+          0.08,
+          0.07
+        ],
+        "rotation_matrix": [
+          [
+            1.0,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            1.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            1.0
+          ]
+        ],
+        "quaternion_wxyz": [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        "linear_velocity_m_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "angular_velocity_rad_s": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "dynamic": false
+      }
+    }
+  },
+  "initial_eef_state": [
+    -0.2999999999842532,
+    -0.14999999999960137,
+    0.14999999999096555,
+    0.0,
+    0.0,
+    0.0,
+    1.0
+  ],
+  "last_observation_eef_state": [
+    -0.2999999956671746,
+    0.06999999597872314,
+    0.07499998689239082,
+    0.0,
+    -2.3552811607059308e-12,
+    -8.993312376547347e-13,
+    1.000000004362443
+  ],
+  "final_eef_state": [
+    -0.2999999956671746,
+    0.06999999597872314,
+    0.07499998689239082,
+    0.0,
+    -2.3552811607059308e-12,
+    -8.993312376547347e-13,
+    1.000000004362443
+  ],
+  "episode_duration_s": 136.65300776902586,
+  "simulation_time_s": 32.326,
+  "timing": {
+    "T_encode_or_request_prep": 0.14522020774893463,
+    "T_model": 132.826602187939,
+    "T_policy_parse": 0.005591135937720537,
+    "T_total_step": 136.31172811915167,
+    "T_render": 0.041056150337681174,
+    "T_chunk_validation": 0.013260504463687539,
+    "T_IK": 0.14252769947052002,
+    "T_execute": 0.028087075799703598,
+    "T_settle": 2.8964704021345824
+  },
+  "events": [
+    {
+      "decision": 0,
+      "input_generation": 1,
+      "output_generation": 2,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.08500000897241514,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 18,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.7043406126251992e-05,
+        "max_lift_height": 0.0,
+        "grasp_stable": false,
+        "slip_distance": 0.0,
+        "inside_target": false,
+        "released": true,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126154848e-05,
+        "max_black_block_displacement": 1.7043406126154848e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 1206,
+            "blue_block_collision / work_surface": 1206
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / work_surface": 0.37165553345029856
+          },
+          "max_penetration_m": 3.462041309744944e-05,
+          "max_arm_projection_error_rad": 5.971916017255552e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079158e-06,
+              "normal_force_n": 0.19619999999999957
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306307915e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078339e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306307833e-06,
+              "normal_force_n": 0.1962000000000004
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.3,
+            -0.15,
+            0.059982956593873746
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              -3.9605641956234645e-24
+            ],
+            [
+              0.0,
+              3.9605641956234645e-24,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.054982956593873845
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -3.241682213599488e-32,
+              -3.641957820048011e-19
+            ],
+            [
+              3.2404871499488745e-32,
+              1.0,
+              -3.281376967176466e-17
+            ],
+            [
+              3.641957820048011e-19,
+              3.281376967176466e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0949999999925853,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 12.920053353067487,
+      "timing": {
+        "T_encode_or_request_prep": 0.014552061911672354,
+        "T_model": 12.678248791024089,
+        "T_policy_parse": 0.0006567330565303564,
+        "T_total_step": 12.920053353067487,
+        "T_render": 0.0037730501499027014,
+        "T_chunk_validation": 0.0012790511827915907,
+        "T_IK": 0.014016572153195739,
+        "T_execute": 0.002619339618831873,
+        "T_settle": 0.18662790907546878
+      }
+    },
+    {
+      "decision": 1,
+      "input_generation": 2,
+      "output_generation": 3,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.019999993247896704,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 6,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -7.559670198942214e-06,
+        "max_lift_height": 0.0,
+        "grasp_stable": false,
+        "slip_distance": 0.00010514545285562339,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126154848e-05,
+        "max_black_block_displacement": 1.7043406126154848e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 2124,
+            "blue_block_collision / left_finger_pad": 626,
+            "blue_block_collision / right_finger_pad": 626,
+            "blue_block_collision / work_surface": 2124
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 0.41788943616923174
+          },
+          "max_penetration_m": 0.0001545217772638023,
+          "max_arm_projection_error_rad": 6.40095476622804e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.919427440740117e-06,
+              "normal_force_n": 0.09241095816052888
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.774302930591771e-06,
+              "normal_force_n": 0.4003525512052892
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.847396774194729e-07,
+              "normal_force_n": 0.05064996200952441
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.39615167271127e-07,
+              "normal_force_n": 0.2651158728488495
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079158e-06,
+              "normal_force_n": 0.19619999999999932
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079157e-06,
+              "normal_force_n": 0.19620000000000015
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078439e-06,
+              "normal_force_n": 0.19619999999999987
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078437e-06,
+              "normal_force_n": 0.1962000000000007
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.523674296593961e-05,
+              "normal_force_n": 2.008120016732541
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.516383334355676e-05,
+              "normal_force_n": 2.1545251840010207
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.533346514199452e-05,
+              "normal_force_n": 1.8109400662655644
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.526057530398851e-05,
+              "normal_force_n": 1.9573121441548467
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015145949203183726,
+              "normal_force_n": 2.5734485644861533
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015131367278707326,
+              "normal_force_n": 2.722550316078993
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001512660095113262,
+              "normal_force_n": 2.77432078530732
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.300000205544176,
+            -0.14989528332147806,
+            0.059992440329801056
+          ],
+          "rotation_matrix": [
+            [
+              0.999999999981658,
+              -3.645501285622657e-06,
+              -4.836738305634967e-06
+            ],
+            [
+              3.644512146716607e-06,
+              0.9999999790853582,
+              -0.00020448960974199038
+            ],
+            [
+              4.83748367161153e-06,
+              0.00020448959211068814,
+              0.9999999790803025
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.054982956593873845
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -2.740362627683926e-32,
+              4.6270122025671136e-20
+            ],
+            [
+              2.740495866489959e-32,
+              1.0,
+              -2.879586225391791e-17
+            ],
+            [
+              -4.6270122025671136e-20,
+              2.879586225391791e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969821284097741,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 14.36320005916059,
+      "timing": {
+        "T_encode_or_request_prep": 0.014675260055810213,
+        "T_model": 14.14447341277264,
+        "T_policy_parse": 0.0005426278803497553,
+        "T_total_step": 14.36320005916059,
+        "T_render": 0.003329128958284855,
+        "T_chunk_validation": 0.000698914285749197,
+        "T_IK": 0.004697958007454872,
+        "T_execute": 0.0008573585655540228,
+        "T_settle": 0.16225409437902272
+      }
+    },
+    {
+      "decision": 2,
+      "input_generation": 3,
+      "output_generation": 4,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.13499999650747713,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 28,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.704340612614791e-05,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 3957,
+            "blue_block_collision / left_finger_pad": 1193,
+            "blue_block_collision / right_finger_pad": 1193,
+            "blue_block_collision / work_surface": 3300
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.617406622666522e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063422634e-06,
+              "normal_force_n": 0.2452499999999753
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063005868e-06,
+              "normal_force_n": 0.24525000000000707
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063159071e-06,
+              "normal_force_n": 0.24524999999999533
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703062742305e-06,
+              "normal_force_n": 0.2452500000000271
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127724e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312682e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126813e-06,
+              "normal_force_n": 0.1962000000000004
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.300420379025756,
+            -0.1443129962144585,
+            0.05998295659387385
+          ],
+          "rotation_matrix": [
+            [
+              0.9999450695569957,
+              -0.010481310445537314,
+              1.3799341952308687e-14
+            ],
+            [
+              0.010481310445537314,
+              0.9999450695569957,
+              8.930523345150874e-15
+            ],
+            [
+              -1.3892187535963718e-14,
+              -8.785397600600987e-15,
+              1.0000000000000004
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              4.9336911324772914e-33,
+              -2.8915421943476904e-19
+            ],
+            [
+              -4.944225445464273e-33,
+              1.0,
+              -3.643146901876022e-17
+            ],
+            [
+              2.8915421943476904e-19,
+              3.643146901876022e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.059698212840977406,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 11.314323180122301,
+      "timing": {
+        "T_encode_or_request_prep": 0.01400752505287528,
+        "T_model": 10.946736271958798,
+        "T_policy_parse": 0.0005307670217007399,
+        "T_total_step": 11.314323180122301,
+        "T_render": 0.0032214089296758175,
+        "T_chunk_validation": 0.001663371454924345,
+        "T_IK": 0.020967409247532487,
+        "T_execute": 0.003794357879087329,
+        "T_settle": 0.30555086117237806
+      }
+    },
+    {
+      "decision": 3,
+      "input_generation": 4,
+      "output_generation": 5,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.14500000387814713,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 30,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.704340612614791e-05,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": true,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 5913,
+            "blue_block_collision / left_finger_pad": 1193,
+            "blue_block_collision / right_finger_pad": 1193,
+            "blue_block_collision / work_surface": 5256
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.617406622666522e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063087832e-06,
+              "normal_force_n": 0.24524999999999958
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.52170306307889e-06,
+              "normal_force_n": 0.2452500000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063080271e-06,
+              "normal_force_n": 0.2452500000000001
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.52170306307133e-06,
+              "normal_force_n": 0.24525000000000088
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126973e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126973e-06,
+              "normal_force_n": 0.19620000000000046
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.30042037900602786,
+            -0.14431299624034463,
+            0.05998295659387385
+          ],
+          "rotation_matrix": [
+            [
+              0.9999450695569955,
+              -0.01048131044553732,
+              -2.953770278252353e-16
+            ],
+            [
+              0.01048131044553732,
+              0.9999450695569955,
+              -2.551250635328567e-16
+            ],
+            [
+              2.9803484762756877e-16,
+              2.5201511107297887e-16,
+              1.0000000000000002
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              2.1083466520179795e-32,
+              -3.2812927867907907e-21
+            ],
+            [
+              -2.1083565882761755e-32,
+              1.0,
+              -3.028153487471449e-17
+            ],
+            [
+              3.2812927867907907e-21,
+              3.028153487471449e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0950000000395012,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 14.64732641284354,
+      "timing": {
+        "T_encode_or_request_prep": 0.01588822202757001,
+        "T_model": 14.2803989299573,
+        "T_policy_parse": 0.0006475257687270641,
+        "T_total_step": 14.64732641284354,
+        "T_render": 0.003197115147486329,
+        "T_chunk_validation": 0.001978970132768154,
+        "T_IK": 0.024242296582087874,
+        "T_execute": 0.00410260958597064,
+        "T_settle": 0.2996279099024832
+      }
+    },
+    {
+      "decision": 4,
+      "input_generation": 5,
+      "output_generation": 6,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.0,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 6,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -6.643857538311815e-06,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 6832,
+            "blue_block_collision / left_finger_pad": 1814,
+            "blue_block_collision / right_finger_pad": 1830,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.753073100718154e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.486979429268583e-06,
+              "normal_force_n": 0.0775356707906588
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.325563755081992e-06,
+              "normal_force_n": 0.4081005907716476
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -3.176590070726259e-07,
+              "normal_force_n": 0.03909960245712046
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -1.5624333288603494e-07,
+              "normal_force_n": 0.2738700213261623
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999954
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127724e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127031e-06,
+              "normal_force_n": 0.19620000000000007
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127024e-06,
+              "normal_force_n": 0.19620000000000046
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.543493444050232e-05,
+              "normal_force_n": 2.0412609307444103
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.535545840914173e-05,
+              "normal_force_n": 2.1913931634333355
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.55694163454288e-05,
+              "normal_force_n": 1.7707297975113205
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.548996244359437e-05,
+              "normal_force_n": 1.9208281230462947
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015190812352264358,
+              "normal_force_n": 2.5494785057945615
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001517491714599247,
+              "normal_force_n": 2.702294848987278
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015163911718612538,
+              "normal_force_n": 2.825063918000001
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.3000002202307222,
+            -0.1442565638125903,
+            0.059993356142461686
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999776338,
+              -3.9738217264192875e-06,
+              -5.379705393945292e-06
+            ],
+            [
+              3.9727153381246354e-06,
+              0.999999978847374,
+              -0.00020564403544983618
+            ],
+            [
+              5.380522472886374e-06,
+              0.00020564401407319858,
+              0.9999999788407946
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              2.568537381021971e-32,
+              -3.012940534174465e-19
+            ],
+            [
+              -2.569379914220964e-32,
+              1.0,
+              -2.7963817720147856e-17
+            ],
+            [
+              3.012940534174465e-19,
+              2.7963817720147856e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969738095926412,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 10.97261657891795,
+      "timing": {
+        "T_encode_or_request_prep": 0.014270182000473142,
+        "T_model": 10.771290648030117,
+        "T_policy_parse": 0.00044387392699718475,
+        "T_total_step": 10.97261657891795,
+        "T_render": 0.005614797119051218,
+        "T_chunk_validation": 0.0006582157220691442,
+        "T_IK": 0.0017130495980381966,
+        "T_execute": 0.0008148991037160158,
+        "T_settle": 0.1608933846000582
+      }
+    },
+    {
+      "decision": 5,
+      "input_generation": 6,
+      "output_generation": 7,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.1450000038211643,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 30,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14334272217621744,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.0017309003449514247,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 9285,
+            "blue_block_collision / left_finger_pad": 4267,
+            "blue_block_collision / right_finger_pad": 4283,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127722e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126975e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126967e-06,
+              "normal_force_n": 0.19620000000000037
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001525103060425456,
+              "normal_force_n": 2.4834316357743194
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015225925499005966,
+              "normal_force_n": 2.739726011987778
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001522040153468899,
+              "normal_force_n": 2.796379682820078
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.567447385282046e-05,
+              "normal_force_n": 2.0231630639415394
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.554894832657494e-05,
+              "normal_force_n": 2.274716979750782
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.58280953322467e-05,
+              "normal_force_n": 1.7150203844644485
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.570209488270785e-05,
+              "normal_force_n": 1.9675466455891806
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.2999996041271627,
+            -0.14394386920965938,
+            0.20334272217621743
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999600404,
+              6.276212002954354e-06,
+              6.366226618631123e-06
+            ],
+            [
+              -6.300002230369059e-06,
+              0.9999929917403885,
+              0.003743852349883525
+            ],
+            [
+              -6.3426847914066045e-06,
+              -0.003743852389841163,
+              0.999992991739969
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -3.078500694635922e-32,
+              -3.5027895049340087e-19
+            ],
+            [
+              3.0774415423173485e-32,
+              1.0,
+              -3.0237395569495506e-17
+            ],
+            [
+              3.5027895049340087e-19,
+              3.0237395569495506e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.059696391797276246,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 15.772329486906528,
+      "timing": {
+        "T_encode_or_request_prep": 0.01403258997015655,
+        "T_model": 15.211073320126161,
+        "T_policy_parse": 0.0005430600140243769,
+        "T_total_step": 15.772329486906528,
+        "T_render": 0.0037036000285297632,
+        "T_chunk_validation": 0.0020473168697208166,
+        "T_IK": 0.024759162683039904,
+        "T_execute": 0.004603273933753371,
+        "T_settle": 0.48002914246171713
+      }
+    },
+    {
+      "decision": 6,
+      "input_generation": 7,
+      "output_generation": 8,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.13999999803808835,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 29,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14173686809989397,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.003362584545172169,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 11677,
+            "blue_block_collision / left_finger_pad": 6659,
+            "blue_block_collision / right_finger_pad": 6675,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127712e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126984e-06,
+              "normal_force_n": 0.19620000000000007
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126965e-06,
+              "normal_force_n": 0.1962000000000005
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015243628101846928,
+              "normal_force_n": 2.4885141630664727
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015218723645516122,
+              "normal_force_n": 2.742735428460331
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015214292531072775,
+              "normal_force_n": 2.7881823016921103
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.564289620335035e-05,
+              "normal_force_n": 2.0179906004390378
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.551837392169385e-05,
+              "normal_force_n": 2.267518157345023
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.579065144243369e-05,
+              "normal_force_n": 1.7216696395220996
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.566505297046372e-05,
+              "normal_force_n": 1.9733742483276098
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.29999960722090924,
+            -0.003644009915946746,
+            0.20173686809989397
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999604847,
+              6.225865581369975e-06,
+              6.345828919303175e-06
+            ],
+            [
+              -6.279902918714241e-06,
+              0.9999634370996864,
+              0.008551282029312893
+            ],
+            [
+              -6.292357764930103e-06,
+              -0.008551282068826174,
+              0.9999634370992703
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              1.4691611305514198e-32,
+              -7.446034790125627e-19
+            ],
+            [
+              -1.4713850168696866e-32,
+              1.0,
+              -2.9866719414421836e-17
+            ],
+            [
+              7.446034790125627e-19,
+              2.9866719414421836e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969652697111026,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 14.109077614033595,
+      "timing": {
+        "T_encode_or_request_prep": 0.015133176930248737,
+        "T_model": 13.566746660973877,
+        "T_policy_parse": 0.0005751121789216995,
+        "T_total_step": 14.109077614033595,
+        "T_render": 0.0033853331115096807,
+        "T_chunk_validation": 0.0017133522778749466,
+        "T_IK": 0.02193696517497301,
+        "T_execute": 0.0044106305576860905,
+        "T_settle": 0.4633323517628014
+      }
+    },
+    {
+      "decision": 7,
+      "input_generation": 8,
+      "output_generation": 9,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.07999999875015822,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 17,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14063947670041702,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.004475420385077573,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 13303,
+            "blue_block_collision / left_finger_pad": 8285,
+            "blue_block_collision / right_finger_pad": 8301,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127709e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126984e-06,
+              "normal_force_n": 0.1961999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126962e-06,
+              "normal_force_n": 0.1962000000000004
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015238562256990234,
+              "normal_force_n": 2.492057606208915
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015213806064962203,
+              "normal_force_n": 2.7447532002368162
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015210122790607948,
+              "normal_force_n": 2.782547366441794
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.562132126593387e-05,
+              "normal_force_n": 2.014494698754554
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.549754030579129e-05,
+              "normal_force_n": 2.262530416442682
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.57650784030671e-05,
+              "normal_force_n": 1.7262109581460432
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.563973882270484e-05,
+              "normal_force_n": 1.9773903742966203
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.2999996098034387,
+            0.07654638351559435,
+            0.200639476700417
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999608064,
+              6.188546136819364e-06,
+              6.331630520048619e-06
+            ],
+            [
+              -6.266957861376973e-06,
+              0.99992237113209,
+              0.01246000282119853
+            ],
+            [
+              -6.254029700415437e-06,
+              -0.012460002860390236,
+              0.9999223711316826
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              8.598120764015395e-32,
+              -8.569430428143647e-19
+            ],
+            [
+              -8.60068103851912e-32,
+              1.0,
+              -2.9876833999567236e-17
+            ],
+            [
+              8.569430428143647e-19,
+              2.9876833999567236e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969661929679121,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 12.574039845028892,
+      "timing": {
+        "T_encode_or_request_prep": 0.014761273982003331,
+        "T_model": 12.20924282912165,
+        "T_policy_parse": 0.0005502849817276001,
+        "T_total_step": 12.574039845028892,
+        "T_render": 0.0029462489765137434,
+        "T_chunk_validation": 0.0012664208188652992,
+        "T_IK": 0.013143190182745457,
+        "T_execute": 0.0032392300199717283,
+        "T_settle": 0.31129331700503826
+      }
+    },
+    {
+      "decision": 8,
+      "input_generation": 9,
+      "output_generation": 10,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.10500000135531187,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 22,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": false,
+        "lift_height": 0.03431537458170149,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.005818766433095144,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 15246,
+            "blue_block_collision / left_finger_pad": 10228,
+            "blue_block_collision / right_finger_pad": 10244,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.1961999999999994
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.1962000000000002
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126879e-06,
+              "normal_force_n": 0.1961999999999998
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126879e-06,
+              "normal_force_n": 0.19620000000000062
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.559569867086701e-05,
+              "normal_force_n": 2.0103375962916266
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.547282316676495e-05,
+              "normal_force_n": 2.2564422404663342
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.573492073683507e-05,
+              "normal_force_n": 1.7316785832773416
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.560982026505685e-05,
+              "normal_force_n": 1.982253942184463
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001523239274702271,
+              "normal_force_n": 2.4964105220285555
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015207817646202773,
+              "normal_force_n": 2.7471304743416662
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001520499356271612,
+              "normal_force_n": 2.7757307412290655
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.30000038059421535,
+            0.07677674714741187,
+            0.09431537458170149
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999611225,
+              -6.142811884372729e-06,
+              -6.326243888086197e-06
+            ],
+            [
+              6.255043835502264e-06,
+              0.9998398501827662,
+              0.017896199243938635
+            ],
+            [
+              6.2152977558829734e-06,
+              -0.0178961992828138,
+              0.9998398501823181
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              5.183593917536817e-32,
+              2.838157048322371e-20
+            ],
+            [
+              -5.183497202707012e-32,
+              1.0,
+              -3.407663077110039e-17
+            ],
+            [
+              -2.838157048322371e-20,
+              3.407663077110039e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969673042616652,
+        "robot_faulted": false,
+        "success": false
+      },
+      "T_total_step": 14.897595884976909,
+      "timing": {
+        "T_encode_or_request_prep": 0.01414376893080771,
+        "T_model": 14.469532513990998,
+        "T_policy_parse": 0.0005950191989541054,
+        "T_total_step": 14.897595884976909,
+        "T_render": 0.0032840650528669357,
+        "T_chunk_validation": 0.0014483400154858828,
+        "T_IK": 0.016405930509790778,
+        "T_execute": 0.003324561519548297,
+        "T_settle": 0.3713938407599926
+      }
+    },
+    {
+      "decision": 9,
+      "input_generation": 10,
+      "output_generation": 11,
+      "fresh_after_settle": true,
+      "eef_displacement_m": 0.0,
+      "changed_images": [
+        "front_rgb",
+        "right_rgb",
+        "wrist_rgb"
+      ],
+      "waypoints": 2,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": false,
+        "lift_height": 0.004982956593858001,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.005818766433095144,
+        "inside_target": true,
+        "released": true,
+        "settled": true,
+        "settled_duration_s": 0.7100000000000005,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 16163,
+            "blue_block_collision / left_finger_pad": 10727,
+            "blue_block_collision / red_box_bottom": 382,
+            "blue_block_collision / right_finger_pad": 10742,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / red_box_bottom": 8.926904946451177,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.0006295716852965771,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999957
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127729e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127033e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127031e-06,
+              "normal_force_n": 0.1962000000000005
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703072174314e-06,
+              "normal_force_n": 0.24524999999947303
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703070628499e-06,
+              "normal_force_n": 0.2452499999995909
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703071378536e-06,
+              "normal_force_n": 0.24524999999953387
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703069832722e-06,
+              "normal_force_n": 0.24524999999965183
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.299970582177872,
+            0.07625091084858522,
+            0.064982956593858
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999483996567,
+              0.00032124863259736896,
+              5.151864848798743e-14
+            ],
+            [
+              -0.00032124863259736896,
+              0.9999999483996567,
+              -2.6542479121325193e-14
+            ],
+            [
+              -5.1527172564730957e-14,
+              2.6525927456344128e-14,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              7.176457602957931e-32,
+              -4.153762736097712e-20
+            ],
+            [
+              -7.176573582462659e-32,
+              1.0,
+              -2.7921552600943317e-17
+            ],
+            [
+              4.153762736097712e-20,
+              2.7921552600943317e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0950000004144321,
+        "robot_faulted": false,
+        "success": true
+      },
+      "T_total_step": 14.741165704093874,
+      "timing": {
+        "T_encode_or_request_prep": 0.0137561468873173,
+        "T_model": 14.548858809983358,
+        "T_policy_parse": 0.0005061319097876549,
+        "T_total_step": 14.741165704093874,
+        "T_render": 0.0031585509423166513,
+        "T_chunk_validation": 0.0005065517034381628,
+        "T_IK": 0.0006451653316617012,
+        "T_execute": 0.0003208150155842304,
+        "T_settle": 0.15546759101562202
+      }
+    }
+  ],
+  "tools": [
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.065
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.045,
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.18
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.035,
+        "gripper": 1
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.18,
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "y": -0.01,
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "y": 0.07,
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "z": 0.075,
+        "gripper": 0
+      }
+    },
+    {
+      "tool": "move_to",
+      "targets": {
+        "gripper": 1
+      }
+    }
+  ],
+  "evaluation_only": {
+    "object_grasped": true,
+    "holding_now": false,
+    "lift_height": 0.004982956593858001,
+    "max_lift_height": 0.143755110315875,
+    "grasp_stable": true,
+    "slip_distance": 0.005818766433095144,
+    "inside_target": true,
+    "released": true,
+    "settled": true,
+    "settled_duration_s": 0.7100000000000005,
+    "black_block_displacement": 1.7043406126251992e-05,
+    "max_black_block_displacement": 1.7043407673618394e-05,
+    "black_distractor_acceptable": true,
+    "collision_contact_summary": {
+      "pair_tick_counts": {
+        "black_block_collision / work_surface": 16163,
+        "blue_block_collision / left_finger_pad": 10727,
+        "blue_block_collision / red_box_bottom": 382,
+        "blue_block_collision / right_finger_pad": 10742,
+        "blue_block_collision / work_surface": 6168
+      },
+      "pair_max_normal_force_n": {
+        "black_block_collision / work_surface": 0.21093933721280791,
+        "blue_block_collision / left_finger_pad": 3.422541086311689,
+        "blue_block_collision / red_box_bottom": 8.926904946451177,
+        "blue_block_collision / right_finger_pad": 3.2229835069115307,
+        "blue_block_collision / work_surface": 5.078520501671595
+      },
+      "max_penetration_m": 0.0006295716852965771,
+      "max_arm_projection_error_rad": 6.836475829885558e-11,
+      "final_contacts": [
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -8.52170306312773e-06,
+          "normal_force_n": 0.19619999999999957
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -8.521703063127729e-06,
+          "normal_force_n": 0.19620000000000004
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -8.521703063127033e-06,
+          "normal_force_n": 0.19620000000000004
+        },
+        {
+          "geom1": "work_surface",
+          "geom2": "black_block_collision",
+          "distance_m": -8.521703063127031e-06,
+          "normal_force_n": 0.1962000000000005
+        },
+        {
+          "geom1": "blue_block_collision",
+          "geom2": "red_box_bottom",
+          "distance_m": -8.521703072174314e-06,
+          "normal_force_n": 0.24524999999947303
+        },
+        {
+          "geom1": "blue_block_collision",
+          "geom2": "red_box_bottom",
+          "distance_m": -8.521703070628499e-06,
+          "normal_force_n": 0.2452499999995909
+        },
+        {
+          "geom1": "blue_block_collision",
+          "geom2": "red_box_bottom",
+          "distance_m": -8.521703071378536e-06,
+          "normal_force_n": 0.24524999999953387
+        },
+        {
+          "geom1": "blue_block_collision",
+          "geom2": "red_box_bottom",
+          "distance_m": -8.521703069832722e-06,
+          "normal_force_n": 0.24524999999965183
+        }
+      ],
+      "fault": null
+    },
+    "final_blue_pose": {
+      "position_m": [
+        -0.299970582177872,
+        0.07625091084858522,
+        0.064982956593858
+      ],
+      "rotation_matrix": [
+        [
+          0.9999999483996567,
+          0.00032124863259736896,
+          5.151864848798743e-14
+        ],
+        [
+          -0.00032124863259736896,
+          0.9999999483996567,
+          -2.6542479121325193e-14
+        ],
+        [
+          -5.1527172564730957e-14,
+          2.6525927456344128e-14,
+          1.0
+        ]
+      ]
+    },
+    "final_black_pose": {
+      "position_m": [
+        -0.48,
+        -0.28,
+        0.05498295659387375
+      ],
+      "rotation_matrix": [
+        [
+          1.0,
+          7.176457602957931e-32,
+          -4.153762736097712e-20
+        ],
+        [
+          -7.176573582462659e-32,
+          1.0,
+          -2.7921552600943317e-17
+        ],
+        [
+          4.153762736097712e-20,
+          2.7921552600943317e-17,
+          1.0
+        ]
+      ]
+    },
+    "final_gripper_opening": 0.0950000004144321,
+    "robot_faulted": false,
+    "success": true,
+    "transport_observed": true,
+    "dropped_observed": true,
+    "close_command_issued": true,
+    "grasp_contact_observed": true,
+    "task_failure_category": null,
+    "target_selection": "blue_contact_observed",
+    "evaluation_source": "unchanged S3 simulator, never supplied to policy"
+  },
+  "benchmark_success": true,
+  "evaluator_trace": [
+    {
+      "label": "initial",
+      "generation": 1,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": 0.0,
+        "max_lift_height": 0.0,
+        "grasp_stable": false,
+        "slip_distance": 0.0,
+        "inside_target": false,
+        "released": true,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 0.0,
+        "max_black_block_displacement": 0.0,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {},
+          "pair_max_normal_force_n": {},
+          "max_penetration_m": 0.0,
+          "max_arm_projection_error_rad": 0.0,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -3.469446951953614e-18,
+              "normal_force_n": 0.19365194805194919
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -3.469446951953614e-18,
+              "normal_force_n": 0.19365194805194919
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -3.469446951953614e-18,
+              "normal_force_n": 0.19365194805194919
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -3.469446951953614e-18,
+              "normal_force_n": 0.19365194805194919
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.3,
+            -0.15,
+            0.06
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.055
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              0.0
+            ],
+            [
+              0.0,
+              0.0,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.095,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 1.0
+    },
+    {
+      "label": "decision_01",
+      "generation": 2,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.7043406126251992e-05,
+        "max_lift_height": 0.0,
+        "grasp_stable": false,
+        "slip_distance": 0.0,
+        "inside_target": false,
+        "released": true,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126154848e-05,
+        "max_black_block_displacement": 1.7043406126154848e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 1206,
+            "blue_block_collision / work_surface": 1206
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / work_surface": 0.37165553345029856
+          },
+          "max_penetration_m": 3.462041309744944e-05,
+          "max_arm_projection_error_rad": 5.971916017255552e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063124261e-06,
+              "normal_force_n": 0.24525000000000005
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079158e-06,
+              "normal_force_n": 0.19619999999999957
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306307915e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078339e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306307833e-06,
+              "normal_force_n": 0.1962000000000004
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.3,
+            -0.15,
+            0.059982956593873746
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              0.0,
+              0.0
+            ],
+            [
+              0.0,
+              1.0,
+              -3.9605641956234645e-24
+            ],
+            [
+              0.0,
+              3.9605641956234645e-24,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.054982956593873845
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -3.241682213599488e-32,
+              -3.641957820048011e-19
+            ],
+            [
+              3.2404871499488745e-32,
+              1.0,
+              -3.281376967176466e-17
+            ],
+            [
+              3.641957820048011e-19,
+              3.281376967176466e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0949999999925853,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 1.0
+    },
+    {
+      "label": "decision_02",
+      "generation": 3,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -7.559670198942214e-06,
+        "max_lift_height": 0.0,
+        "grasp_stable": false,
+        "slip_distance": 0.00010514545285562339,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126154848e-05,
+        "max_black_block_displacement": 1.7043406126154848e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 2124,
+            "blue_block_collision / left_finger_pad": 626,
+            "blue_block_collision / right_finger_pad": 626,
+            "blue_block_collision / work_surface": 2124
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 0.41788943616923174
+          },
+          "max_penetration_m": 0.0001545217772638023,
+          "max_arm_projection_error_rad": 6.40095476622804e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.919427440740117e-06,
+              "normal_force_n": 0.09241095816052888
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.774302930591771e-06,
+              "normal_force_n": 0.4003525512052892
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.847396774194729e-07,
+              "normal_force_n": 0.05064996200952441
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.39615167271127e-07,
+              "normal_force_n": 0.2651158728488495
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079158e-06,
+              "normal_force_n": 0.19619999999999932
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063079157e-06,
+              "normal_force_n": 0.19620000000000015
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078439e-06,
+              "normal_force_n": 0.19619999999999987
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063078437e-06,
+              "normal_force_n": 0.1962000000000007
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.523674296593961e-05,
+              "normal_force_n": 2.008120016732541
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.516383334355676e-05,
+              "normal_force_n": 2.1545251840010207
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.533346514199452e-05,
+              "normal_force_n": 1.8109400662655644
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.526057530398851e-05,
+              "normal_force_n": 1.9573121441548467
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015145949203183726,
+              "normal_force_n": 2.5734485644861533
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015131367278707326,
+              "normal_force_n": 2.722550316078993
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001512660095113262,
+              "normal_force_n": 2.77432078530732
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.300000205544176,
+            -0.14989528332147806,
+            0.059992440329801056
+          ],
+          "rotation_matrix": [
+            [
+              0.999999999981658,
+              -3.645501285622657e-06,
+              -4.836738305634967e-06
+            ],
+            [
+              3.644512146716607e-06,
+              0.9999999790853582,
+              -0.00020448960974199038
+            ],
+            [
+              4.83748367161153e-06,
+              0.00020448959211068814,
+              0.9999999790803025
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.054982956593873845
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -2.740362627683926e-32,
+              4.6270122025671136e-20
+            ],
+            [
+              2.740495866489959e-32,
+              1.0,
+              -2.879586225391791e-17
+            ],
+            [
+              -4.6270122025671136e-20,
+              2.879586225391791e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969821284097741,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_03",
+      "generation": 4,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.704340612614791e-05,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 3957,
+            "blue_block_collision / left_finger_pad": 1193,
+            "blue_block_collision / right_finger_pad": 1193,
+            "blue_block_collision / work_surface": 3300
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.617406622666522e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063422634e-06,
+              "normal_force_n": 0.2452499999999753
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063005868e-06,
+              "normal_force_n": 0.24525000000000707
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063159071e-06,
+              "normal_force_n": 0.24524999999999533
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703062742305e-06,
+              "normal_force_n": 0.2452500000000271
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127724e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312682e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126813e-06,
+              "normal_force_n": 0.1962000000000004
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.300420379025756,
+            -0.1443129962144585,
+            0.05998295659387385
+          ],
+          "rotation_matrix": [
+            [
+              0.9999450695569957,
+              -0.010481310445537314,
+              1.3799341952308687e-14
+            ],
+            [
+              0.010481310445537314,
+              0.9999450695569957,
+              8.930523345150874e-15
+            ],
+            [
+              -1.3892187535963718e-14,
+              -8.785397600600987e-15,
+              1.0000000000000004
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              4.9336911324772914e-33,
+              -2.8915421943476904e-19
+            ],
+            [
+              -4.944225445464273e-33,
+              1.0,
+              -3.643146901876022e-17
+            ],
+            [
+              2.8915421943476904e-19,
+              3.643146901876022e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.059698212840977406,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 0.6284022404313412
+    },
+    {
+      "label": "decision_04",
+      "generation": 5,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -1.704340612614791e-05,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": true,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 5913,
+            "blue_block_collision / left_finger_pad": 1193,
+            "blue_block_collision / right_finger_pad": 1193,
+            "blue_block_collision / work_surface": 5256
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 2.8255568036454974,
+            "blue_block_collision / right_finger_pad": 2.79401317968093,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.617406622666522e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063087832e-06,
+              "normal_force_n": 0.24524999999999958
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.52170306307889e-06,
+              "normal_force_n": 0.2452500000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.521703063080271e-06,
+              "normal_force_n": 0.2452500000000001
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -8.52170306307133e-06,
+              "normal_force_n": 0.24525000000000088
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126973e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126973e-06,
+              "normal_force_n": 0.19620000000000046
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.30042037900602786,
+            -0.14431299624034463,
+            0.05998295659387385
+          ],
+          "rotation_matrix": [
+            [
+              0.9999450695569955,
+              -0.01048131044553732,
+              -2.953770278252353e-16
+            ],
+            [
+              0.01048131044553732,
+              0.9999450695569955,
+              -2.551250635328567e-16
+            ],
+            [
+              2.9803484762756877e-16,
+              2.5201511107297887e-16,
+              1.0000000000000002
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              2.1083466520179795e-32,
+              -3.2812927867907907e-21
+            ],
+            [
+              -2.1083565882761755e-32,
+              1.0,
+              -3.028153487471449e-17
+            ],
+            [
+              3.2812927867907907e-21,
+              3.028153487471449e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0950000000395012,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 1.0
+    },
+    {
+      "label": "decision_05",
+      "generation": 6,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": false,
+        "holding_now": false,
+        "lift_height": -6.643857538311815e-06,
+        "max_lift_height": 0.03908005944452625,
+        "grasp_stable": false,
+        "slip_distance": 0.00048603989817705493,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 6832,
+            "blue_block_collision / left_finger_pad": 1814,
+            "blue_block_collision / right_finger_pad": 1830,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.753073100718154e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.486979429268583e-06,
+              "normal_force_n": 0.0775356707906588
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -6.325563755081992e-06,
+              "normal_force_n": 0.4081005907716476
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -3.176590070726259e-07,
+              "normal_force_n": 0.03909960245712046
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "blue_block_collision",
+              "distance_m": -1.5624333288603494e-07,
+              "normal_force_n": 0.2738700213261623
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999954
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127724e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127031e-06,
+              "normal_force_n": 0.19620000000000007
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127024e-06,
+              "normal_force_n": 0.19620000000000046
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.543493444050232e-05,
+              "normal_force_n": 2.0412609307444103
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.535545840914173e-05,
+              "normal_force_n": 2.1913931634333355
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.55694163454288e-05,
+              "normal_force_n": 1.7707297975113205
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.548996244359437e-05,
+              "normal_force_n": 1.9208281230462947
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015190812352264358,
+              "normal_force_n": 2.5494785057945615
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001517491714599247,
+              "normal_force_n": 2.702294848987278
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015163911718612538,
+              "normal_force_n": 2.825063918000001
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.3000002202307222,
+            -0.1442565638125903,
+            0.059993356142461686
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999776338,
+              -3.9738217264192875e-06,
+              -5.379705393945292e-06
+            ],
+            [
+              3.9727153381246354e-06,
+              0.999999978847374,
+              -0.00020564403544983618
+            ],
+            [
+              5.380522472886374e-06,
+              0.00020564401407319858,
+              0.9999999788407946
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              2.568537381021971e-32,
+              -3.012940534174465e-19
+            ],
+            [
+              -2.569379914220964e-32,
+              1.0,
+              -2.7963817720147856e-17
+            ],
+            [
+              3.012940534174465e-19,
+              2.7963817720147856e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969738095926412,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_06",
+      "generation": 7,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14334272217621744,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.0017309003449514247,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 9285,
+            "blue_block_collision / left_finger_pad": 4267,
+            "blue_block_collision / right_finger_pad": 4283,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127722e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126975e-06,
+              "normal_force_n": 0.19619999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126967e-06,
+              "normal_force_n": 0.19620000000000037
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001525103060425456,
+              "normal_force_n": 2.4834316357743194
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015225925499005966,
+              "normal_force_n": 2.739726011987778
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001522040153468899,
+              "normal_force_n": 2.796379682820078
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.567447385282046e-05,
+              "normal_force_n": 2.0231630639415394
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.554894832657494e-05,
+              "normal_force_n": 2.274716979750782
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.58280953322467e-05,
+              "normal_force_n": 1.7150203844644485
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.570209488270785e-05,
+              "normal_force_n": 1.9675466455891806
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.2999996041271627,
+            -0.14394386920965938,
+            0.20334272217621743
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999600404,
+              6.276212002954354e-06,
+              6.366226618631123e-06
+            ],
+            [
+              -6.300002230369059e-06,
+              0.9999929917403885,
+              0.003743852349883525
+            ],
+            [
+              -6.3426847914066045e-06,
+              -0.003743852389841163,
+              0.999992991739969
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              -3.078500694635922e-32,
+              -3.5027895049340087e-19
+            ],
+            [
+              3.0774415423173485e-32,
+              1.0,
+              -3.0237395569495506e-17
+            ],
+            [
+              3.5027895049340087e-19,
+              3.0237395569495506e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.059696391797276246,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_07",
+      "generation": 8,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14173686809989397,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.003362584545172169,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 11677,
+            "blue_block_collision / left_finger_pad": 6659,
+            "blue_block_collision / right_finger_pad": 6675,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127712e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126984e-06,
+              "normal_force_n": 0.19620000000000007
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126965e-06,
+              "normal_force_n": 0.1962000000000005
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015243628101846928,
+              "normal_force_n": 2.4885141630664727
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015218723645516122,
+              "normal_force_n": 2.742735428460331
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015214292531072775,
+              "normal_force_n": 2.7881823016921103
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.564289620335035e-05,
+              "normal_force_n": 2.0179906004390378
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.551837392169385e-05,
+              "normal_force_n": 2.267518157345023
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.579065144243369e-05,
+              "normal_force_n": 1.7216696395220996
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.566505297046372e-05,
+              "normal_force_n": 1.9733742483276098
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.29999960722090924,
+            -0.003644009915946746,
+            0.20173686809989397
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999604847,
+              6.225865581369975e-06,
+              6.345828919303175e-06
+            ],
+            [
+              -6.279902918714241e-06,
+              0.9999634370996864,
+              0.008551282029312893
+            ],
+            [
+              -6.292357764930103e-06,
+              -0.008551282068826174,
+              0.9999634370992703
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              1.4691611305514198e-32,
+              -7.446034790125627e-19
+            ],
+            [
+              -1.4713850168696866e-32,
+              1.0,
+              -2.9866719414421836e-17
+            ],
+            [
+              7.446034790125627e-19,
+              2.9866719414421836e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969652697111026,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_08",
+      "generation": 9,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": true,
+        "lift_height": 0.14063947670041702,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.004475420385077573,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 13303,
+            "blue_block_collision / left_finger_pad": 8285,
+            "blue_block_collision / right_finger_pad": 8301,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999962
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127709e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126984e-06,
+              "normal_force_n": 0.1961999999999999
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126962e-06,
+              "normal_force_n": 0.1962000000000004
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015238562256990234,
+              "normal_force_n": 2.492057606208915
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015213806064962203,
+              "normal_force_n": 2.7447532002368162
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015210122790607948,
+              "normal_force_n": 2.782547366441794
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.562132126593387e-05,
+              "normal_force_n": 2.014494698754554
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.549754030579129e-05,
+              "normal_force_n": 2.262530416442682
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.57650784030671e-05,
+              "normal_force_n": 1.7262109581460432
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.563973882270484e-05,
+              "normal_force_n": 1.9773903742966203
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.2999996098034387,
+            0.07654638351559435,
+            0.200639476700417
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999608064,
+              6.188546136819364e-06,
+              6.331630520048619e-06
+            ],
+            [
+              -6.266957861376973e-06,
+              0.99992237113209,
+              0.01246000282119853
+            ],
+            [
+              -6.254029700415437e-06,
+              -0.012460002860390236,
+              0.9999223711316826
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              8.598120764015395e-32,
+              -8.569430428143647e-19
+            ],
+            [
+              -8.60068103851912e-32,
+              1.0,
+              -2.9876833999567236e-17
+            ],
+            [
+              8.569430428143647e-19,
+              2.9876833999567236e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969661929679121,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_09",
+      "generation": 10,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": false,
+        "lift_height": 0.03431537458170149,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.005818766433095144,
+        "inside_target": false,
+        "released": false,
+        "settled": false,
+        "settled_duration_s": 0.0,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 15246,
+            "blue_block_collision / left_finger_pad": 10228,
+            "blue_block_collision / right_finger_pad": 10244,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.00047614291986660534,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.1961999999999994
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.1962000000000002
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126879e-06,
+              "normal_force_n": 0.1961999999999998
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063126879e-06,
+              "normal_force_n": 0.19620000000000062
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.559569867086701e-05,
+              "normal_force_n": 2.0103375962916266
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.547282316676495e-05,
+              "normal_force_n": 2.2564422404663342
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.573492073683507e-05,
+              "normal_force_n": 1.7316785832773416
+            },
+            {
+              "geom1": "left_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -7.560982026505685e-05,
+              "normal_force_n": 1.982253942184463
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001523239274702271,
+              "normal_force_n": 2.4964105220285555
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.00015207817646202773,
+              "normal_force_n": 2.7471304743416662
+            },
+            {
+              "geom1": "right_finger_pad",
+              "geom2": "blue_block_collision",
+              "distance_m": -0.0001520499356271612,
+              "normal_force_n": 2.7757307412290655
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.30000038059421535,
+            0.07677674714741187,
+            0.09431537458170149
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999999611225,
+              -6.142811884372729e-06,
+              -6.326243888086197e-06
+            ],
+            [
+              6.255043835502264e-06,
+              0.9998398501827662,
+              0.017896199243938635
+            ],
+            [
+              6.2152977558829734e-06,
+              -0.0178961992828138,
+              0.9998398501823181
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              5.183593917536817e-32,
+              2.838157048322371e-20
+            ],
+            [
+              -5.183497202707012e-32,
+              1.0,
+              -3.407663077110039e-17
+            ],
+            [
+              -2.838157048322371e-20,
+              3.407663077110039e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.05969673042616652,
+        "robot_faulted": false,
+        "success": false
+      },
+      "bilateral_blue_contact": true,
+      "gripper_command": 0.0
+    },
+    {
+      "label": "decision_10",
+      "generation": 11,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": false,
+        "lift_height": 0.004982956593858001,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.005818766433095144,
+        "inside_target": true,
+        "released": true,
+        "settled": true,
+        "settled_duration_s": 0.7100000000000005,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 16163,
+            "blue_block_collision / left_finger_pad": 10727,
+            "blue_block_collision / red_box_bottom": 382,
+            "blue_block_collision / right_finger_pad": 10742,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / red_box_bottom": 8.926904946451177,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.0006295716852965771,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999957
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127729e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127033e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127031e-06,
+              "normal_force_n": 0.1962000000000005
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703072174314e-06,
+              "normal_force_n": 0.24524999999947303
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703070628499e-06,
+              "normal_force_n": 0.2452499999995909
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703071378536e-06,
+              "normal_force_n": 0.24524999999953387
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703069832722e-06,
+              "normal_force_n": 0.24524999999965183
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.299970582177872,
+            0.07625091084858522,
+            0.064982956593858
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999483996567,
+              0.00032124863259736896,
+              5.151864848798743e-14
+            ],
+            [
+              -0.00032124863259736896,
+              0.9999999483996567,
+              -2.6542479121325193e-14
+            ],
+            [
+              -5.1527172564730957e-14,
+              2.6525927456344128e-14,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              7.176457602957931e-32,
+              -4.153762736097712e-20
+            ],
+            [
+              -7.176573582462659e-32,
+              1.0,
+              -2.7921552600943317e-17
+            ],
+            [
+              4.153762736097712e-20,
+              2.7921552600943317e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0950000004144321,
+        "robot_faulted": false,
+        "success": true
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 1.0
+    },
+    {
+      "label": "final",
+      "generation": 11,
+      "observation_available": true,
+      "evaluation_only": {
+        "object_grasped": true,
+        "holding_now": false,
+        "lift_height": 0.004982956593858001,
+        "max_lift_height": 0.143755110315875,
+        "grasp_stable": true,
+        "slip_distance": 0.005818766433095144,
+        "inside_target": true,
+        "released": true,
+        "settled": true,
+        "settled_duration_s": 0.7100000000000005,
+        "black_block_displacement": 1.7043406126251992e-05,
+        "max_black_block_displacement": 1.7043407673618394e-05,
+        "black_distractor_acceptable": true,
+        "collision_contact_summary": {
+          "pair_tick_counts": {
+            "black_block_collision / work_surface": 16163,
+            "blue_block_collision / left_finger_pad": 10727,
+            "blue_block_collision / red_box_bottom": 382,
+            "blue_block_collision / right_finger_pad": 10742,
+            "blue_block_collision / work_surface": 6168
+          },
+          "pair_max_normal_force_n": {
+            "black_block_collision / work_surface": 0.21093933721280791,
+            "blue_block_collision / left_finger_pad": 3.422541086311689,
+            "blue_block_collision / red_box_bottom": 8.926904946451177,
+            "blue_block_collision / right_finger_pad": 3.2229835069115307,
+            "blue_block_collision / work_surface": 5.078520501671595
+          },
+          "max_penetration_m": 0.0006295716852965771,
+          "max_arm_projection_error_rad": 6.836475829885558e-11,
+          "final_contacts": [
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.52170306312773e-06,
+              "normal_force_n": 0.19619999999999957
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127729e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127033e-06,
+              "normal_force_n": 0.19620000000000004
+            },
+            {
+              "geom1": "work_surface",
+              "geom2": "black_block_collision",
+              "distance_m": -8.521703063127031e-06,
+              "normal_force_n": 0.1962000000000005
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703072174314e-06,
+              "normal_force_n": 0.24524999999947303
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703070628499e-06,
+              "normal_force_n": 0.2452499999995909
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703071378536e-06,
+              "normal_force_n": 0.24524999999953387
+            },
+            {
+              "geom1": "blue_block_collision",
+              "geom2": "red_box_bottom",
+              "distance_m": -8.521703069832722e-06,
+              "normal_force_n": 0.24524999999965183
+            }
+          ],
+          "fault": null
+        },
+        "final_blue_pose": {
+          "position_m": [
+            -0.299970582177872,
+            0.07625091084858522,
+            0.064982956593858
+          ],
+          "rotation_matrix": [
+            [
+              0.9999999483996567,
+              0.00032124863259736896,
+              5.151864848798743e-14
+            ],
+            [
+              -0.00032124863259736896,
+              0.9999999483996567,
+              -2.6542479121325193e-14
+            ],
+            [
+              -5.1527172564730957e-14,
+              2.6525927456344128e-14,
+              1.0
+            ]
+          ]
+        },
+        "final_black_pose": {
+          "position_m": [
+            -0.48,
+            -0.28,
+            0.05498295659387375
+          ],
+          "rotation_matrix": [
+            [
+              1.0,
+              7.176457602957931e-32,
+              -4.153762736097712e-20
+            ],
+            [
+              -7.176573582462659e-32,
+              1.0,
+              -2.7921552600943317e-17
+            ],
+            [
+              4.153762736097712e-20,
+              2.7921552600943317e-17,
+              1.0
+            ]
+          ]
+        },
+        "final_gripper_opening": 0.0950000004144321,
+        "robot_faulted": false,
+        "success": true
+      },
+      "bilateral_blue_contact": false,
+      "gripper_command": 1.0
+    }
+  ],
+  "live_request_performed": true,
+  "status": "PASS",
+  "validation_results": [
+    {
+      "generation": 1,
+      "result": "accepted"
+    },
+    {
+      "generation": 1,
+      "result": "accepted"
+    },
+    {
+      "generation": 2,
+      "result": "accepted"
+    },
+    {
+      "generation": 2,
+      "result": "accepted"
+    },
+    {
+      "generation": 3,
+      "result": "accepted"
+    },
+    {
+      "generation": 3,
+      "result": "accepted"
+    },
+    {
+      "generation": 4,
+      "result": "accepted"
+    },
+    {
+      "generation": 4,
+      "result": "accepted"
+    },
+    {
+      "generation": 5,
+      "result": "accepted"
+    },
+    {
+      "generation": 5,
+      "result": "accepted"
+    },
+    {
+      "generation": 6,
+      "result": "accepted"
+    },
+    {
+      "generation": 6,
+      "result": "accepted"
+    },
+    {
+      "generation": 7,
+      "result": "accepted"
+    },
+    {
+      "generation": 7,
+      "result": "accepted"
+    },
+    {
+      "generation": 8,
+      "result": "accepted"
+    },
+    {
+      "generation": 8,
+      "result": "accepted"
+    },
+    {
+      "generation": 9,
+      "result": "accepted"
+    },
+    {
+      "generation": 9,
+      "result": "accepted"
+    },
+    {
+      "generation": 10,
+      "result": "accepted"
+    },
+    {
+      "generation": 10,
+      "result": "accepted"
+    }
+  ],
+  "mode": "live",
+  "instruction": "Pick up the blue block and place it inside the red box.",
+  "side_effects": {
+    "robot_connections": 0,
+    "robot_commands": 0,
+    "serial_connections": 0,
+    "physical_camera_connections": 0,
+    "openai_requests": 10
+  },
+  "S5B": "BENCHMARK_ATTEMPTED",
+  "transmitted_requests": 10,
+  "provider_events": [
+    {
+      "attempt": 1,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "tcp_connected": true,
+      "tls_completed": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0ab03be48191b53fd6ad9aa29918",
+      "usage": {
+        "input_tokens": 7016,
+        "output_tokens": 53,
+        "total_tokens": 7069
+      },
+      "T_model": 12.678248791024089
+    },
+    {
+      "attempt": 2,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0abc75788191a9fefef94c8f98f8",
+      "usage": {
+        "input_tokens": 9015,
+        "output_tokens": 53,
+        "total_tokens": 9068
+      },
+      "T_model": 14.14447341277264
+    },
+    {
+      "attempt": 3,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0ac99420819199301d8fcccf174a",
+      "usage": {
+        "input_tokens": 9166,
+        "output_tokens": 48,
+        "total_tokens": 9214
+      },
+      "T_model": 10.946736271958798
+    },
+    {
+      "attempt": 4,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0ad5fe3081919fbd485b55661db2",
+      "usage": {
+        "input_tokens": 9312,
+        "output_tokens": 82,
+        "total_tokens": 9394
+      },
+      "T_model": 14.2803989299573
+    },
+    {
+      "attempt": 5,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0ae3782c819182dfa3c10b852464",
+      "usage": {
+        "input_tokens": 9491,
+        "output_tokens": 44,
+        "total_tokens": 9535
+      },
+      "T_model": 10.771290648030117
+    },
+    {
+      "attempt": 6,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0af1d70081919ee0e36a407ffbfc",
+      "usage": {
+        "input_tokens": 9633,
+        "output_tokens": 52,
+        "total_tokens": 9685
+      },
+      "T_model": 15.211073320126161
+    },
+    {
+      "attempt": 7,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0afedd3c81918d2e67a8bf981c6d",
+      "usage": {
+        "input_tokens": 9783,
+        "output_tokens": 79,
+        "total_tokens": 9862
+      },
+      "T_model": 13.566746660973877
+    },
+    {
+      "attempt": 8,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0b0df6b0819196f1c7481fdfbbb4",
+      "usage": {
+        "input_tokens": 9960,
+        "output_tokens": 58,
+        "total_tokens": 10018
+      },
+      "T_model": 12.20924282912165
+    },
+    {
+      "attempt": 9,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0b19fbc08191a9431fcd87007a05",
+      "usage": {
+        "input_tokens": 10116,
+        "output_tokens": 55,
+        "total_tokens": 10171
+      },
+      "T_model": 14.469532513990998
+    },
+    {
+      "attempt": 10,
+      "live": true,
+      "status": 200,
+      "http_transport_entered": true,
+      "request_transmitted": true,
+      "relay_claimed_model": "gpt-6-astra",
+      "response_id": "resp_0b35b40d3b47c8f8016acb0b27d18881918e5318f0a41c0ba4",
+      "usage": {
+        "input_tokens": 10269,
+        "output_tokens": 47,
+        "total_tokens": 10316
+      },
+      "T_model": 14.548858809983358
+    }
+  ],
+  "blocked_io_attempts": {
+    "network": 0,
+    "physical_device": 0
+  }
+}
