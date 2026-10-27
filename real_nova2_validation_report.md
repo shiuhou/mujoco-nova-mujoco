@@ -1,6 +1,9 @@
 # Nova2 Real Kinematic Validation
 
-Status: **kinematic validation passed for the sampled configurations**.
+Status: **controller agreement verified with limitations for the sampled configurations**.
+This compares two kinematic calculations, not independent physical metrology.
+See [.agents/docs/kinematics-calibration-audit.md](.agents/docs/kinematics-calibration-audit.md)
+for the broader FK/IK audit and physical calibration requirements.
 
 This report is based on the read-only Dashboard dataset
 `real_nova2_samples.json`. The capture utility sent only `RobotMode()`,
@@ -44,10 +47,11 @@ subtracted directly.
 | current | 0.010808 mm | 0.010645 mm | 0.010882 mm | 0.012292 mm | 0.000471 deg | 0.000472 deg | 0.000472 deg | 0.000538 deg |
 | legacy | 361.876422 mm | 286.138904 mm | 444.942427 mm | 1058.967634 mm | 140.851389 deg | 168.856395 deg | 148.010835 deg | 177.487150 deg |
 
-The current hypothesis has approximately constant millimetre-scale residuals
-with mean offset `[-0.006, 0.003, 0.001] mm`; no TCP/base/tool-frame offset is
-indicated. The legacy residual is configuration-dependent and is rejected by
-the data.
+The current hypothesis has roughly ten-micrometre residuals, with mean offset
+`[-0.006, 0.003, 0.001] mm`. This limited controller comparison cannot rule out
+physical TCP/base/tool errors. The legacy residual is configuration-dependent
+and is rejected by the data. GetAngle and GetPose share the controller's state
+and kinematic assumptions; no external instrument measured these poses.
 
 ## Reproduction
 

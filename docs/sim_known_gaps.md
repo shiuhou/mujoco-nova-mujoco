@@ -2,8 +2,8 @@
 
 ## Current fidelity boundaries
 
-**Validated:** official Nova2 geometry and FK convention against the recorded
-real sample set. The current-axis result is 0.010882 mm position RMS,
+**Controller agreement only:** nominal Nova2 FK convention against the recorded
+controller sample set, not measured physical geometry. The current-axis result is 0.010882 mm position RMS,
 0.012292 mm maximum, 0.000472 degree orientation RMS, and 0.000538 degree
 maximum over the existing samples.
 

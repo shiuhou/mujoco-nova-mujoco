@@ -32,7 +32,7 @@ class IKConfig:
     stagnation_iterations: int = 20
 
     def __post_init__(self) -> None:
-        if isinstance(self.max_iterations, bool) or self.max_iterations <= 0:
+        if type(self.max_iterations) is not int or self.max_iterations <= 0:
             raise ValueError("max_iterations must be positive")
         for name in (
             "position_tolerance_m",
@@ -44,7 +44,7 @@ class IKConfig:
             if not math.isfinite(value) or value <= 0:
                 raise ValueError(f"{name} must be finite and positive")
         if (
-            isinstance(self.stagnation_iterations, bool)
+            type(self.stagnation_iterations) is not int
             or self.stagnation_iterations <= 0
         ):
             raise ValueError("stagnation_iterations must be positive")

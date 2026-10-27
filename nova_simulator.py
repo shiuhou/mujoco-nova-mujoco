@@ -234,7 +234,12 @@ class NovaMujocoSimulator:
             self._site_ids[selected],
         )
         columns = self._dof_addresses
-        return jac_position[:, columns].copy(), jac_rotation[:, columns].copy()
+        # mj_jacSite returns world-coordinate derivatives. get_tool_pose and
+        # the Cartesian solver's residual both use base coordinates.
+        world_to_base = self.data.xmat[self._base_id].reshape(3, 3).T
+        return world_to_base @ jac_position[:, columns], world_to_base @ jac_rotation[
+            :, columns
+        ]
 
     def set_joint_state_for_kinematics(
         self, q: Sequence[float] | npt.ArrayLike

@@ -1,0 +1,6 @@
+# Reproduce the offline numerical audit; not robot/runtime dependencies.
+numpy==1.26.4
+mujoco==2.3.7
+scipy==1.15.3
+pytest>=8,<10
+ruff>=0.12

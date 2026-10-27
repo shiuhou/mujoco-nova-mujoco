@@ -258,9 +258,9 @@ Euler or rotation-vector components.
 New datasets created by the updated capture utility already declare `rpy`, so
 the override can be omitted for them.
 
-The resulting file is real ground-truth evidence only after the operator has
-collected it next to the robot. Synthetic fixtures under `fixtures/` are for
-offline tests and must not be presented as physical validation.
+The resulting file records controller-reported poses. Even when captured next
+to the robot, it is not independently measured physical ground truth. Synthetic
+fixtures under `fixtures/` are for offline tests only.
 
 ## Collision proxy review
 
@@ -349,3 +349,13 @@ Link5.STL     fff9c1170d17d237b157ae2f2ea8fdb05febaedbe9072872b9d4f3e83659dcc8
 Link6.STL     872a1c4fa13b45749a482e8c26c2d9144f1f6d8d49dd1109e10c6345f19d197c
 base_link.STL 944a15e41eccba51aada79332f66703b641c9e1f46ecdd5fe9f0f2e775f0cc2d
 ```
+
+## FK / IK and physical calibration audit
+
+The [kinematics and calibration audit](.agents/docs/kinematics-calibration-audit.md)
+re-examines the controller comparison, broad IK coverage, TCP pivot records and
+camera calibration evidence. It includes exact offline benchmark commands and a
+supervised measurement procedure. Rotated-base Jacobian and invalid iteration
+configuration defects are fixed; physical TCP/camera accuracy and Dream action
+execution remain unvalidated. Install `requirements-audit.txt` for the independent
+SciPy/URDF reference benchmark; the production solver remains MuJoCo DLS.
