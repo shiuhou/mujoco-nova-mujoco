@@ -10,9 +10,10 @@ teleportation or welding. See [manipulation usage](docs/manipulation.md).
 The separate [Astra simulation research branch](https://github.com/shiuhou/mujoco-nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
 contains three-view observations and one successful model-driven placement
 (10 decisions, 188 waypoints, about 137 seconds). That result is simulation only.
-Camera repeatability currently fails revalidation on this host, and the research
-CLI depends on historical local evidence and Git ancestry. Those layers are not
-promoted to main until their current portability and regression checks pass.
+Three-view camera/contact integration now passes on explicitly selected EGL
+llvmpipe and is on main. AMD EGL repeatability remains unresolved on this host.
+The model CLI still depends on historical acceptance evidence and Git ancestry
+and remains on the research branch.
 
 This directory contains the offline simulation and model foundation for the
 integrated Astra-to-Nova research workspace. It currently provides a MuJoCo
@@ -359,3 +360,12 @@ supervised measurement procedure. Rotated-base Jacobian and invalid iteration
 configuration defects are fixed; physical TCP/camera accuracy and Dream action
 execution remain unvalidated. Install `requirements-audit.txt` for the independent
 SciPy/URDF reference benchmark; the production solver remains MuJoCo DLS.
+
+## Three-view observations and manipulation integration
+
+Public main now includes the offline front/right/wrist RGB camera rig and contact
+manipulation integration. See [camera validation](docs/cameras.md) for explicit
+renderer selection, tests and current limits. Camera transforms remain documented
+simulation assumptions, not a physical calibration. The Astra/model S5 CLI remains
+on the linked research branch because its historical acceptance prerequisites are
+not yet portable to a fresh main checkout.

@@ -1,0 +1,203 @@
+{
+  "schema": "nova_mujoco_camera_rig_v1",
+  "cameras": [
+    {
+      "parameters": {
+        "name": "front_rgb",
+        "role": "fixed front-oblique workspace view",
+        "parent": "world",
+        "position_m": [
+          -1.0,
+          -0.15,
+          0.4
+        ],
+        "quaternion_wxyz": [
+          0.5580020236137936,
+          0.46582946092670546,
+          -0.44011319201199084,
+          -0.5271973379984606
+        ],
+        "width": 640,
+        "height": 480,
+        "fovy_deg": 55.0
+      },
+      "provenance": {
+        "name": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "role": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "parent": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "position_m": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "quaternion_wxyz": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "width": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "height": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "fovy_deg": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        }
+      },
+      "physical_identity": {
+        "value": "icSpring hub port 3.1",
+        "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+        "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+      }
+    },
+    {
+      "parameters": {
+        "name": "right_rgb",
+        "role": "fixed right-oblique workspace view",
+        "parent": "world",
+        "position_m": [
+          -0.32,
+          0.95,
+          0.38
+        ],
+        "quaternion_wxyz": [
+          -0.0584150125977161,
+          -0.05013255308230522,
+          0.64932720093645,
+          0.7566033303843525
+        ],
+        "width": 640,
+        "height": 480,
+        "fovy_deg": 55.0
+      },
+      "provenance": {
+        "name": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "role": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "parent": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "position_m": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "quaternion_wxyz": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "width": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "height": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "fovy_deg": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        }
+      },
+      "physical_identity": {
+        "value": "icSpring hub port 3.2",
+        "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+        "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+      }
+    },
+    {
+      "parameters": {
+        "name": "wrist_rgb",
+        "role": "wrist / near manipulation view",
+        "parent": "Link6",
+        "position_m": [
+          0,
+          0.1,
+          0.1
+        ],
+        "quaternion_wxyz": [
+          0.38970634492016654,
+          -0.9209391753687993,
+          0,
+          0
+        ],
+        "width": 1280,
+        "height": 720,
+        "fovy_deg": 65.0
+      },
+      "provenance": {
+        "name": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "role": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "parent": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        },
+        "position_m": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S3+S4 production-only placement to clear the simplified palm: Link6 [0,.100,.100] m, optical axis aimed at nominal grasp center [0,0,.197] m. No measured hand-eye transform."
+        },
+        "quaternion_wxyz": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S3+S4 production-only placement to clear the simplified palm: Link6 [0,.100,.100] m, optical axis aimed at nominal grasp center [0,0,.197] m. No measured hand-eye transform."
+        },
+        "width": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "height": {
+          "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+          "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+        },
+        "fovy_deg": {
+          "status": "SIMULATION_ENGINEERING_PARAMETER",
+          "source": "S4 engineering placement; uncalibrated. +X right, +Y up, optical -Z; metres, wxyz quaternion."
+        }
+      },
+      "physical_identity": {
+        "value": "SN0002 1080P USB Camera video-index0",
+        "status": "VERIFIED_FROM_EXISTING_EVIDENCE",
+        "source": "robocurve/evidence/phase5a/camera_inventory.json; physical_smoke.json; samples/*.jpg (read-only)"
+      }
+    }
+  ],
+  "renderer": {
+    "parameters": {
+      "near_m": 0.01,
+      "far_m": 10.0,
+      "multisamples": 4,
+      "max_geoms": 10000
+    },
+    "status": "SIMULATION_ENGINEERING_PARAMETER",
+    "source": "S4 offscreen rendering parameters, no physical calibration"
+  },
+  "conventions": {
+    "coordinates": "fixed poses in world; wrist pose in Link6; world base offset preserved from MJCF",
+    "rotation": "unit quaternion wxyz; camera-to-parent; optical axis -Z",
+    "clipping": "shared rig clipping in metres, converted by model.stat.extent",
+    "rgb": "top-left HWC uint8 RGB; native resolution, no resize",
+    "calibration": "intrinsics, distortion, extrinsics, hand-eye and exposure timing unknown",
+    "profile": "S3 production benchmark_v0; fixed cameras and native image contract unchanged from frozen S4; no visual test fixtures."
+  }
+}

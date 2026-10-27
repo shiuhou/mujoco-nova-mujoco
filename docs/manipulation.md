@@ -28,4 +28,4 @@ or real robot behavior. Original `nova2.xml` and S1/S2 execution remain unchange
 The research snapshot at
 [32efb43](https://github.com/shiuhou/mujoco-nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
 retains model-driven simulation and its original experiment artifacts. Published
-main deliberately includes only the independently verified manipulation layer.
+main includes the independently verified manipulation and three-view observation layers.
