@@ -42,7 +42,7 @@ robot/camera/serial device. Simulation success is not physical validation.
 
 ## Current renderer and promotion boundary
 
-The camera/contact integration is now available on main with 192 passing tests on
+The camera/contact integration is now available on main with 213 passing tests on
 explicit EGL llvmpipe. AMD EGL repeatability still fails on the reviewed host; see
 [camera validation](cameras.md). Historical evidence/ancestry dependencies still
 block S5 CLI promotion, and prior model-run success is not a portable main result.

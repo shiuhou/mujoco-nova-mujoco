@@ -5,7 +5,7 @@ producing front_rgb, right_rgb and wrist_rgb from one state generation. Render
 failures cannot reuse a previous observation. Source dynamics and arm geometry
 remain unchanged. Camera/renderer parameter provenance is in `configs/`.
 
-The release passes 192 offline tests with MuJoCo 2.3.7 and EGL llvmpipe (Mesa 25.2.8,
+The release passes 213 offline tests with MuJoCo 2.3.7 and EGL llvmpipe (Mesa 25.2.8,
 LLVM 20.1.2). On the reviewed host, EGL device 0 is AMD radeonsi and device 1 is
 llvmpipe. **Device indices are host-specific**: inspect the renderer metadata on
 another machine and rerun validation; do not silently substitute a backend.
