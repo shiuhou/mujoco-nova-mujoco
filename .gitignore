@@ -9,3 +9,16 @@ DOBOT_6Axis_ROS2_V4/
 
 # Local runtime output.
 MUJOCO_LOG.TXT
+
+# Local environments and credentials.
+.venv*/
+.env
+.env.*
+
+# Local engineering plans and diagnostic runs; shared rules stay in the meta repo.
+.agents/*
+!.agents/docs/
+
+# Generated experiment outputs remain local; existing provenance stays tracked.
+evidence/
+.mypy_cache/

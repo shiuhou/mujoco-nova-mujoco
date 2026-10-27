@@ -49,3 +49,7 @@ push the focused commit to `origin/main`. Once the commit is remotely reachable,
 update the parent meta repository `/home/dsa/project/dobot` by pinning
 `components/nova-mujoco` and its matching `components.lock.yaml` entry. Do not
 commit component source as ordinary files in the meta repository.
+
+## Shared engineering specification
+
+Apply the Dobot workspace [engineering specification](https://github.com/shiuhou/dobot-astra-lab/blob/7106a99/.agents/docs/SPEC.md). In a Dobot workspace, read the root `.agents/docs/SPEC.md`; for a standalone clone use the pinned link. This is the single source for baseline/root-cause review, improvement acceptance, retirement, behavior validation and bounded artifacts. Preserve this repository's hardware, testing and publication rules. Keep tests/configuration in this repository; `.agents/` tracks only `docs/`, with plans/runs kept local. Complex tasks use one plan with a §0 progress/handoff section; simple tasks need none.

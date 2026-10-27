@@ -42,3 +42,10 @@ The source model and FK convention remain unchanged from the validated Nova2
 model. The existing current-axis real-sample comparison is the geometry
 baseline; the execution layer must not be interpreted as a dynamics or
 sim-to-real validation.
+
+## Published manipulation extension
+
+The current main adds `ManipulationSimulator`, `ManipulationChunkExecutor` and
+`run_s3_benchmark.py` over the existing simulator/Cartesian executor. See
+[manipulation usage](manipulation.md) and [current limits](sim_known_gaps.md).
+Three-camera/Astra research remains on the explicitly linked research branch.

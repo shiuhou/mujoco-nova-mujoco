@@ -23,19 +23,17 @@ matching, Astra/OpenAI closed-loop calls, and any sim-to-real behavioral
 comparison. The model is a kinematically validated Nova2 simulator, not an
 unqualified 1:1 digital twin.
 
-## Roadmap
+## Current scope and next work
 
-- **S3 — gripper and object interaction:** attach the extracted official finger
-  geometry only after the flange transform is established; add the nominal
-  95 mm opening, cube/box contact, grasp/release, and contact calibration.
-- **S4 — camera parity:** provide `front_rgb`, `right_rgb`, and `wrist_rgb`
-  with documented approximate poses, fields of view, and resolutions.
-- **S5 — GPT-6 Astra closed-loop simulation:** route the generic agent
-  `move_to` and `ActionChunk` through the simulator and feed fresh MuJoCo
-  observations back to the next decision.
-- **S6 — sim versus real experiment:** hold task, policy, initial state, and
-  action semantics constant while comparing action sequences, success, effect,
-  oscillation, collision diagnostics, grasp outcomes, and camera changes.
+- Contact manipulation is published: nominal 95 mm gripper, contact grasp/lift/
+  transport/release and settled containment. See [usage](manipulation.md).
+- Three-camera observations and Astra closed-loop simulation are available on
+  [the research branch](https://github.com/shiuhou/nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885).
+  One model-driven placement succeeded. Current renderer repeatability fails
+  revalidation; CLI historical-evidence and ancestry dependencies also block a
+  standalone main release. These layers remain research, not published main runtime.
+- Physical camera/TCP/contact calibration and sim-to-real comparison remain open.
+  The official finger meshes require a measured flange transform before adoption.
 
-These are documentation milestones only. S1/S2 does not call Astra, OpenAI,
-the live agent provider, a robot, a serial device, or a physical camera.
+The main manipulation runner is offline and uses no model provider or physical
+robot/camera/serial device. Simulation success is not physical validation.

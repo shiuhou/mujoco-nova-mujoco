@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Generated simplified nominal gripper; measured_tcp=false; no USD assembly transform. -->
+<mujocoinclude>
+  <body name="gripper_mount" pos="0 0 0" quat="1 0 0 0">
+    <geom name="gripper_stem" type="box" pos="0 0 0.07" size="0.024 0.026 0.055" rgba="0.25 0.28 0.32 1" mass="0.2" />
+    <geom name="gripper_palm" type="box" pos="0 0 0.142" size="0.065 0.026 0.012" rgba="0.25 0.28 0.32 1" mass="0.15" />
+    <site name="grasp_center" pos="0 0 0.197" size="0.003" rgba="0 1 0 1" />
+    <body name="left_finger" pos="0.0060000000000000001 0 0.19700000000000001">
+      <joint name="left_finger_slide" type="slide" axis="1 0 0" range="0 0.0475" damping="8.0" />
+      <geom name="left_finger_pad" type="box" size="0.0060000000000000001 0.02 0.025000000000000001" mass="0.08" rgba="0.88 0.88 0.84 1" friction="1 0.0050000000000000001 0.0001" condim="4" />
+      <site name="left_fingertip" pos="-0.0060000000000000001 0 0" size="0.002" rgba="0 1 0 1" />
+    </body>
+    <body name="right_finger" pos="-0.0060000000000000001 0 0.19700000000000001">
+      <joint name="right_finger_slide" type="slide" axis="-1 0 0" range="0 0.0475" damping="8.0" />
+      <geom name="right_finger_pad" type="box" size="0.0060000000000000001 0.02 0.025000000000000001" mass="0.08" rgba="0.88 0.88 0.84 1" friction="1 0.0050000000000000001 0.0001" condim="4" />
+      <site name="right_fingertip" pos="0.0060000000000000001 0 0" size="0.002" rgba="0 1 0 1" />
+    </body>
+  </body>
+</mujocoinclude>
