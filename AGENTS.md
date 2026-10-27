@@ -43,7 +43,7 @@ The workspace-level coordination rules are in the parent repository's
 
 ## Git ownership
 
-This checkout publishes to `https://github.com/shiuhou/nova-mujoco.git`.
+This checkout publishes to `https://github.com/shiuhou/mujoco-nova-mujoco.git`.
 Commit simulator, model, tool-geometry and offline evidence changes here, then
 push the focused commit to `origin/main`. Once the commit is remotely reachable,
 update the parent meta repository `/home/dsa/project/dobot` by pinning

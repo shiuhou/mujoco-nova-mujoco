@@ -7,7 +7,7 @@ blue/black objects, a red open container and a nominal 95 mm parallel gripper.
 It uses the existing Cartesian executor and real MuJoCo contacts, not object
 teleportation or welding. See [manipulation usage](docs/manipulation.md).
 
-The separate [Astra simulation research branch](https://github.com/shiuhou/nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
+The separate [Astra simulation research branch](https://github.com/shiuhou/mujoco-nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
 contains three-view observations and one successful model-driven placement
 (10 decisions, 188 waypoints, about 137 seconds). That result is simulation only.
 Camera repeatability currently fails revalidation on this host, and the research

@@ -28,7 +28,7 @@ unqualified 1:1 digital twin.
 - Contact manipulation is published: nominal 95 mm gripper, contact grasp/lift/
   transport/release and settled containment. See [usage](manipulation.md).
 - Three-camera observations and Astra closed-loop simulation are available on
-  [the research branch](https://github.com/shiuhou/nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885).
+  [the research branch](https://github.com/shiuhou/mujoco-nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885).
   One model-driven placement succeeded. Current renderer repeatability fails
   revalidation; CLI historical-evidence and ancestry dependencies also block a
   standalone main release. These layers remain research, not published main runtime.

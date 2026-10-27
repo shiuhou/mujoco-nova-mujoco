@@ -26,6 +26,6 @@ uses a kinematic reference controller; contact success does not establish motor
 or real robot behavior. Original `nova2.xml` and S1/S2 execution remain unchanged.
 
 The research snapshot at
-[32efb43](https://github.com/shiuhou/nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
+[32efb43](https://github.com/shiuhou/mujoco-nova-mujoco/tree/32efb430d17c23e28e068b7751afda48509ab885)
 retains model-driven simulation and its original experiment artifacts. Published
 main deliberately includes only the independently verified manipulation layer.
